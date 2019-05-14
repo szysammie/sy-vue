@@ -13,11 +13,11 @@ module.exports = {
     assetsPublicPath: '/',
     // 代理列表, 是否开启代理通过[./dev.env.js]配置
     proxyTable: devEnv.OPEN_PROXY === false ? {} : {
-      '/proxyApi': {
-        target: 'http://demo.renren.io/renren-fast/',
+      '/api': {
+        target: 'http://47.107.176.154:9999',
         changeOrigin: true,
         pathRewrite: {
-          '^/proxyApi': '/'
+          '^/api': 'http://47.107.176.154:9999'
         }
       }
     },

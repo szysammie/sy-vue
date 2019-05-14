@@ -185,6 +185,7 @@ export default {
     // 获取所有项目
     this.$http({
       url: '/api/admin/project',
+      // url:this.$http.adornUrl('/admin/project')
       method: 'get',
       headers: {
         uid: 'admin',
