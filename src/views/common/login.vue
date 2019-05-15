@@ -3,8 +3,8 @@
     <div class="site-content__wrapper">
       <div class="site-content">
         <div class="brand-info">
-          <h2 class="brand-info__text">renren-fast-vue</h2>
-          <p class="brand-info__intro">renren-fast-vue基于vue、element-ui构建开发，实现renren-fast后台管理前端功能，提供一套更优的前端解决方案。</p>
+          <h2 class="brand-info__text">石油管理系统</h2>
+          <p class="brand-info__intro"></p>
         </div>
         <div class="login-main">
           <h3 class="login-title">用户登录</h3>
@@ -27,7 +27,7 @@
 </template>
 
 <script>
-  import { getUUID } from '@/utils'
+
   export default {
     data () {
       return {
@@ -64,12 +64,13 @@
                 'password': this.dataForm.password,
               })
             }).then(({data}) => {
-              if (data && data.status === 200) {
-                this.$cookie.set('token', data.token)
+              if (data && data.status == 200) {
+                this.$cookie.set('token', data.data.token)
+                this.$cookie.set('uid', this.dataForm.userName)
                 this.$router.replace({ name: 'home' })
               } else {
                 // this.getCaptcha()
-                this.$message.error(data.msg)
+                this.$message.error(data.message)
               }
             })
           }

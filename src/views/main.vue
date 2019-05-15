@@ -32,7 +32,7 @@
     },
     data () {
       return {
-        loading: true
+        loading: false
       }
     },
     components: {
@@ -58,7 +58,7 @@
       }
     },
     created () {
-      this.getUserInfo()
+      // this.getUserInfo()
     },
     mounted () {
       this.resetDocumentClientHeight()

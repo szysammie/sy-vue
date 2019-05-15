@@ -389,7 +389,9 @@ var navDataList = [
     'type': 0,
     'icon': 'system',
     'orderNum': 0,
-    'list': []
+    'list': [{
+
+    }]
   }
 ]
 
