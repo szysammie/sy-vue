@@ -27,7 +27,6 @@
 </template>
 
 <script>
-
   export default {
     data () {
       return {
@@ -64,9 +63,9 @@
                 'password': this.dataForm.password,
               })
             }).then(({data}) => {
-              if (data && data.status == 200) {
+              if (data && data.status === 200) {
                 this.$cookie.set('token', data.data.token)
-                this.$cookie.set('uid', this.dataForm.userName)
+                this.$cookie.set('uid', data.data.userName)
                 this.$router.replace({ name: 'home' })
               } else {
                 // this.getCaptcha()
