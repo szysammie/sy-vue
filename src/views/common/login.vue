@@ -33,7 +33,6 @@
         dataForm: {
           userName: '',
           password: '',
-
         },
         dataRule: {
           userName: [
@@ -65,7 +64,7 @@
             }).then(({data}) => {
               if (data && data.status === 200) {
                 this.$cookie.set('token', data.data.token)
-                this.$cookie.set('uid', data.data.userName)
+                this.$cookie.set('uid', this.dataForm.userName)
                 this.$router.replace({ name: 'home' })
               } else {
                 // this.getCaptcha()

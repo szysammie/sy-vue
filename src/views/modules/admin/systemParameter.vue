@@ -31,8 +31,7 @@
     </el-dialog>
       <el-table
         :data="tableData"
-        style="width: 100%"
-        max-height="100%"
+        style="width: 100%;height: 100%"
         stripe>
         <el-table-column
           fixed
@@ -143,7 +142,7 @@
         url:this.$http.adornUrl("admin/sysparam"),
         method:'get'
       }).then(res=>{
-        this.tableData = res.data
+        this.tableData = res.data.data
         for(let i=0;i<this.tableData.length;i++){
           this.tableData[i].number = i+1
         }

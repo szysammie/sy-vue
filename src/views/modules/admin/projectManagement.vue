@@ -46,8 +46,7 @@
     </el-row>
     <el-table
       :data="tableData"
-      style="width: 100%"
-      max-height="1000"
+      style="width: 100%; height: 100%;"
       stripe>
       <el-table-column
         :span="4"
@@ -184,10 +183,10 @@ export default {
   mounted() {
     // 获取所有项目
     this.$http({
-      url: this.$http.adornUrl('/admin/project'),
+      url: this.$http.adornUrl('admin/project'),
       method: 'get'
     }).then(res => {
-      this.tableData = res.data
+      this.tableData = res.data.data
       for (let i = 0; i < this.tableData.length; i++) {
         this.tableData[i].number = i + 1
       }
@@ -206,7 +205,10 @@ export default {
           'contractName':this.searchForm.contractName,
         })
       }).then(res => {
-        console.log(res)
+        this.tableData = res.data.data
+        if(this.tableData===null){
+          alert('未查询到结果')
+        }
       })
     },
     // 用户点击修改
