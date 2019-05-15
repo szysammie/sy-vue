@@ -41,7 +41,7 @@
               <img src="~@/assets/img/avatar.png" :alt="userName">{{ userName }}
             </span>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item @click.native="updatePasswordHandle()">修改密码</el-dropdown-item>
+              <!--<el-dropdown-item @click.native="updatePasswordHandle()">修改密码</el-dropdown-item>-->
               <el-dropdown-item @click.native="logoutHandle()">退出</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
@@ -49,7 +49,7 @@
       </el-menu>
     </div>
     <!-- 弹窗, 修改密码 -->
-    <update-password v-if="updatePassowrdVisible" ref="updatePassowrd"></update-password>
+    <!--<update-password v-if="updatePassowrdVisible" ref="updatePassowrd"></update-password>-->
   </nav>
 </template>
 
@@ -96,16 +96,8 @@
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          this.$http({
-            url: this.$http.adornUrl('/sys/logout'),
-            method: 'post',
-            data: this.$http.adornData()
-          }).then(({data}) => {
-            if (data && data.code === 0) {
-              clearLoginInfo()
-              this.$router.push({ name: 'login' })
-            }
-          })
+          clearLoginInfo()
+          this.$router.push({ name: 'login' })
         }).catch(() => {})
       }
     }
