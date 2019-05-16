@@ -7,7 +7,7 @@ import * as sysLog from './modules/sys-log'
 import * as sysMenu from './modules/sys-menu'
 import * as sysRole from './modules/sys-role'
 import * as sysUser from './modules/sys-user'
-
+import * as zr from './modules/zr'
 // tips
 // 1. 开启/关闭[业务模块]拦截, 通过调用fnCreate方法[isOpen参数]设置.
 // 2. 开启/关闭[业务模块中某个请求]拦截, 通过函数返回对象中的[isOpen属性]设置.
@@ -19,7 +19,7 @@ fnCreate(sysLog, false)
 fnCreate(sysMenu, false)
 fnCreate(sysRole, false)
 fnCreate(sysUser, false)
-
+fnCreate(zr, false)
 /**
  * 创建mock模拟数据
  * @param {*} mod 模块
