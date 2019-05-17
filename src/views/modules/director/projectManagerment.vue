@@ -24,91 +24,91 @@
     <el-button type="success" @click="newVisible=true">新增工程</el-button>
     <!--表格-->
     <el-table
-      :data="project"
-      stripe
-      style="width: 100%; height: 100%;">
-      <el-table-column
-        prop="number"
-        label="序号"
-        :span="1"
-        fixed
-        >
-      </el-table-column>
-      <el-table-column
-        prop="reportNum"
-        label="审批序号"
-        :span="2"
-        />
+    :data="project"
+    stripe
+    style="width: 100%; height: 100%;">
+    <el-table-column
+      prop="number"
+      label="序号"
+      :span="1"
+      fixed
+    >
+    </el-table-column>
+    <el-table-column
+      prop="reportNum"
+      label="审批序号"
+      :span="2"
+    />
 
-      <el-table-column
-        prop="contractName"
-        label="合同名称"
-        :span="2"
-      />
+    <el-table-column
+      prop="contractName"
+      label="合同名称"
+      :span="2"
+    />
 
-      <el-table-column
-        prop="contractPerson"
-        label="合同相对人"
-        :span="1"
-      />
+    <el-table-column
+      prop="contractPerson"
+      label="合同相对人"
+      :span="1"
+    />
 
-      <el-table-column
-        :span="2"
-        prop="contractAmount"
-        label="金额（万元）"
-      />
-      <el-table-column
-        :span="1"
-        prop="department"
-        label="所属科室"
-      />
-      <el-table-column
-        :span="2"
-        prop="workLoad"
-        label="累计（万元）"
-      />
-      <el-table-column
-        :span="2"
-        prop="manageCost"
-        label="管理费（万元）"
-      />
-      <el-table-column
-        :span="1"
-        prop="beginDateString"
-        label="开始时间"
-      />
-      <el-table-column
-        :span="1"
-        prop="endDateString"
-        label="结束时间"
-      />
-      <el-table-column
-        :span="2"
-        prop="creater"
-        label="创建人"
-      />
-      <el-table-column
-        :span="2"
-        prop="notes"
-        label="备注"
-      />
-      <el-table-column
-        :span="5"
-        label="操作"
-        fixed="right"
-      >
-        <template slot-scope="scope">
-          <el-button type="text" size="small" @click="edit(scope.row)">修改</el-button>
-          <el-button type="text" size="small" @click="deletePoj(scope.row.projectId)">删除</el-button>
-        </template>
-      </el-table-column>
-    </el-table>
+    <el-table-column
+      :span="2"
+      prop="contractAmount"
+      label="金额（万元）"
+    />
+    <el-table-column
+      :span="1"
+      prop="department"
+      label="所属科室"
+    />
+    <el-table-column
+      :span="2"
+      prop="workLoad"
+      label="累计（万元）"
+    />
+    <el-table-column
+      :span="2"
+      prop="manageCost"
+      label="管理费（万元）"
+    />
+    <el-table-column
+      :span="1"
+      prop="beginDateString"
+      label="开始时间"
+    />
+    <el-table-column
+      :span="1"
+      prop="endDateString"
+      label="结束时间"
+    />
+    <el-table-column
+      :span="2"
+      prop="creater"
+      label="创建人"
+    />
+    <el-table-column
+      :span="2"
+      prop="notes"
+      label="备注"
+    />
+    <el-table-column
+      :span="5"
+      label="操作"
+      fixed="right"
+    >
+      <template slot-scope="scope">
+        <el-button type="text" size="small" @click="edit(scope.row)">修改</el-button>
+        <el-button type="text" size="small" @click="deletePoj(scope.row.projectId)">删除</el-button>
+      </template>
+    </el-table-column>
+  </el-table>
     <!--弹窗，修改工程数据-->
     <el-dialog
       title="修改工程"
       :visible.sync="dialogVisible"
       width="50%"
-      >
+    >
       <!--表单-->
       <div class="form">
         <span>审批序号:</span>
@@ -338,7 +338,7 @@
             })
           },
           newPoj() {
-            this.$confirm(`确定进行[更新]操作?`, '提示', {
+            this.$confirm(`确定进行[新增]操作?`, '提示', {
               confirmButtonText: '确定',
               cancelButtonText: '取消',
               type: 'warning'
@@ -359,6 +359,7 @@
                 })
               }).then(({data}) =>{
                 if(data && data.status==201){
+                  this.$message.success('更新成功！')
                   this.newVisible = false
                   this.getProject()
                 }
