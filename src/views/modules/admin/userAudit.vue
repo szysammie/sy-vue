@@ -25,31 +25,31 @@
       >
       </el-table-column>
       <el-table-column
-        prop="department"
+        prop="departmentString"
         label="部门"
         :span="2"
       >
       </el-table-column>
       <el-table-column
-        prop="role"
+        prop="roleString"
         label="角色"
         :span="2"
       >
       </el-table-column>
       <el-table-column
-        prop="phone"
+        prop="staffTypeString"
         label="员工类型"
         :span="4"
       >
       </el-table-column>
       <el-table-column
-        prop="email"
+        prop="phone"
         label="电话"
         :span="4"
       >
       </el-table-column>
       <el-table-column
-        prop="isEquipChecker"
+        prop="email"
         label="邮箱"
         :span="4"
       >
@@ -77,24 +77,31 @@
     },
     //获取所有带审核的用户(500)
     mounted(){
-      this.$http({
-        url:this.$http.adornUrl('admin/audit'),
-        method:'get'
-      }).then(res=>{
-        this.tableData = res.data
-        for(let i=0;i<this.tableData.length;i++){
-          this.tableData[i].number = i+1
-        }
-      })
+      this.getUserAudit()
     },
     methods: {
+      //获取所有待审核的用户
+      getUserAudit(){
+        this.$http({
+          url:this.$http.adornUrl('admin/audit'),
+          method:'get'
+        }).then(res=>{
+          this.tableData = res.data.data
+          for(let i=0;i<this.tableData.length;i++){
+            this.tableData[i].number = i+1
+          }
+        })
+      },
       //用户审核
       examineUser(index, rows, status){
         this.$http({
-          url:this.$http.adornUrl("admin/audit/"+this.uid+'/'+status),
+          url:this.$http.adornUrl("admin/audit/"+rows[index].uid+'/'+status),
           method:'post',
         }).then(res=>{
-          console.log(1)
+          if(res.data.status == '200'){
+            this.getUserAudit()
+            alert(res.data.message)
+          }
         })
       },
 

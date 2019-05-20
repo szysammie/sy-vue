@@ -72,50 +72,51 @@
           <template slot-scope="scope">
             <el-button type="text" @click.native.prevent="deleteRow(scope.$index, tableData)"
             >删除</el-button>
-            <el-dialog
-              title="提示"
-              :visible.sync="centerDialogVisible"
-              width="30%"
-              center
-              :modal="false">
-              <span>您是否确认删除</span>
-              <span slot="footer" class="dialog-footer">
-                <el-button @click="centerDialogVisible = false">取 消</el-button>
-                <el-button type="primary" @click="confirmDelete">确 定</el-button>
-              </span>
-            </el-dialog>
             <el-button type="text" @click="updateRow(scope.$index, tableData)">修改</el-button>
-            <el-dialog title="数据字典记录" :visible.sync="dialogFormVisible" :modal="false">
-              <el-form :model="form" ref="form" label-width="100px" class="demo-ruleForm">
-                <el-form-item label="编码" prop="code">
-                  <el-input v-model="form.code"></el-input>
-                </el-form-item>
-                <el-form-item label="类别" prop="type">
-                  <el-select v-model="form.type" placeholder="请选择类别">
-                    <el-option label="费用" value="费用"></el-option>
-                    <el-option label="科室" value="科室"></el-option>
-                    <el-option label="耗材" value="耗材"></el-option>
-                    <el-option label="员工类型" value="员工类型"></el-option>
-                    <el-option label="员工工资" value="员工工资"></el-option>
-                    <el-option label="角色" value="角色"></el-option>
-                    <el-option label="设备" value="设备"></el-option>
-                  </el-select>
-                </el-form-item>
-                <el-form-item label="描述" prop="description">
-                  <el-input v-model="form.description"></el-input>
-                </el-form-item>
-                <el-form-item label="取值" prop="val">
-                  <el-input v-model="form.val"></el-input>
-                </el-form-item>
-              </el-form>
-              <div slot="footer" class="dialog-footer">
-                <el-button @click="dialogFormVisible = false">取 消</el-button>
-                <el-button type="primary" @click="confirmUpdate">确 定</el-button>
-              </div>
-            </el-dialog>
           </template>
         </el-table-column>
       </el-table>
+    <el-dialog
+      title="提示"
+      :visible.sync="centerDialogVisible"
+      width="30%"
+      center
+      :modal="false"
+      :append-to-body="true">
+      <span>您是否确认删除</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="centerDialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="confirmDelete">确 定</el-button>
+      </span>
+    </el-dialog>
+    <el-dialog title="数据字典记录" :visible.sync="dialogFormVisible" :modal="false" :append-to-body="true">
+      <el-form :model="form" ref="form" label-width="100px" class="demo-ruleForm">
+        <el-form-item label="编码" prop="code">
+          <el-input v-model="form.code" :disabled="true"></el-input>
+        </el-form-item>
+        <el-form-item label="类别" prop="type">
+          <el-select v-model="form.type" placeholder="请选择类别">
+            <el-option label="费用" value="费用"></el-option>
+            <el-option label="科室" value="科室"></el-option>
+            <el-option label="耗材" value="耗材"></el-option>
+            <el-option label="员工类型" value="员工类型"></el-option>
+            <el-option label="员工工资" value="员工工资"></el-option>
+            <el-option label="角色" value="角色"></el-option>
+            <el-option label="设备" value="设备"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="描述" prop="description">
+          <el-input v-model="form.description"></el-input>
+        </el-form-item>
+        <el-form-item label="取值" prop="val">
+          <el-input v-model="form.val"></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">取 消</el-button>
+        <el-button type="primary" @click="confirmUpdate">确 定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -137,18 +138,21 @@
       }
     },
     mounted(){
-      //发起请求获取系统参数
-      this.$http({
-        url:this.$http.adornUrl("admin/sysparam"),
-        method:'get'
-      }).then(res=>{
-        this.tableData = res.data.data
-        for(let i=0;i<this.tableData.length;i++){
-          this.tableData[i].number = i+1
-        }
-      })
+      this.getSystemParam()
     },
     methods: {
+      getSystemParam(){
+        //发起请求获取系统参数
+        this.$http({
+          url:this.$http.adornUrl("admin/sysparam"),
+          method:'get'
+        }).then(res=>{
+          this.tableData = res.data.data
+          for(let i=0;i<this.tableData.length;i++){
+            this.tableData[i].number = i+1
+          }
+        })
+      },
       //用户点击删除
       deleteRow(index, rows) {
         this.centerDialogVisible = true
@@ -161,7 +165,12 @@
           url:this.$http.adornUrl('admin/sysparam/'+this.code),
           method:'delete',
         }).then(res=>{
-          alert('删除成功')
+          if(res.data.status=='204'){
+            this.getSystemParam()
+            alert('删除成功')
+          }else{
+            alert('网络开小差了,请稍后再试')
+          }
         })
       },
       //用户点击修改
@@ -185,6 +194,8 @@
             description:this.form.description
           })
         }).then(res=>{
+            alert("修改成功")
+            this.getSystemParam()
           this.dialogFormVisible = false
         })
       },
@@ -209,8 +220,17 @@
             description:this.form.description,
           })
         }).then(res=>{
+          if(res.data.status == '201'){
+            this.getSystemParam()
+            alert(res.data.message)
+          }
+          else if(res.data.status == '400'){
+            alert('该编码已存在,请重新选择编码')
+          }
+          else{
+            alert('网络开小差了,请稍后再试')
+          }
           this.dialogFormVisible1 = false
-          alert("添加成功")
         })
       },
     },

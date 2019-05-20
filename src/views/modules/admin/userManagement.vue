@@ -2,8 +2,7 @@
   <div>
     <el-table
       :data="tableData"
-      style="width: 100%"
-      max-height="1000"
+      style="width: 100%;height: 100%"
       stripe>
       <el-table-column
         fixed
@@ -25,19 +24,19 @@
       >
       </el-table-column>
       <el-table-column
-        prop="department"
+        prop="departmentString"
         label="部门"
         :span="2"
       >
       </el-table-column>
       <el-table-column
-        prop="role"
+        prop="roleString"
         label="角色"
         :span="2"
       >
       </el-table-column>
       <el-table-column
-        prop="staffType"
+        prop="staffTypeString"
         label="员工类型"
         :span="2"
       >
@@ -74,41 +73,42 @@
         <template slot-scope="scope">
           <el-button type="text" @click.native.prevent="deleteRow(scope.$index, tableData)"
           >删除</el-button>
-          <el-dialog
-            title="提示"
-            :visible.sync="centerDialogVisible"
-            width="30%"
-            center
-            :modal="false">
-            <span>您是否确认删除</span>
-            <span slot="footer" class="dialog-footer">
-                <el-button @click="centerDialogVisible = false">取 消</el-button>
-                <el-button type="primary" @click="confirmDelete">确 定</el-button>
-              </span>
-          </el-dialog>
-          <el-button type="text" @click="updateRow(scope.$index, tableData)">用户管理</el-button>
-          <el-dialog title="数据字典记录" :visible.sync="dialogFormVisible" :modal="false">
-            <el-form :model="form" ref="form" label-width="100px" class="demo-ruleForm">
-              <el-form-item label="权限设置">
-                <el-checkbox-group v-model="form.isEquipChecker">
-                  <el-checkbox label="设备审核" name="isEquipChecker"></el-checkbox>
-                </el-checkbox-group>
-                <el-checkbox-group v-model="form.isMaterialChecker">
-                  <el-checkbox label="材料审核" name="isMaterialChecker"></el-checkbox>
-                </el-checkbox-group>
-              </el-form-item>
-              <el-col :span="4" :offset="10">
-                <el-button @click="reSetPsd(scope.$index, tableData)">重置用户密码</el-button>
-              </el-col>
-            </el-form>
-            <div slot="footer" class="dialog-footer">
-              <el-button @click="dialogFormVisible = false">取 消</el-button>
-              <el-button type="primary" @click="confirmUpdate()">确 定</el-button>
-            </div>
-          </el-dialog>
+          <el-button type="text" @click.native.prevent="updateRow(scope.$index, tableData)">用户管理</el-button>
         </template>
       </el-table-column>
     </el-table>
+    <el-dialog title="数据字典记录" :visible.sync="dialogFormVisible" :modal="false" :append-to-body="true">
+      <el-form :model="form" ref="form" label-width="100px" class="demo-ruleForm">
+        <el-form-item label="权限设置">
+          <el-checkbox-group v-model="form.isEquipChecker">
+            <el-checkbox label="设备审核" name="isEquipChecker"></el-checkbox>
+          </el-checkbox-group>
+          <el-checkbox-group v-model="form.isMaterialChecker">
+            <el-checkbox label="材料审核" name="isMaterialChecker"></el-checkbox>
+          </el-checkbox-group>
+        </el-form-item>
+        <el-col :span="4" :offset="10">
+          <el-button @click="reSetPsd()">重置用户密码</el-button>
+        </el-col>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">取 消</el-button>
+        <el-button type="primary" @click="confirmUpdate()">确 定</el-button>
+      </div>
+    </el-dialog>
+    <el-dialog
+      title="提示"
+      :visible.sync="centerDialogVisible"
+      width="30%"
+      center
+      :modal="false"
+      :append-to-body="true">
+      <span>您是否确认删除</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="centerDialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="confirmDelete">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -123,36 +123,48 @@
           isEquipChecker: '',
           isMaterialChecker: '',
         },
-        uid:''
+        uid:'',
+        index:''
       }
     },
     //获取所有用户
     mounted(){
-        //获取所有用户(报500)
-      this.$http({
-        url:this.$http.adornUrl("admin/user"),
-        method:'get'
-      }).then(res=>{
-        this.tableData = res.data
-        for(let i=0;i<this.tableData.length;i++){
-          this.tableData[i].number = i+1
-        }
-      })
+        this.getUser()
     },
     methods: {
+      //获取所有用户
+      getUser(){
+        this.$http({
+          url:this.$http.adornUrl("admin/user"),
+          method:'get'
+        }).then(res=>{
+          this.tableData = res.data.data
+          for(let i=0;i<this.tableData.length;i++){
+            this.tableData[i].number = i+1
+            this.tableData[i].isEquipChecker == '0' ? this.tableData[i].isEquipChecker ='否':this.tableData[i].isEquipChecker = '是'
+            this.tableData[i].isMaterialChecker == '0' ? this.tableData[i].isMaterialChecker ='否':this.tableData[i].isMaterialChecker = '是'
+          }
+        })
+      },
       //用户点击删除
       deleteRow(index, rows) {
         this.centerDialogVisible = true
         this.uid = rows[index].uid
+        this.index = index
       },
       //用户确认删除
       confirmDelete(){
-        this.centerDialogVisible = false
         this.$http({
           url:this.$http.adornUrl('admin/user/'+this.uid),
           method:'delete'
         }).then(res=>{
-          alert('删除成功')
+          if(res.data.status=='204'){
+            this.getUser()
+            alert('删除成功')
+          }else{
+            alert('网络开小差了,请稍后再试')
+          }
+          this.centerDialogVisible = false
         })
       },
       //重置密码(500)
@@ -169,12 +181,12 @@
         this.dialogFormVisible = true
         this.form.isEquipChecker = rows[index].isEquipChecker
         this.form.isMaterialChecker = rows[index].isMaterialChecker
-        if(this.form.isEquipChecker=='0'){
+        if(this.form.isEquipChecker=='否'){
           this.form.isEquipChecker = false
         }else{
           this.form.isEquipChecker = true
         }
-        if(this.form.isMaterialChecker=='0'){
+        if(this.form.isMaterialChecker=='否'){
           this.form.isMaterialChecker = false
         }else{
           this.form.isMaterialChecker = true
@@ -197,10 +209,11 @@
         let isEquipChecker = this.form.isEquipChecker
         let isMaterialChecker = this.form.isMaterialChecker
         this.$http({
-          url:this.$http.adornUrl('/admin/user/'+isEquipChecker+'/'+isMaterialChecker+'/'+this.uid),
+          url:this.$http.adornUrl('admin/user/'+isEquipChecker+'/'+isMaterialChecker+'/'+this.uid),
           method:'post',
         }).then(res=>{
           this.dialogFormVisible = false
+          this.getUser()
         })
       },
     },
