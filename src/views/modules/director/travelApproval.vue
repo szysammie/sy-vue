@@ -55,22 +55,22 @@
         <el-table-column
         :span="4"
         prop="dayPay"
-        label="工资(元/天)"
+        label="工资(万元/天)"
       />
         <el-table-column
           :span="2"
           prop="pay"
-          label="工资(元)"
+          label="工资(万元)"
         />
         <el-table-column
           :span="2"
           prop="unitPrice"
-          label="差旅费(元/天)"
+          label="差旅费(万元/天)"
         />
         <el-table-column
           :span="2"
           prop="amount"
-          label="差旅费(元)"
+          label="差旅费(万元)"
         />
         <el-table-column
           :span="2"
