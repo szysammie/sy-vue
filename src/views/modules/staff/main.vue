@@ -97,12 +97,12 @@
               </el-table-column>
               <el-table-column
                 prop="pay"
-                label="工资(元)"
+                label="工资(万元)"
                 :span="4">
               </el-table-column>
               <el-table-column
                 prop="amount"
-                label="差旅费(元)"
+                label="差旅费(万元)"
                 :span="4">
               </el-table-column>
               <el-table-column
@@ -169,7 +169,7 @@
               </el-table-column>
               <el-table-column
                 prop="totalPrice"
-                label="金额(元)"
+                label="金额(万元)"
                 :span="4">
               </el-table-column>
               <el-table-column
@@ -226,12 +226,12 @@
               </el-table-column>
               <el-table-column
                 prop="originalPrice"
-                label="单价(元)"
+                label="单价(万元)"
                 :span="4">
               </el-table-column>
               <el-table-column
                 prop="totalPrice"
-                label="金额（元）"
+                label="金额（万元）"
                 :span="4">
               </el-table-column>
               <el-table-column
@@ -283,7 +283,7 @@
               </el-table-column>
               <el-table-column
                 prop="unitPrice"
-                label="单价(元)"
+                label="单价(万元)"
                 :span="4">
               </el-table-column>
               <el-table-column
@@ -293,7 +293,7 @@
               </el-table-column>
               <el-table-column
                 prop="totalPrice"
-                label="金额（元）"
+                label="金额（万元）"
                 :span="4">
               </el-table-column>
               <el-table-column
@@ -344,7 +344,7 @@
               </el-table-column>
               <el-table-column
                 prop="price"
-                label="金额(元)"
+                label="金额(万元)"
                 :span="4">
               </el-table-column>
               <el-table-column
@@ -391,10 +391,10 @@
           <el-form-item prop="endDateString" label="预计结束日期">
             <el-date-picker v-model="newPersonForm.endDateString" value-format="yyyy-MM-dd" @change="getPersonTips" type="date" placeholder="选择日期" style="width: 100%;"/>
           </el-form-item>
-          <el-form-item label="工资（元）" prop="pay">
+          <el-form-item label="工资（万元）" prop="pay">
             <el-input v-model="newPersonForm.pay" :disabled="true"></el-input>
           </el-form-item>
-          <el-form-item label="差旅费（元）" prop="amount">
+          <el-form-item label="差旅费（万元）" prop="amount">
             <el-input v-model="newPersonForm.amount" :disabled="true"></el-input>
           </el-form-item>
           <el-form-item label="申请人" prop="creater">
@@ -462,10 +462,10 @@
           <el-form-item prop="endDateString" label="预计结束日期">
             <el-date-picker v-model="newPersonForm.endDateString" @change="getPersonTips2" value-format="yyyy-MM-dd" type="date" placeholder="选择日期" style="width: 100%;"/>
           </el-form-item>
-          <el-form-item label="工资（元）" prop="pay">
+          <el-form-item label="工资（万元）" prop="pay">
             <el-input v-model="newPersonForm.pay" :disabled="true"></el-input>
           </el-form-item>
-          <el-form-item label="差旅费（元）" prop="amount">
+          <el-form-item label="差旅费（万元）" prop="amount">
             <el-input v-model="newPersonForm.amount" :disabled="true"></el-input>
           </el-form-item>
           <el-form-item label="申请人" prop="creater">
@@ -550,7 +550,7 @@
           <el-form-item label="公里数 " prop="meter">
             <el-input v-model="newVehicleForm.meter" @change="vehicleCost" ></el-input>
           </el-form-item>
-          <el-form-item label="金额(元)" prop="totalPrice">
+          <el-form-item label="金额(万元)" prop="totalPrice">
             <el-input v-model="newVehicleForm.totalPrice" :disabled="true"></el-input>
           </el-form-item>
           <el-form-item label="申请人" prop="creater">
@@ -608,7 +608,7 @@
           <el-form-item label="公里数 " prop="meter">
             <el-input v-model="newVehicleForm.meter" @change="vehicleCost" ></el-input>
           </el-form-item>
-          <el-form-item label="金额(元)" prop="totalPrice">
+          <el-form-item label="金额(万元)" prop="totalPrice">
             <el-input v-model="newVehicleForm.totalPrice" :disabled="true"></el-input>
           </el-form-item>
           <el-form-item label="申请人" prop="creater">
@@ -670,13 +670,13 @@
           <el-form-item prop="endDateString" label="预计结束日期">
             <el-date-picker v-model="newEquipmentForm.endDateString" @change="getEquipTips" type="date" value-format="yyyy-MM-dd" placeholder="选择日期" style="width: 100%;"/>
           </el-form-item>
-          <el-form-item label="设备原值（元）" prop="originalPrice">
+          <el-form-item label="设备原值（万元）" prop="originalPrice">
             <el-input v-model="newEquipmentForm.originalPrice" :disabled="true"></el-input>
           </el-form-item>
-          <el-form-item label="天折旧（元）" prop="dayDepreciation">
+          <el-form-item label="天折旧（万元）" prop="dayDepreciation">
             <el-input v-model="newEquipmentForm.dayDepreciation" :disabled="true"></el-input>
           </el-form-item>
-          <el-form-item label="费用（元）" prop="totalPrice">
+          <el-form-item label="费用（万元）" prop="totalPrice">
             <el-input v-model="newEquipmentForm.totalPrice" :disabled="true"></el-input>
           </el-form-item>
           <el-form-item label="申请人" prop="creater">
@@ -743,17 +743,17 @@
           </el-table-column>
           <el-table-column
             prop="originalPrice"
-            label="设备原值（元）"
+            label="设备原值（万元）"
           >
           </el-table-column>
           <el-table-column
             prop="monthDepreciation"
-            label="月折旧（元）"
+            label="月折旧（万元）"
           >
           </el-table-column>
           <el-table-column
             prop="dayDepreciation"
-            label="天折旧（元）"
+            label="天折旧（万元）"
           >
           </el-table-column>
           <el-table-column
@@ -807,13 +807,13 @@
           <el-form-item prop="endDateString" label="预计结束日期">
             <el-date-picker v-model="newEquipmentForm.endDateString" type="date" value-format="yyyy-MM-dd" placeholder="选择日期" style="width: 100%;"/>
           </el-form-item>
-          <el-form-item label="设备原值（元）" prop="originalPrice">
+          <el-form-item label="设备原值（万元）" prop="originalPrice">
             <el-input v-model="newEquipmentForm.originalPrice" :disabled="true"></el-input>
           </el-form-item>
-          <el-form-item label="天折旧（元）" prop="dayDepreciation">
+          <el-form-item label="天折旧（万元）" prop="dayDepreciation">
             <el-input v-model="newEquipmentForm.dayDepreciation" :disabled="true"></el-input>
           </el-form-item>
-          <el-form-item label="费用（元）" prop="totalPrice">
+          <el-form-item label="费用（万元）" prop="totalPrice">
             <el-input v-model="newEquipmentForm.totalPrice" :disabled="true"></el-input>
           </el-form-item>
           <el-form-item label="申请人" prop="creater">
@@ -872,13 +872,13 @@
           <el-form-item label="计量单位" prop="unit">
             <el-input v-model="newMaterialForm.unit" :disabled="true"></el-input>
           </el-form-item>
-          <el-form-item label="单价（元）" prop="unitPrice">
+          <el-form-item label="单价（万元）" prop="unitPrice">
             <el-input v-model="newMaterialForm.unitPrice" :disabled="true"></el-input>
           </el-form-item>
           <el-form-item label="数量" prop="count">
             <el-input v-model="newMaterialForm.count" @change="countChange"></el-input>
           </el-form-item>
-          <el-form-item label="金额（元）" prop="totalPrice">
+          <el-form-item label="金额（万元）" prop="totalPrice">
             <el-input v-model="newMaterialForm.totalPrice" :disabled="true"></el-input>
           </el-form-item>
           <el-form-item label="申请人" prop="creater">
@@ -958,12 +958,12 @@
           </el-table-column>
           <el-table-column
             prop="unitPrice"
-            label="单价（元）"
+            label="单价（万元）"
           >
           </el-table-column>
           <el-table-column
             prop="totalPrice"
-            label="总价（元）"
+            label="总价（万元）"
           >
           </el-table-column>
           <el-table-column
@@ -1009,7 +1009,7 @@
           <el-form-item prop="feeName" label="费用描述">
             <el-input v-model="newOtherForm.feeName"/>
           </el-form-item>
-          <el-form-item label="金额（元）" prop="price">
+          <el-form-item label="金额（万元）" prop="price">
             <el-input v-model="newOtherForm.price" ></el-input>
           </el-form-item>
           <el-form-item prop="applyDateString" label="申请日期">
@@ -1061,7 +1061,7 @@
           <el-form-item prop="feeName" label="费用描述">
             <el-input v-model="newOtherForm.feeName"/>
           </el-form-item>
-          <el-form-item label="金额（元）" prop="price">
+          <el-form-item label="金额（万元）" prop="price">
             <el-input v-model="newOtherForm.price" ></el-input>
           </el-form-item>
           <el-form-item prop="applyDateString" label="申请日期">
