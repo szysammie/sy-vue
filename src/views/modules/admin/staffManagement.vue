@@ -10,7 +10,7 @@
                 <el-input v-model="form.staffName"/>
               </el-form-item>
               <el-form-item label="员工类型" prop="staffType">
-                <el-select v-model="form.staffType" placeholder="科室">
+                <el-select v-model="form.staffType" placeholder="类型">
                   <el-option label="ERP" value="1"/>
                   <el-option label="非ERP" value="2"/>
                   <el-option label="临时员工" value="3"/>
@@ -18,16 +18,7 @@
               </el-form-item>
               <el-form-item label="所属科室" prop="department">
                 <el-select v-model="form.department" placeholder="科室">
-                  <el-option label="容器室" value="1"/>
-                  <el-option label="管道室" value="2"/>
-                  <el-option label="产品室" value="3"/>
-                  <el-option label="材料室" value="4"/>
-                  <el-option label="石油装备检测评价价室" value="5"/>
-                  <el-option label="阀门室" value="6"/>
-                  <el-option label="技术室" value="7"/>
-                  <el-option label="综合办" value="8"/>
-                  <el-option label="生产办" value="9"/>
-                  <el-option label="新疆项目部" value="10"/>
+                  <el-option v-for="(department,index) in departments" :label="department.label" :key="index" :value="department.value"/>
                 </el-select>
               </el-form-item>
               <el-form-item label="备注" prop="notes">
@@ -135,16 +126,7 @@
         </el-form-item>
         <el-form-item label="所属科室" prop="department">
           <el-select v-model="form.department" placeholder="科室">
-            <el-option label="容器室" value="1"/>
-            <el-option label="管道室" value="2"/>
-            <el-option label="产品室" value="3"/>
-            <el-option label="材料室" value="4"/>
-            <el-option label="石油装备检测评价价室" value="5"/>
-            <el-option label="阀门室" value="6"/>
-            <el-option label="技术室" value="7"/>
-            <el-option label="综合办" value="8"/>
-            <el-option label="生产办" value="9"/>
-            <el-option label="新疆项目部" value="10"/>
+            <el-option v-for="(department,index) in departments" :label="department.label" :key="index" :value="department.value"/>
           </el-select>
         </el-form-item>
         <el-form-item label="备注" prop="notes">
@@ -177,6 +159,7 @@
 export default {
   data() {
     return {
+      departments:[],
       centerDialogVisible: false,
       dialogFormVisible: false,
       dialogFormVisible1: false,
@@ -200,6 +183,7 @@ export default {
   // 获取所有员工信息
   mounted() {
    this.getStaff()
+    this.getDepartment()
   },
   methods: {
     //获取所有员工
@@ -368,6 +352,15 @@ export default {
         }
       })
       return false
+    },
+    //动态获取科室
+    getDepartment(){
+      this.$http({
+        url:this.$http.adornUrl('department'),
+        method:'get'
+      }).then(res=>{
+        this.departments = res.data.data
+      })
     }
   }
 }

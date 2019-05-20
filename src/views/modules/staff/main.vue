@@ -40,7 +40,7 @@
         </el-table-column>
         <el-table-column
           prop="contractAmount"
-          label="合同金额(元)"
+          label="合同金额(万元)"
           :span="4">
         </el-table-column>
         <el-table-column
@@ -333,23 +333,17 @@
                 :span="4">
               </el-table-column>
               <el-table-column
-                prop="beginDateString"
-                label="开始日期"
+                prop="applyDateString"
+                label="申请日期"
                 :span="4">
               </el-table-column>
               <el-table-column
-                prop="endDateString"
-                label="结束日期"
+                prop="feeName"
+                label="费用描述"
                 :span="4">
               </el-table-column>
               <el-table-column
-                prop="meter"
-                label="公里数"
-                :span="4">
-              </el-table-column>
-
-              <el-table-column
-                prop="totalPrice"
+                prop="price"
                 label="金额(元)"
                 :span="4">
               </el-table-column>
@@ -359,17 +353,16 @@
                 :span="4">
               </el-table-column>
               <el-table-column
-                prop="checkStatus"
-                label="审核状态"
+                prop="notes"
+                label="备注"
                 :span="4">
               </el-table-column>
               <el-table-column
                 label="操作"
                 :span="4">
-                <template slot-scope="scope1">
-                  <el-button type="text" @click.native.prevent="deleteVehicle(scope1.$index, vehicleData)">删除</el-button>
-                  <el-button type="text" @click.native.prevent="updateVehicle(scope1.$index, vehicleData)">更新</el-button>
-                  <el-button type="text" @click.native.prevent="endVehicle(scope1.$index, vehicleData)">结束</el-button>
+                <template slot-scope="scope4">
+                  <el-button type="text" @click.native.prevent="deleteOther(scope4.$index, otherData)">删除</el-button>
+                  <el-button type="text" @click.native.prevent="updateOther(scope4.$index, otherData)">更新</el-button>
                 </template>
               </el-table-column>
             </el-table>
@@ -672,10 +665,10 @@
             <el-input v-model="newEquipmentForm.equipType" :disabled="true"></el-input>
           </el-form-item>
           <el-form-item prop="beginDateString" label="申请日期">
-            <el-date-picker v-model="newEquipmentForm.beginDateString" type="date" value-format="yyyy-MM-dd" placeholder="选择日期" style="width: 100%;"/>
+            <el-date-picker v-model="newEquipmentForm.beginDateString" @change="getEquipTips" type="date" value-format="yyyy-MM-dd" placeholder="选择日期" style="width: 100%;"/>
           </el-form-item>
           <el-form-item prop="endDateString" label="预计结束日期">
-            <el-date-picker v-model="newEquipmentForm.endDateString" type="date" value-format="yyyy-MM-dd" placeholder="选择日期" style="width: 100%;"/>
+            <el-date-picker v-model="newEquipmentForm.endDateString" @change="getEquipTips" type="date" value-format="yyyy-MM-dd" placeholder="选择日期" style="width: 100%;"/>
           </el-form-item>
           <el-form-item label="设备原值（元）" prop="originalPrice">
             <el-input v-model="newEquipmentForm.originalPrice" :disabled="true"></el-input>
@@ -1001,6 +994,98 @@
           <el-button type="primary" @click="confirmMaterialDelete()">确 定</el-button>
         </span>
       </el-dialog>
+      <!--新增其他数据弹窗-->
+      <el-dialog title="新增其他费用" :visible.sync="newOtherDialog" :modal="false">
+        <el-form :model="newOtherForm" ref="newOtherForm" label-width="100px" class="demo-ruleForm">
+          <el-form-item label="科室" prop="department">
+            <el-input v-model="newOtherForm.department" :disabled="true"></el-input>
+          </el-form-item>
+          <el-form-item label="报审序号" prop="reportNum">
+            <el-input v-model="newOtherForm.reportNum" :disabled="true"></el-input>
+          </el-form-item>
+          <el-form-item label="合同名称" prop="contractName">
+            <el-input v-model="newOtherForm.contractName" :disabled="true"></el-input>
+          </el-form-item>
+          <el-form-item prop="feeName" label="费用描述">
+            <el-input v-model="newOtherForm.feeName"/>
+          </el-form-item>
+          <el-form-item label="金额（元）" prop="price">
+            <el-input v-model="newOtherForm.price" ></el-input>
+          </el-form-item>
+          <el-form-item prop="applyDateString" label="申请日期">
+            <el-date-picker v-model="newOtherForm.applyDateString" value-format="yyyy-MM-dd" placeholder="请选择日期"/>
+          </el-form-item>
+          <el-form-item label="申请人" prop="creater">
+            <el-input v-model="newOtherForm.creater" :disabled="true"></el-input>
+          </el-form-item>
+          <el-form-item label="所属小组" prop="groupNum">
+            <el-select v-model="newOtherForm.groupNum" placeholder="请选择小组">
+              <el-option label="1组" value="1"></el-option>
+              <el-option label="2组" value="2"></el-option>
+              <el-option label="3组" value="3"></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="备注" prop="notes">
+            <el-input v-model="newOtherForm.notes"></el-input>
+          </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="newOtherDialog = false">取 消</el-button>
+          <el-button type="primary" @click="confirmNewOther">确 定</el-button>
+        </div>
+      </el-dialog>
+      <!--删除其他数据弹窗-->
+      <el-dialog
+        title="其他费用申请"
+        :visible.sync="deleteOtherDialog"
+        width="30%"
+        :modal="false">
+        <span>你是否确认删除</span>
+        <span slot="footer" class="dialog-footer">
+          <el-button @click="deleteOtherDialog = false">取 消</el-button>
+          <el-button type="primary" @click="confirmOtherDelete()">确 定</el-button>
+        </span>
+      </el-dialog>
+      <!--修改其他数据弹窗-->
+      <el-dialog title="新增其他费用" :visible.sync="newOtherDialog" :modal="false">
+        <el-form :model="newOtherForm" ref="newOtherForm" label-width="100px" class="demo-ruleForm">
+          <el-form-item label="科室" prop="department">
+            <el-input v-model="newOtherForm.department" :disabled="true"></el-input>
+          </el-form-item>
+          <el-form-item label="报审序号" prop="reportNum">
+            <el-input v-model="newOtherForm.reportNum" :disabled="true"></el-input>
+          </el-form-item>
+          <el-form-item label="合同名称" prop="contractName">
+            <el-input v-model="newOtherForm.contractName" :disabled="true"></el-input>
+          </el-form-item>
+          <el-form-item prop="feeName" label="费用描述">
+            <el-input v-model="newOtherForm.feeName"/>
+          </el-form-item>
+          <el-form-item label="金额（元）" prop="price">
+            <el-input v-model="newOtherForm.price" ></el-input>
+          </el-form-item>
+          <el-form-item prop="applyDateString" label="申请日期">
+            <el-date-picker v-model="newOtherForm.applyDateString" value-format="yyyy-MM-dd" placeholder="请选择日期"/>
+          </el-form-item>
+          <el-form-item label="申请人" prop="creater">
+            <el-input v-model="newOtherForm.creater" :disabled="true"></el-input>
+          </el-form-item>
+          <el-form-item label="所属小组" prop="groupNum">
+            <el-select v-model="newOtherForm.groupNum" placeholder="请选择小组">
+              <el-option label="1组" value="1"></el-option>
+              <el-option label="2组" value="2"></el-option>
+              <el-option label="3组" value="3"></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="备注" prop="notes">
+            <el-input v-model="newOtherForm.notes"></el-input>
+          </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="newOtherDialog = false">取 消</el-button>
+          <el-button type="primary" @click="confirmUpdateOther">确 定</el-button>
+        </div>
+      </el-dialog>
     </div>
 </template>
 
@@ -1120,10 +1205,24 @@
           multipleSelection3:[],//获取具体材料
           materialID:'',//材料ID
           otherData:[], //其他表格数据
+          newOtherDialog:false, //新增其他数据弹窗
+          deleteOtherDialog:false, //删除其他数据弹窗
+          otherID:'', //其他数据的id
+          newOtherForm:{ //新增其他数据弹窗
+            contractName:'',
+            department:'',
+            reportNum:'',
+            feeName:'',
+            price:'',
+            applyDateString:'',
+            creater:'',
+            groupNum:'',
+            notes:'',
+          }
         };
       },
       mounted() {
-        //获取申请表单（登陆的时候获取员工所属科室,返回的时间没做处理）
+        //获取申请表单
         this.$http({
           url:this.$http.adornUrl('staff/project'),
           method:'get'
@@ -1583,24 +1682,16 @@
           this.newEquipmentForm.equipType=this.newEquipmentForm.equipType.substring(0,this.newEquipmentForm.equipType.length-1)
           this.newEquipmentForm.originalPrice=this.newEquipmentForm.originalPrice.substring(0,this.newEquipmentForm.originalPrice.length-1)
           this.newEquipmentForm.dayDepreciation=this.newEquipmentForm.dayDepreciation.substring(0,this.newEquipmentForm.dayDepreciation.length-1)
+          this.getEquipTips()
           this.chooseEquipmentDialog =false
         },
         //确认新增设备
         confirmNewEquipment(){
-          let equipName =  this.newEquipmentForm.equipName.split("|")
-          let factoryNum =  this.newEquipmentForm.factoryNum.split("|")
-          let equipType =  this.newEquipmentForm.equipType.split("|")
-          let originalPrice =  this.newEquipmentForm.originalPrice.split("|")
-          let dayDepreciation =  this.newEquipmentForm.dayDepreciation.split("|")
           this.$http({
             url:this.$http.adornUrl('staff/equip'),
             method:'post',
             data:this.$http.adornData({
-              equipName:equipName,
-              factoryNum:factoryNum,
-              equipType:equipType,
-              originalPrice:originalPrice,
-              dayDepreciation:dayDepreciation,
+              equip:this.multipleSelection2,
               contractName:this.newEquipmentForm.contractName,
               department:this.newEquipmentForm.department,
               reportNum:this.newEquipmentForm.reportNum,
@@ -1843,10 +1934,108 @@
             url:this.$http.adornUrl('staff/otherapply/'+this.projectId),
             method:'get'
           }).then(res=>{
-            this.otherData = res.data.data()
+            this.otherData = res.data.data
             for(let i =0 ; i<this.otherData.length;i++){
               this.otherData[i].number = i+1
             }
+          })
+        },
+        //点击新增其他按钮
+        newOther(){
+          this.newOtherDialog = true
+          this.newOtherForm.contractName = this.contractName
+          this.newOtherForm.department = this.department
+          this.newOtherForm.reportNum = this.reportNum
+          this.newOtherForm.creater = this.$cookie.get('uid')
+          this.newOtherForm.feeName = ''
+          this.newOtherForm.price = ''
+          this.newOtherForm.applyDateString = ''
+          this.newOtherForm.groupNum = ''
+          this.newOtherForm.notes = ''
+        },
+        //确认新增其他数据
+        confirmNewOther(){
+          this.newOtherForm.price = parseInt(this.newOtherForm.price)
+          this.$http({
+            url:this.$http.adornUrl('staff/otherapply'),
+            method:"post",
+            data:this.$http.adornData({
+              feeName:this.newOtherForm.feeName,
+              price:this.newOtherForm.price,
+              applyDateString:this.newOtherForm.applyDateString,
+              creater:this.newOtherForm.creater,
+              groupNum:this.newOtherForm.groupNum,
+              notes:this.newOtherForm.notes,
+            })
+          }).then(res=>{
+            if(res.data.status == '201'){
+              alert(res.data.message)
+              this.otherDataGet()
+            }
+            else{
+              alert(res.data.msg)
+            }
+            this.newOtherDialog = false
+          })
+        },
+        //点击删除其他数据
+        deleteOther(index,rows){
+          this.deleteOtherDialog = true
+          this.otherID = rows[index].otherID
+        },
+        //确认删除其他数据
+        confirmOtherDelete(){
+          this.$http({
+            url:this.$http.adornUrl('staff/otherapply/'+this.otherID),
+            method:'delete',
+          }).then(res=>{
+            if(res.data.status == '204'){
+              alert(res.data.message)
+              this.otherDataGet()
+            }else{
+              alert(res.data.msg)
+            }
+            this.deleteOtherDialog = false
+          })
+        },
+        //点击修改其他数据
+        updateOther(index,rows){
+          this.newOtherDialog = true
+          this.newOtherForm.contractName = this.contractName
+          this.newOtherForm.department = this.department
+          this.newOtherForm.reportNum = this.reportNum
+          this.newOtherForm.creater = this.$cookie.get('uid')
+          this.newOtherForm.feeName = rows[index].feeName
+          this.newOtherForm.price = rows[index].price
+          this.newOtherForm.applyDateString = rows[index].applyDateString
+          this.newOtherForm.groupNum = rows[index].groupNum
+          this.newOtherForm.notes = rows[index].notes
+          this.otherID = rows[index].otherID
+        },
+        //确认修改其他数据
+        confirmUpdateOther(){
+          this.newOtherForm.price = parseInt(this.newOtherForm.price)
+          this.$http({
+            url:this.$http.adornUrl('staff/otherapply'),
+            method:"put",
+            data:this.$http.adornData({
+              feeName:this.newOtherForm.feeName,
+              price:this.newOtherForm.price,
+              applyDateString:this.newOtherForm.applyDateString,
+              creater:this.newOtherForm.creater,
+              groupNum:this.newOtherForm.groupNum,
+              notes:this.newOtherForm.notes,
+              otherID:this.newOtherForm.otherID,
+            })
+          }).then(res=>{
+            if(res.data.status == '201'){
+              alert(res.data.message)
+              this.otherDataGet()
+            }
+            else{
+              alert(res.data.msg)
+            }
+            this.newOtherDialog = false
           })
         },
         //选择tab
@@ -1929,6 +2118,21 @@
             this.newVehicleForm.totalPrice = result
           }
         },
+        //计算设备费用
+        getEquipTips(){
+          if(this.newEquipmentForm.beginDateString&&this.newEquipmentForm.endDateString) {
+            let day = this.datedifference(this.newEquipmentForm.beginDateString,this.newEquipmentForm.endDateString)
+            let equip = this.multipleSelection2
+            let tips = 0
+            for(let i =0;i<equip.length;i++){
+              tips +=equip[i].dayDepreciation
+            }
+            // console.log(equip)
+            tips = day * tips
+            this.newEquipmentForm.totalPrice = tips
+          }
+
+        }
       }
     }
 </script>

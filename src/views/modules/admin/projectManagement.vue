@@ -5,16 +5,7 @@
         <el-col :span="6">
           <el-form-item label="类别" prop="department">
             <el-select v-model="searchForm.department" placeholder="科室">
-              <el-option label="容器室" value="1"/>
-              <el-option label="管道室" value="2"/>
-              <el-option label="产品室" value="3"/>
-              <el-option label="材料室" value="4"/>
-              <el-option label="石油装备检测评价室" value="5"/>
-              <el-option label="阀门室" value="6"/>
-              <el-option label="技术室" value="7"/>
-              <el-option label="综合办" value="8"/>
-              <el-option label="生产办" value="9"/>
-              <el-option label="新疆项目部" value="10"/>
+              <el-option v-for="(department,index) in departments" :label="department.label" :key="index" :value="department.value"/>
             </el-select>
           </el-form-item>
         </el-col>
@@ -79,12 +70,12 @@
       <el-table-column
         :span="4"
         prop="contractAmount"
-        label="合同金额（元）"
+        label="合同金额（万元）"
       />
       <el-table-column
         :span="4"
         prop="manageCost"
-        label="管理费（元）"
+        label="管理费（万元）"
       />
       <el-table-column
         :span="4"
@@ -119,22 +110,13 @@
         </el-form-item>
         <el-form-item label="类别" prop="department">
           <el-select v-model="form.department" placeholder="科室">
-            <el-option label="容器室" value="1"/>
-            <el-option label="管道室" value="2"/>
-            <el-option label="产品室" value="3"/>
-            <el-option label="材料室" value="4"/>
-            <el-option label="石油装备检测评价室" value="5"/>
-            <el-option label="阀门室" value="6"/>
-            <el-option label="技术室" value="7"/>
-            <el-option label="综合办" value="8"/>
-            <el-option label="生产办" value="9"/>
-            <el-option label="新疆项目部" value="10"/>
+            <el-option v-for="(department,index) in departments" :label="department.label" :key="index" :value="department.value"/>
           </el-select>
         </el-form-item>
-        <el-form-item label="合同金额（元）" prop="contractAmount">
+        <el-form-item label="合同金额（万元）" prop="contractAmount">
           <el-input v-model="form.contractAmount"/>
         </el-form-item>
-        <el-form-item label="管理费（元）" prop="manageCost">
+        <el-form-item label="管理费（万元）" prop="manageCost">
           <el-input v-model="form.manageCost" :disabled="true"/>
         </el-form-item>
         <el-form-item label="开始时间">
@@ -167,6 +149,7 @@
 export default {
   data() {
     return {
+      departments:[],
       searchForm: {
         department: '',
         beginDateString: '',
@@ -194,6 +177,7 @@ export default {
   },
   mounted() {
     this.getProject()
+    this.getDepartment()
   },
   methods: {
     //获取所有项目
@@ -205,12 +189,13 @@ export default {
         this.tableData = res.data.data
         for (let i = 0; i < this.tableData.length; i++) {
           this.tableData[i].number = i + 1
+          this.tableData[i].contractAmount = this.tableData[i].contractAmount/10000
+          this.tableData[i].manageCost = this.tableData[i].manageCost/10000
         }
       })
     },
     // 查询（查找返回的日期没做处理）
     search() {
-
       this.$http({
         url: this.$http.adornUrl('admin/project/search'),
         method: 'post',
@@ -233,12 +218,12 @@ export default {
       this.form.reportNum = rows[index].reportNum
       this.form.projectId = rows[index].projectId
       this.form.workLoad = rows[index].workLoad
-      this.form.contractAmount = rows[index].contractAmount
+      this.form.contractAmount = rows[index].contractAmount/10000
       this.form.contractPerson = rows[index].contractPerson
       this.form.contractName = rows[index].contractName
       this.form.beginDateString = rows[index].beginDateString
       this.form.endDateString = rows[index].endDateString
-      this.form.manageCost = rows[index].manageCost
+      this.form.manageCost = rows[index].manageCost/10000
       this.form.department = rows[index].department
       this.form.creater = rows[index].creater
       this.form.notes = rows[index].notes
@@ -267,6 +252,15 @@ export default {
           alert('修改成功')
           this.getProject()
         }
+      })
+    },
+    //动态获取科室
+    getDepartment(){
+      this.$http({
+        url:this.$http.adornUrl('department'),
+        method:'get'
+      }).then(res=>{
+        this.departments = res.data.data
       })
     }
   }
