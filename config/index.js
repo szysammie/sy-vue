@@ -15,11 +15,11 @@ module.exports = {
     proxyTable: devEnv.OPEN_PROXY === false ? {} : {
       '/api': {
         // target: 'http://47.107.176.154:9999',//服务器
-        target: 'http://192.168.137.1:9999',//本地
+        target: 'http://192.168.137.1:9998',//本地
         changeOrigin: true,
         pathRewrite: {
           // '^/api': 'http://47.107.176.154:9999'
-          '^/api': 'http://192.168.137.1:9999'
+          '^/api': 'http://192.168.137.1:9998'
         }
       }
     },

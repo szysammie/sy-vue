@@ -1693,7 +1693,7 @@
             data:this.$http.adornData({
               equip:this.multipleSelection2,
               contractName:this.newEquipmentForm.contractName,
-              department:this.newEquipmentForm.department,
+              projectID:this.projectId,
               reportNum:this.newEquipmentForm.reportNum,
               creater:this.newEquipmentForm.creater,
               beginDateString:this.newEquipmentForm.beginDateString,
