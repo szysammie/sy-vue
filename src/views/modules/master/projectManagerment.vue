@@ -15,6 +15,8 @@
       v-model="beginDateString"
       type="date"
       :clearable="false"
+      value-format="yyyy-MM-dd"
+      format="yyyy-MM-dd"
       placeholder="选择日期">
     </el-date-picker>
     <span>至</span>
@@ -22,6 +24,8 @@
       v-model="endDateString"
       type="date"
       :clearable="false"
+      value-format="yyyy-MM-dd"
+      format="yyyy-MM-dd"
       placeholder="选择日期">
     </el-date-picker>
     <span>合同名称:</span>
@@ -33,27 +37,54 @@
       <el-table-column type="expand">
         <template slot-scope="props">
           <el-form label-position="left" inline class="demo-table-expand">
-            <el-form-item label="商品名称">
-              <span>{{ props.row.name }}</span>
+            <el-form-item label="报审序号">
+              <span>{{ props.row.reportNum }}</span>
             </el-form-item>
-            <el-form-item label="所属店铺">
-              <span>{{ props.row.shop }}</span>
+            <el-form-item label="合同名称">
+              <span>{{ props.row.contractName }}</span>
             </el-form-item>
-            <el-form-item label="商品 ID">
-              <span>{{ props.row.id }}</span>
+            <el-form-item label="合同相对人">
+              <span>{{ props.row.contractPerson }}</span>
             </el-form-item>
-            <el-form-item label="店铺 ID">
-              <span>{{ props.row.shopId }}</span>
+            <el-form-item label="科室">
+              <span>{{ props.row.departmentString }}</span>
             </el-form-item>
-            <el-form-item label="商品分类">
-              <span>{{ props.row.category }}</span>
+            <el-form-item label="合同金额">
+              <span>{{ props.row.contractAmount }}</span>
             </el-form-item>
-            <el-form-item label="店铺地址">
-              <span>{{ props.row.address }}</span>
+            <el-form-item label="开始日期">
+              <span>{{ props.row.beginDateString }}</span>
             </el-form-item>
-            <el-form-item label="商品描述">
-              <span>{{ props.row.desc }}</span>
+            <el-form-item label="结束日期">
+              <span>{{ props.row.endDateString }}</span>
             </el-form-item>
+            <el-form-item label="工资(万元)">
+              <span>{{ props.row.pay }}</span>
+            </el-form-item>
+            <el-form-item label="差旅费(万元)">
+              <span>{{ props.row.amount }}</span>
+            </el-form-item>
+            <el-form-item label="车辆费用(万元)">
+            <span>{{ props.row.vehicleFee }}</span>
+          </el-form-item>
+            <el-form-item label="设备费用(万元)">
+            <span>{{ props.row.equipFee }}</span>
+          </el-form-item>
+            <el-form-item label="耗材费用(万元)">
+            <span>{{ props.row.materialFee }}</span>
+          </el-form-item>
+            <el-form-item label="外协费用(万元)">
+              <span>{{ props.row.assistFee }}</span>
+            </el-form-item>
+            <el-form-item label="管理费(万元)">
+              <span>{{ props.row.manageCost }}</span>
+            </el-form-item>
+            <el-form-item label="利润(万元)">
+              <span>{{ props.row.profits }}</span>
+            </el-form-item>
+
+
+
           </el-form>
         </template>
       </el-table-column>
@@ -66,40 +97,40 @@
         prop="contractName">
       </el-table-column>
       <el-table-column
-        label="合同金额"
+        label="合同金额(万元)"
         prop="contractAmount">
       </el-table-column>
       <el-table-column
-        label="工资(元)"
-        prop="contractAmount">
+        label="工资(万元)"
+        prop="pay">
       </el-table-column>
       <el-table-column
-        label="差旅费(元)"
-        prop="contractAmount">
+        label="差旅费(万元)"
+        prop="amount">
       </el-table-column>
       <el-table-column
-        label="车辆费用(元)"
-        prop="contractAmount">
+        label="车辆费用(万元)"
+        prop="vehicleFee">
       </el-table-column>
       <el-table-column
-      label="设备费用(元)"
-      prop="contractAmount">
+      label="设备费用(万元)"
+      prop="equipFee">
     </el-table-column>
       <el-table-column
-        label="耗材费用(元)"
-        prop="contractAmount">
+        label="耗材费用(万元)"
+        prop="materialFee">
       </el-table-column>
       <el-table-column
-        label="外协费用(元)"
-        prop="contractAmount">
+        label="外协费用(万元)"
+        prop="assistFee">
       </el-table-column>
       <el-table-column
-      label="管理费(元)"
-      prop="contractAmount">
+      label="管理费(万元)"
+      prop="manageCost">
     </el-table-column>
       <el-table-column
-        label="利润(元)"
-        prop="contractAmount">
+        label="利润(万元)"
+        prop="profits">
       </el-table-column>
     </el-table>
   </div>
@@ -119,14 +150,15 @@
     },
     methods:{
         getPoj(){
-          this.$http({
-            url:this.$http.adornUrl('/master/project'),
-            method:'get'
+                this.$http({
+                  url:this.$http.adornUrl('master/project'),
+                  method:'get'
           }).then(({data})=>{
               if(data&&data.status==200){
                 this.tableData = data.data
                 for (let i = 0; i <this.tableData.length ; i++) {
                   this.tableData[i].number = i+1
+
                 }
               }
           })
@@ -134,12 +166,26 @@
       //查询
       search(){
           this.$http({
-            url: this.$http.adornUrl('/master/project'),
+            url: this.$http.adornUrl('master/project'),
             method: 'post',
             data:{
-              
+              'department':this.department,
+              'beginDateString':this.beginDateString,
+              'endDateString':this.endDateString,
+              'contractName':this.contractName
             }
           }).then(({data})=>{
+            if (data&&data.status==200){
+              this.$message.success("查询成功")
+              this.tableData = data.data
+              for (let i = 0; i <this.tableData.length ; i++) {
+                this.tableData[i].number = i+1
+
+              }
+            }else{
+              this.$message.error(data.message)
+            }
+
 
           })
       },

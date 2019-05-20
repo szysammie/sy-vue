@@ -4,9 +4,9 @@
     <el-date-picker
       v-model="startTime"
       type="date"
-      value-format="yyyy-M-d"
+      value-format="yyyy-MM-dd"
       :clearable="false"
-      format="yyyy-M-d"
+      format="yyyy-MM-dd"
       placeholder="选择日期">
     </el-date-picker>
     <span class="demonstration">至</span>
@@ -14,8 +14,8 @@
       v-model="endTime"
       type="date"
       :clearable="false"
-      value-format="yyyy-M-d"
-      format="yyyy-M-d"
+      value-format="yyyy-MM-dd"
+      format="yyyy-MM-dd"
       placeholder="选择日期">
     </el-date-picker>
     <span class="demonstration">&nbsp;合同名称</span>
@@ -59,7 +59,7 @@
     />
     <el-table-column
       :span="1"
-      prop="department"
+      prop="departmentString"
       label="所属科室"
     />
     <el-table-column
@@ -141,8 +141,8 @@
         <el-date-picker
           v-model="form.endDateString"
           type="date"
-          value-format="yyyy-M-d"
-          format="yyyy-M-d"
+          value-format="yyyy-MM-dd"
+          format="yyyy-MM-dd"
           placeholder="选择日期">
         </el-date-picker>
       </div>
@@ -282,6 +282,7 @@
               if (data && data.status === 200) {
                 //更新数据
                 this.project = data.data
+                this.$message.success("查询成功")
               } else {
                 this.$message.error(data.message)
               }
@@ -291,7 +292,6 @@
           edit(info) {
             this.dialogVisible = true
             this.form = {...info} //es6语法 展开属性赋值
-
           },
           //更新工程数据
           updatePoj() {

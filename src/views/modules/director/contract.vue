@@ -34,7 +34,7 @@
       <el-table-column
         prop="price"
         :span="2"
-        label="金额(元)"/>
+        label="金额(万元)"/>
 
       <el-table-column
         prop="creater"
@@ -68,7 +68,7 @@
         <el-form-item label="签署单位">
           <el-input v-model="form.signUnit"></el-input>
         </el-form-item>
-        <el-form-item label="金额(元)">
+        <el-form-item label="金额(万元)">
           <el-input v-model="form.price"></el-input>
         </el-form-item>
         <el-form-item label="签署时间">
@@ -122,7 +122,7 @@
             <el-date-picker type="date" placeholder="合同开始时间" :clearable="false" v-model="news.signTimeString" style="width: 100%;"></el-date-picker>
           </el-col>
         </el-form-item>
-        <el-form-item label="金额(元)">
+        <el-form-item label="金额(万元)">
           <el-input v-model="news.price"></el-input>
         </el-form-item>
         <el-form-item label="创建人">
