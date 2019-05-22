@@ -4,7 +4,7 @@
       <el-form ref="searchForm" :model="searchForm" label-width="100px" class="demo-ruleForm">
         <el-col :span="1">
           <el-button style="margin-top: 10px;margin-left: 10px" @click="newMaterial">新增</el-button>
-          <el-dialog :visible.sync="newMaterialDialog" :modal="false" top="4vh" title="数据字典记录">
+          <el-dialog :visible.sync="newMaterialDialog"  top="4vh" title="数据字典记录">
             <el-form ref="form" :model="form" label-width="140px" class="demo-ruleForm">
               <el-form-item label="材料名称" prop="materialName">
                 <el-input v-model="form.materialName"/>
@@ -23,9 +23,6 @@
               </el-form-item>
               <el-form-item label="数量" prop="count">
                 <el-input v-model="form.count"/>
-              </el-form-item>
-              <el-form-item label="总价（万元 ）" prop="totalPrice">
-                <el-input v-model="form.totalPrice"/>
               </el-form-item>
               <el-form-item label="备注" prop="notes">
                 <el-input v-model="form.notes"/>
@@ -112,7 +109,7 @@
     <!--删除材料-->
     <el-dialog
       :visible.sync="deleteMaterialDialog"
-      :modal="false"
+
       title="提示"
       width="30%"
       center>
@@ -128,6 +125,7 @@
       :visible.sync="fileUploadDialog"
       width="30%">
       <el-upload
+        style="width: 100%"
         class="upload-demo"
         drag
         action=""
@@ -137,7 +135,7 @@
       </el-upload>
     </el-dialog>
     <!--修改材料-->
-    <el-dialog :visible.sync="updateMaterialDialog" :modal="false" top="4vh" title="数据字典记录">
+    <el-dialog :visible.sync="updateMaterialDialog"  top="4vh" title="数据字典记录">
       <el-form ref="form" :model="form" label-width="140px" class="demo-ruleForm">
         <el-form-item label="材料名称" prop="materialName">
           <el-input v-model="form.materialName"/>
@@ -150,9 +148,6 @@
         </el-form-item>
         <el-form-item label="计量单位" prop="unit">
           <el-input v-model="form.unit"/>
-        </el-form-item>
-        <el-form-item label="单价（万元 ）" prop="unitPrice">
-          <el-input v-model="form.unitPrice"/>
         </el-form-item>
         <el-form-item label="数量" prop="count">
           <el-input v-model="form.count"/>
@@ -239,6 +234,7 @@ export default {
           materialType:this.form.materialType,
           materialName:this.form.materialName,
           count:this.form.count,
+          totalPrice:this.form.totalPrice,
           brand:this.form.brand,
           materialID:this.form.materialID,
         })
@@ -292,7 +288,7 @@ export default {
         url:this.$http.adornUrl('check/materialManage/search'),
         method:'post',
         data:this.$http.adornData({
-          materialName:this.searchForm.materialName
+          name:this.searchForm.materialName
         })
       }).then(res=>{
         if(res.data.data.length>0){
@@ -332,14 +328,14 @@ export default {
       let fd = new FormData()
       fd.append('file', file)
       this.$http({
-        url:this.$http.adornUrl('check/equipManage/import'),
+        url:this.$http.adornUrl('check/materialManage/import'),
         method:'post',
         data:fd
       }).then(res=>{
         if(res.data.status == '201'){
           alert('上传成功')
           this.fileUploadDialog = false
-          this.getStaff()
+          this.getMaterial()
         }else{
           alert(res.data.msg)
         }

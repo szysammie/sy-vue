@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-button @click="newRow()" style="margin-top: 10px;margin-left: 20px">新增</el-button>
-    <el-dialog title="数据字典记录" :visible.sync="dialogFormVisible1" :modal="false">
+    <el-dialog title="数据字典记录" :visible.sync="dialogFormVisible1" >
       <el-form :model="form" ref="form" label-width="100px" class="demo-ruleForm">
         <el-form-item label="编码" prop="code">
           <el-input v-model="form.code"></el-input>
@@ -81,7 +81,7 @@
       :visible.sync="centerDialogVisible"
       width="30%"
       center
-      :modal="false"
+
       :append-to-body="true">
       <span>您是否确认删除</span>
       <span slot="footer" class="dialog-footer">
@@ -89,7 +89,7 @@
         <el-button type="primary" @click="confirmDelete">确 定</el-button>
       </span>
     </el-dialog>
-    <el-dialog title="数据字典记录" :visible.sync="dialogFormVisible" :modal="false" :append-to-body="true">
+    <el-dialog title="数据字典记录" :visible.sync="dialogFormVisible"  :append-to-body="true">
       <el-form :model="form" ref="form" label-width="100px" class="demo-ruleForm">
         <el-form-item label="编码" prop="code">
           <el-input v-model="form.code" :disabled="true"></el-input>

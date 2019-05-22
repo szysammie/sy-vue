@@ -97,7 +97,7 @@
         </template>
       </el-table-column>
     </el-table>
-    <el-dialog :visible.sync="dialogFormVisible" :modal="false" top="4vh" title="数据字典记录" :append-to-body="true">
+    <el-dialog :visible.sync="dialogFormVisible"  top="4vh" title="数据字典记录" :append-to-body="true">
       <el-form ref="form" :model="form" label-width="100px" class="demo-ruleForm">
         <el-form-item label="报审序号" prop="reportNum">
           <el-input v-model="form.reportNum"/>

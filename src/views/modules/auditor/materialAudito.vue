@@ -88,14 +88,14 @@
     </el-table>
     <el-dialog
       :visible.sync="examineMaterialDialog"
-      :modal="false"
+
       title="提示"
       width="30%"
       center>
       <el-form :model="examineForm">
         <el-form-item label="审核结果" >
           <el-radio v-model="examineForm.checkStatus" label="1">通过</el-radio>
-          <el-radio v-model="examineForm.checkStatus" label="0">拒绝</el-radio>
+          <el-radio v-model="examineForm.checkStatus" label="2">拒绝</el-radio>
         </el-form-item>
         <el-form-item label="审核意见">
           <el-input v-model="examineForm.auditOpinion"></el-input>

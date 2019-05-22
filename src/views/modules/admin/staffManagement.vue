@@ -4,7 +4,7 @@
       <el-form ref="searchForm" :model="searchForm" label-width="100px" class="demo-ruleForm">
         <el-col :span="1">
           <el-button style="margin-top: 10px;margin-left: 10px" @click="newRow">新增</el-button>
-          <el-dialog :visible.sync="dialogFormVisible1" :modal="false" top="4vh" title="数据字典记录">
+          <el-dialog :visible.sync="dialogFormVisible1"  top="4vh" title="数据字典记录">
             <el-form ref="form" :model="form" label-width="100px" class="demo-ruleForm">
               <el-form-item label="员工姓名" prop="staffName">
                 <el-input v-model="form.staffName"/>
@@ -102,7 +102,7 @@
     </el-table>
     <el-dialog
       :visible.sync="centerDialogVisible"
-      :modal="false"
+
       title="提示"
       width="30%"
       center>
@@ -112,7 +112,7 @@
         <el-button type="primary" @click="confirmDelete">确 定</el-button>
       </span>
     </el-dialog>
-    <el-dialog :visible.sync="dialogFormVisible" :modal="false" top="4vh" title="数据字典记录">
+    <el-dialog :visible.sync="dialogFormVisible"  top="4vh" title="数据字典记录">
       <el-form ref="form" :model="form" label-width="100px" class="demo-ruleForm">
         <el-form-item label="员工姓名" prop="staffName">
           <el-input v-model="form.staffName"/>

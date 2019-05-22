@@ -4,7 +4,7 @@
       <el-form ref="searchForm" :model="searchForm" label-width="100px" class="demo-ruleForm">
         <el-col :span="1">
           <el-button style="margin-top: 10px;margin-left: 10px" @click="newEquip">新增</el-button>
-          <el-dialog :visible.sync="newEquipDialog" :modal="false" top="4vh" title="数据字典记录">
+          <el-dialog :visible.sync="newEquipDialog"  top="4vh" title="数据字典记录">
             <el-form ref="form" :model="form" label-width="140px" class="demo-ruleForm">
               <el-form-item label="出厂编号" prop="staffName">
                 <el-input v-model="form.factoryNum"/>
@@ -20,9 +20,6 @@
               </el-form-item>
               <el-form-item label="月折旧（万元 ）" prop="notes">
                 <el-input v-model="form.monthDepreciation"/>
-              </el-form-item>
-              <el-form-item label="天折旧（万元 ）" prop="notes">
-                <el-input v-model="form.dayDepreciation"/>
               </el-form-item>
               <el-form-item label="备注" prop="notes">
                 <el-input v-model="form.notes"/>
@@ -105,7 +102,7 @@
     <!--删除设备弹窗-->
     <el-dialog
       :visible.sync="deleteEquipDialog"
-      :modal="false"
+
       title="提示"
       width="30%"
       center>
@@ -116,7 +113,7 @@
       </span>
     </el-dialog>
     <!--修改设备弹窗-->
-    <el-dialog :visible.sync="updateEquipDialog" :modal="false" top="4vh" title="数据字典记录">
+    <el-dialog :visible.sync="updateEquipDialog"  top="4vh" title="数据字典记录">
       <el-form ref="form" :model="form" label-width="140px" class="demo-ruleForm">
         <el-form-item label="出厂编号" prop="staffName">
           <el-input v-model="form.factoryNum"/>
@@ -132,9 +129,6 @@
         </el-form-item>
         <el-form-item label="月折旧（万元 ）" prop="notes">
           <el-input v-model="form.monthDepreciation"/>
-        </el-form-item>
-        <el-form-item label="天折旧（万元 ）" prop="notes">
-          <el-input v-model="form.dayDepreciation"/>
         </el-form-item>
         <el-form-item label="备注" prop="notes">
           <el-input v-model="form.notes"/>
@@ -221,7 +215,6 @@
           url:this.$http.adornUrl('check/equipManage'),
           method:'post',
           data:this.$http.adornData({
-            dayDepreciation:this.form.dayDepreciation,
             equipName:this.form.equipName,
             equipType:this.form.equipType,
             factoryNum:this.form.factoryNum,
@@ -241,7 +234,6 @@
       },
       //查找设备
       search(){
-        console.log(this.searchForm.equipName)
         this.$http({
           url:this.$http.adornUrl('check/equipManage/search'),
           method:'post',
@@ -253,6 +245,13 @@
             this.tableData = res.data.data
             for(let i = 0 ; i<this.tableData.length ;i++){
               this.tableData[i].number = i+1
+              if(this.tableData[i].checkStatus == '0'){
+                this.tableData[i].checkStatus = '未审核'
+              }else if(this.tableData[i].checkStatus == '1'){
+                this.tableData[i].checkStatus = '审核通过'
+              }else{
+                this.tableData[i].checkStatus = '审核未通过'
+              }
             }
             alert('查询成功')
           }else if(res.data.data.length == 0){
@@ -284,7 +283,6 @@
       // 点击修改按钮
       updateEquip(index,rows){
         this.updateEquipDialog = true
-        this.form.dayDepreciation = rows[index].dayDepreciation
         this.form.equipName = rows[index].equipName
         this.form.equipType = rows[index].equipType
         this.form.factoryNum = rows[index].factoryNum
@@ -299,7 +297,6 @@
           url:this.$http.adornUrl('check/equipManage'),
           method:'put',
           data:this.$http.adornData({
-            dayDepreciation:this.form.dayDepreciation,
             equipName:this.form.equipName,
             equipType:this.form.equipType,
             factoryNum:this.form.factoryNum,
@@ -330,7 +327,7 @@
           if(res.data.status == '201'){
             alert('上传成功')
             this.fileUploadDialog = false
-            this.getStaff()
+            this.getEquip()
           }else{
             alert(res.data.msg)
           }
