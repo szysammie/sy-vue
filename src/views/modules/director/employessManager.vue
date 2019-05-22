@@ -1,23 +1,75 @@
 <template>
   <div>
-    <span>项目名称：</span>
-    <el-input v-model="form.contractName" class="di-input"></el-input>
-    <span>开始时间：</span>
-    <el-date-picker type="date" placeholder="选择开始时间" class="di-input" v-model="form.beginDateString" :clearable="false"></el-date-picker>
-    <span>结束时间：</span>
-    <el-date-picker type="date" placeholder="选择结束时间" class="di-input" v-model="form.endDateString" :clearable="false"></el-date-picker>
-    <span>员工：</span>
-    <el-input v-model="form.staffName" class="di-input"></el-input>
-    <span>所属小组：</span>
-    <el-select v-model="form.groupNum" placeholder="请选择" class="di-input">
-      <el-option
-        v-for="item in options"
-        :key="item.value"
-        :label="item.label"
-        :value="item.value">
-      </el-option>
-    </el-select>
-    <el-button type="primary" style="margin-left: 10px" @click="getEm">查 询</el-button>
+    <el-row>
+      <el-form ref="form" :model="form" label-width="80px" class="demo-ruleForm">
+        <el-col :span="4">
+          <el-form-item label="项目名称">
+          <el-col :span="24">
+            <el-input v-model="form.contractName" ></el-input>
+          </el-col>
+          </el-form-item>
+        </el-col>
+        <el-col :span="8">
+          <el-form-item label="查询时间">
+            <el-col :span="11">
+              <el-date-picker
+                v-model="form.beginDateString"
+                type="date"
+                value-format="yyyy-MM-dd"
+                :clearable="false"
+                style="width: 100%;"
+                format="yyyy-MM-dd"
+                placeholder="选择日期">
+              </el-date-picker>
+            </el-col>
+            <el-col :span="2" class="line">
+              &nbsp;&nbsp;&nbsp;-
+            </el-col>
+            <el-col :span="11">
+              <el-date-picker
+                v-model="form.endDateString"
+                type="date"
+                :clearable="false"
+                value-format="yyyy-MM-dd"
+                format="yyyy-MM-dd"
+                style="width: 100%;"
+                placeholder="选择日期">
+              </el-date-picker>
+            </el-col>
+          </el-form-item>
+        </el-col>
+        <el-col :span="4">
+          <el-form-item label="员工" >
+            <el-col :span="24">
+              <el-input v-model="form.staffName" ></el-input>
+            </el-col>
+          </el-form-item>
+        </el-col>
+        <el-col :span="6">
+          <el-form-item label="所属小组">
+            <el-col :span="18">
+              <el-select v-model="form.groupNum" placeholder="请选择">
+                <el-option
+                  v-for="item in options"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+                </el-option>
+              </el-select>
+            </el-col>
+            <el-col :span="6">
+              <el-form-item>
+              <el-button type="primary"  @click="getEm">查 询</el-button>
+              </el-form-item>
+            </el-col>
+
+          </el-form-item>
+        </el-col>
+      </el-form>
+    </el-row>
+
+
+
     <!--列表-->
     <div>
       <el-table
@@ -102,7 +154,7 @@
           }
         },
       methods:{
-          //获取员工数据
+          //搜索员工数据
           getEm(){
             this.loading = true
             this.$http({
@@ -124,10 +176,23 @@
                   this.loading = false
                 }
             })
-          }
+          },
+        getData(){
+          this.$http({
+            url:this.$http.adornUrl('director/travel'),
+            method:'get',
+          }).then(({data})=>{
+            if(data&&data.status==200){
+              this.eMData = data.data
+              for (let i = 0; i < this.eMData.length; i++) {
+                this.eMData[i].number = i+1
+              }
+            }
+          })
+        }
       },
       mounted(){
-        this.getEm()
+        this.getData()
       }
     }
 </script>

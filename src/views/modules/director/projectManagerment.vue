@@ -1,27 +1,54 @@
 <template>
   <div>
-    <span class="demonstration">查询工程:</span>
-    <el-date-picker
-      v-model="startTime"
-      type="date"
-      value-format="yyyy-MM-dd"
-      :clearable="false"
-      format="yyyy-MM-dd"
-      placeholder="选择日期">
-    </el-date-picker>
-    <span class="demonstration">至</span>
-    <el-date-picker
-      v-model="endTime"
-      type="date"
-      :clearable="false"
-      value-format="yyyy-MM-dd"
-      format="yyyy-MM-dd"
-      placeholder="选择日期">
-    </el-date-picker>
-    <span class="demonstration">&nbsp;合同名称</span>
-    <el-input v-model="contractName" placeholder="请输入合同名称" clearable style="width: 200px"></el-input>
-    <el-button type="primary" @click="searchPoj">查询</el-button>
-    <el-button type="success" @click="newVisible=true">新增工程</el-button>
+    <el-row>
+    <el-form ref="form" :model="search" label-width="80px" class="demo-ruleForm">
+      <el-col :span="8">
+        <el-form-item label="查询时间">
+          <el-col :span="11">
+              <el-date-picker
+                v-model="search.startTime"
+                type="date"
+                value-format="yyyy-MM-dd"
+                :clearable="false"
+                style="width: 100%;"
+                format="yyyy-MM-dd"
+                placeholder="选择日期">
+              </el-date-picker>
+          </el-col>
+          <el-col :span="2" class="line">
+            &nbsp;&nbsp;&nbsp;-
+          </el-col>
+          <el-col :span="11">
+              <el-date-picker
+                v-model="search.endTime"
+                type="date"
+                :clearable="false"
+                value-format="yyyy-MM-dd"
+                format="yyyy-MM-dd"
+                style="width: 100%;"
+                placeholder="选择日期">
+              </el-date-picker>
+          </el-col>
+        </el-form-item>
+      </el-col>
+      <el-col :span="6">
+        <el-form-item label="合同名称">
+          <el-col :span="20">
+              <el-input v-model="search.contractName" placeholder="请输入合同名称" clearable></el-input>
+          </el-col>
+          <el-col :span="4">
+            <el-button type="primary" @click="searchPoj" style="margin-left: 10px">查询</el-button>
+          </el-col>
+        </el-form-item>
+      </el-col>
+      <el-col :span="4">
+        <el-form-item>
+        <el-button type="success" @click="newVisible=true">新增工程</el-button>
+        </el-form-item>
+      </el-col>
+    </el-form>
+    </el-row>
+
     <!--表格-->
     <el-table
     :data="project"
@@ -96,10 +123,11 @@
       :span="5"
       label="操作"
       fixed="right"
+      width="150"
     >
       <template slot-scope="scope">
-        <el-button type="text" size="small" @click="edit(scope.row)">修改</el-button>
-        <el-button type="text" size="small" @click="deletePoj(scope.row.projectId)">删除</el-button>
+        <el-button type="warning" size="small" @click="edit(scope.row)">修改</el-button>
+        <el-button type="danger" size="small" @click="deletePoj(scope.row.projectId)">删除</el-button>
       </template>
     </el-table-column>
   </el-table>
@@ -110,52 +138,67 @@
       width="50%"
     >
       <!--表单-->
-      <div class="form">
-        <span>审批序号:</span>
-        <el-input v-model="form.reportNum" placeholder="审批序号" style="width: 200px" suffix-icon="el-icon-document"></el-input>
-        <span>合同名称:</span>
-        <el-input v-model="form.contractName" placeholder="合同名称 " style="width: 200px" suffix-icon="el-icon-edit"></el-input>
-        <span>合同相对人:</span>
-        <el-input v-model="form.contractPerson" placeholder="合同相对人 " style="width: 200px"></el-input> <br/>
-      </div>
-      <div class="form">
-        <span>所属科室:</span>
-        <el-input v-model="form.department" placeholder="所属科室 " style="width: 200px" suffix-icon="el-icon-star-off" disabled></el-input>
-        <span>合同金额(万元):</span>
-        <el-input v-model="form.contractAmount" placeholder="合同金额" style="width: 200px" suffix-icon="el-icon-news"></el-input>
-        <span>累计价值(万元):</span>
-        <el-input v-model="form.workLoad" placeholder="累计价值" style="width: 200px" suffix-icon="el-icon-news"></el-input>
-      </div>
-      <div class="form">
-        <span>管理费(万元):</span>
-        <el-input v-model="form.manageCost" placeholder="管理费(万元) " style="width: 200px" suffix-icon="el-icon-menu" disabled></el-input>
-        <span>合同开始时间:</span>
-        <el-date-picker
-          v-model="form.beginDateString"
-          type="date"
-          value-format="yyyy-M-d"
-          format="yyyy-M-d"
-          placeholder="选择日期">
-        </el-date-picker>
-        <span>合同结束时间:</span>
-        <el-date-picker
-          v-model="form.endDateString"
-          type="date"
-          value-format="yyyy-MM-dd"
-          format="yyyy-MM-dd"
-          placeholder="选择日期">
-        </el-date-picker>
-      </div>
-      <div class="form">
-        <span>创建人:</span>
-        <el-input v-model="form.creater" placeholder="创建人 " style="width: 200px" suffix-icon="el-icon-info" disabled></el-input>
-        <span>备注:</span>
-        <el-input v-model="form.notes" placeholder="备注" style="width: 400px"></el-input>
-      </div>
-      <span slot="footer" class="dialog-footer">
-    <el-button @click="dialogVisible = false">取 消</el-button>
-    <el-button type="primary" @click="updatePoj">更 新</el-button>
-  </span>
+
+        <el-form ref="form" :model="form" label-width="80px">
+          <el-form-item label="审批序号">
+            <el-input v-model="form.reportNum" placeholder="审批序号"  suffix-icon="el-icon-document"></el-input>
+          </el-form-item>
+          <el-form-item label="合同名称">
+            <el-input v-model="form.contractName" placeholder="合同名称 " suffix-icon="el-icon-edit"></el-input>
+          </el-form-item>
+          <el-form-item label="合同相对人">
+            <el-input v-model="form.contractPerson" placeholder="合同相对人 "></el-input>
+          </el-form-item>
+          <el-form-item label="所属科室">
+            <el-input v-model="form.department" placeholder="所属科室 "  suffix-icon="el-icon-star-off" disabled></el-input>
+          </el-form-item>
+          <el-form-item label="合同金额(万元)">
+            <el-input v-model="form.contractAmount" placeholder="合同金额" suffix-icon="el-icon-news"></el-input>
+          </el-form-item>
+          <el-form-item label="累计价值(万元)">
+            <el-input v-model="form.workLoad" placeholder="累计价值"  suffix-icon="el-icon-news"></el-input>
+          </el-form-item>
+          <el-form-item label="管理费(万元)">
+            <el-input v-model="form.manageCost" placeholder="管理费(万元) " suffix-icon="el-icon-menu" disabled></el-input>
+          </el-form-item>
+          <el-form-item label="合同时间">
+            <el-col :span="11">
+              <el-date-picker
+                v-model="form.beginDateString"
+                type="date"
+                value-format="yyyy-M-d"
+                format="yyyy-M-d"
+                style="width: 100%"
+                placeholder="选择日期">
+              </el-date-picker>
+            </el-col>
+            <el-col class="line" :span="2">&nbsp;&nbsp;&nbsp;&nbsp;至</el-col>
+            <el-col :span="11">
+              <el-date-picker
+                v-model="form.endDateString"
+                type="date"
+                value-format="yyyy-MM-dd"
+                format="yyyy-MM-dd"
+                style="width: 100%"
+                placeholder="选择日期">
+              </el-date-picker>
+            </el-col>
+          </el-form-item>
+          <el-form-item label="创建人">
+            <el-input v-model="form.creater" placeholder="创建人 "  suffix-icon="el-icon-info" disabled></el-input>
+          </el-form-item>
+          <el-form-item label="备注">
+            <el-input v-model="form.notes" placeholder="备注" type="textarea"></el-input>
+          </el-form-item>
+
+          <el-form-item>
+
+              <el-button @click="dialogVisible = false">取 消</el-button>
+              <el-button type="primary" @click="updatePoj">更 新</el-button>
+
+          </el-form-item>
+
+        </el-form>
     </el-dialog>
     <!--弹窗，新增工程数据-->
     <el-dialog
@@ -211,9 +254,12 @@
     export default {
         data(){
           return {
-              startTime:new Date().toLocaleDateString().replace(/\//g, '-'),
-              endTime:new Date().toLocaleDateString().replace(/\//g, '-'),
-              contractName:'',
+              search:{
+                startTime:new Date().toLocaleDateString().replace(/\//g, '-'),
+                endTime:new Date().toLocaleDateString().replace(/\//g, '-'),
+                contractName:'',
+              },
+
               project:[],
               dialogVisible:false,
               form:{
@@ -266,17 +312,14 @@
           },
           //模糊查询工程
           searchPoj() {
-            if (this.startTime == null || this.endTime == null) {
-              this.$http.error('开始或结束时间必填')
-              return;
-            }
+
             this.$http({
               url: this.$http.adornUrl('director/project/search'),
               method: 'post',
               data: this.$http.adornData({
-                'beginDateString': this.startTime,
-                'endDateString': this.endTime,
-                'contractName': this.contractName
+                'beginDateString': this.search.startTime,
+                'endDateString': this.search.endTime,
+                'contractName': this.search.contractName
               })
             }).then(({data}) => {
               if (data && data.status === 200) {
@@ -321,6 +364,7 @@
                 if (data && data.status == 204) {
                   this.dialogVisible = false
                   this.getProject()
+                  this.$message.success('更新成功')
                 }
               })
             }).catch(() => {

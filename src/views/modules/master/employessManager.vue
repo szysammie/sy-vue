@@ -35,6 +35,7 @@
     <el-button type="primary" @click="search">查询</el-button>
     <el-table
       :data="tableData"
+      size="mini"
       style="width: 100%">
       <el-table-column
         label="序号"
@@ -124,6 +125,7 @@
               this.options = data.data
             }else {
               this.$message.error(data.message)
+
             }
           })
         },

@@ -5,8 +5,8 @@
   window.SITE_CONFIG = {};
 
   // api接口请求地址
-  // window.SITE_CONFIG['baseUrl'] = 'http://47.107.176.154:9999';//服务器
-  window.SITE_CONFIG['baseUrl'] = 'http://192.168.137.1:9999';//本地
+  window.SITE_CONFIG['baseUrl'] = 'http://47.107.176.154:9998';//服务器
+  // window.SITE_CONFIG['baseUrl'] = 'http://192.168.137.1:9999';//本地
 
   // cdn地址 = 域名 + 版本号
   window.SITE_CONFIG['domain']  = './'; // 域名

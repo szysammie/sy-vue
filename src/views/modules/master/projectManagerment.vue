@@ -1,36 +1,52 @@
 <template>
   <div>
+      <el-row>
+        <el-col :span="4">
+          <span>科室:</span>
+          <el-select v-model="department" placeholder="请选择">
+            <el-option
+              v-for="item in options"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+          </el-select>
+        </el-col>
+        <el-col :span="8">
+          <span>&nbsp;项目时间:</span>
+          <el-date-picker
+            v-model="beginDateString"
+            type="date"
+            :clearable="false"
+            value-format="yyyy-MM-dd"
+            format="yyyy-MM-dd"
+            placeholder="选择日期">
+          </el-date-picker>
+          <span>至</span>
+          <el-date-picker
+            v-model="endDateString"
+            type="date"
+            :clearable="false"
+            value-format="yyyy-MM-dd"
+            format="yyyy-MM-dd"
+            placeholder="选择日期">
+          </el-date-picker>
+        </el-col>
 
-    <span>科室:</span>
-    <el-select v-model="department" placeholder="请选择">
-      <el-option
-        v-for="item in options"
-        :key="item.value"
-        :label="item.label"
-        :value="item.value">
-      </el-option>
-    </el-select>
-    <span>&nbsp;项目时间:</span>
-    <el-date-picker
-      v-model="beginDateString"
-      type="date"
-      :clearable="false"
-      value-format="yyyy-MM-dd"
-      format="yyyy-MM-dd"
-      placeholder="选择日期">
-    </el-date-picker>
-    <span>至</span>
-    <el-date-picker
-      v-model="endDateString"
-      type="date"
-      :clearable="false"
-      value-format="yyyy-MM-dd"
-      format="yyyy-MM-dd"
-      placeholder="选择日期">
-    </el-date-picker>
-    <span>合同名称:</span>
-    <el-input style="width: 200px"  v-model="contractName"></el-input>
-    <el-button type="primary" @click="search">查询</el-button>
+        <el-col :span="3">
+          <el-form ref="form" :model="contractName" label-width="80px">
+          <el-form-item label="活动名称">
+            <el-input  v-model="contractName" ></el-input>
+          </el-form-item>
+          </el-form>
+        </el-col>
+        <el-col :span="3">
+          <el-button type="primary" @click="search">查询</el-button>
+        </el-col>
+      </el-row>
+
+
+
     <el-table
       :data="tableData"
       style="width: 100%">
@@ -222,5 +238,9 @@
     margin-right: 0;
     margin-bottom: 0;
     width: 50%;
+  }
+  .sz-input{
+    width: 150px;
+    margin-top: 15px;
   }
 </style>

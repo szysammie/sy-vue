@@ -45,7 +45,7 @@
         :span="3"
         label="备注"/>
       <el-table-column
-        :span="4"
+        width="150"
         label="操作"
         fixed="right"
       >
