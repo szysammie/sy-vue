@@ -144,6 +144,8 @@
             this.tableData[i].isEquipChecker == '0' ? this.tableData[i].isEquipChecker ='否':this.tableData[i].isEquipChecker = '是'
             this.tableData[i].isMaterialChecker == '0' ? this.tableData[i].isMaterialChecker ='否':this.tableData[i].isMaterialChecker = '是'
           }
+        }).catch(()=>{
+          alert('网络开小差了，请稍后再试')
         })
       },
       //用户点击删除
@@ -160,11 +162,13 @@
         }).then(res=>{
           if(res.data.status=='204'){
             this.getUser()
-            alert('删除成功')
+            alert(res.data.message)
           }else{
-            alert('网络开小差了,请稍后再试')
+            alert(res.data.msg)
           }
           this.centerDialogVisible = false
+        }).catch(()=>{
+          alert('网络开小差了，请稍后再试')
         })
       },
       //重置密码(500)
@@ -173,7 +177,15 @@
           url:this.$http.adornUrl('admin/user/password/'+this.uid),
           method:'post'
         }).then(res=>{
-            alert('重置密码成功')
+            if(res.data.status == '204'){
+              alert(res.data.message)
+            }
+            else {
+              alert(res.data.msg)
+            }
+          this.dialogFormVisible = false
+        }).catch(()=>{
+          alert('网络开小差了，请稍后再试')
         })
       },
       //用户点击修改
@@ -212,8 +224,15 @@
           url:this.$http.adornUrl('admin/user/'+isEquipChecker+'/'+isMaterialChecker+'/'+this.uid),
           method:'post',
         }).then(res=>{
+          if(res.data.status =='200'){
+            alert(res.data.message)
+            this.getUser()
+          }else{
+            alert(res.data.msg)
+          }
           this.dialogFormVisible = false
-          this.getUser()
+        }).catch(()=>{
+          alert('网络开小差了，请稍后再试')
         })
       },
     },

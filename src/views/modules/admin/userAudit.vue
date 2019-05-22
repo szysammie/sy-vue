@@ -90,6 +90,8 @@
           for(let i=0;i<this.tableData.length;i++){
             this.tableData[i].number = i+1
           }
+        }).catch(()=>{
+          alert('网络开小差了，请稍后再试')
         })
       },
       //用户审核
@@ -102,6 +104,11 @@
             this.getUserAudit()
             alert(res.data.message)
           }
+          else {
+            alert(res.data.msg)
+          }
+        }).catch(()=>{
+          alert('网络开小差了，请稍后再试')
         })
       },
 

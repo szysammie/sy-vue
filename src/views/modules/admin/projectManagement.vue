@@ -192,6 +192,8 @@ export default {
           this.tableData[i].contractAmount = this.tableData[i].contractAmount/10000
           this.tableData[i].manageCost = this.tableData[i].manageCost/10000
         }
+      }).catch(()=>{
+        alert('网络开小差了，请稍后再试')
       })
     },
     // 查询（查找返回的日期没做处理）
@@ -248,10 +250,14 @@ export default {
         })
       }).then(res => {
         if(res.data.status == '204'){
-          this.dialogFormVisible = false
-          alert('修改成功')
+          alert(res.data.message)
           this.getProject()
+        }else{
+          alert(res.data.msg)
         }
+        this.dialogFormVisible = false
+      }).catch(()=>{
+        alert('网络开小差了，请稍后再试')
       })
     },
     //动态获取科室
