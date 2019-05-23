@@ -196,6 +196,8 @@ export default {
         for (let i = 0; i < this.tableData.length; i++) {
           this.tableData[i].number = i + 1
         }
+      }).catch(()=>{
+        alert('网络开小差了，请稍后再试')
       })
     },
     // 用户点击新增
@@ -219,14 +221,16 @@ export default {
           'staffName':this.form.staffName,
         })
       }).then(res => {
-        if(res.data.status){
+        if(res.data.status== '201'){
           this.getStaff()
-          alert("添加成功")
+          alert(res.data.message)
         }
         else{
-          alert('网络开小差了,请稍后再试')
+          alert(res.data.msg)
         }
         this.dialogFormVisible1 = false
+      }).catch(()=>{
+        alert('网络开小差了，请稍后再试')
       })
     },
     // 查询
@@ -259,17 +263,14 @@ export default {
         method: 'delete'
       }).then(res => {
         if(res.data.status=='204'){
-          this.$http({
-            url: this.$http.adornUrl('admin/emp'),
-            method: 'get',
-          }).then(res => {
-            this.getStaff()
-          })
-          alert('删除成功')
+          this.getStaff()
+          alert(res.data.message)
         }else{
-          alert('网络开小差了,请稍后再试')
+          alert(res.data.msg)
         }
         this.centerDialogVisible = false
+      }).catch(()=>{
+        alert('网络开小差了，请稍后再试')
       })
     },
     // 用户点击修改
@@ -295,10 +296,14 @@ export default {
         })
       }).then(res => {
         if(res.data.status=='204'){
-          this.dialogFormVisible = false
           this.getStaff()
-          alert('修改成功')
+          alert(res.data.message)
+        }else{
+          alert(res.data.msg)
         }
+        this.dialogFormVisible = false
+      }).catch(()=>{
+        alert('网络开小差了，请稍后再试')
       })
     },
     // 批量选择操作
@@ -326,12 +331,14 @@ export default {
         })
       }).then(res=>{
         if(res.data.status == '204'){
-          this.deleteDialogAll = false
           this.getStaff()
-          alert('删除成功')
+          alert(res.data.message)
         }else{
-          alert('删除失败')
+          alert(res.data.msg)
         }
+        this.deleteDialogAll = false
+      }).catch(()=>{
+        alert('网络开小差了，请稍后再试')
       })
     },
     //导入excle
@@ -348,7 +355,7 @@ export default {
           this.fileUploadDialog = false
           this.getStaff()
         }else{
-          alert('网络开小差了，请稍后再试')
+          alert(res.data.msg)
         }
       })
       return false

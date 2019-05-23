@@ -160,17 +160,19 @@
       },
       //用户确认删除
       confirmDelete(){
-        this.centerDialogVisible = false
         this.$http({
           url:this.$http.adornUrl('admin/sysparam/'+this.code),
           method:'delete',
         }).then(res=>{
           if(res.data.status=='204'){
             this.getSystemParam()
-            alert('删除成功')
+            alert(res.data.message)
           }else{
-            alert('网络开小差了,请稍后再试')
+            alert(res.data.msg)
           }
+          this.centerDialogVisible = false
+        }).catch(()=>{
+          alert('网络开小差了，请稍后再试')
         })
       },
       //用户点击修改
@@ -194,9 +196,15 @@
             description:this.form.description
           })
         }).then(res=>{
-            alert("修改成功")
-            this.getSystemParam()
+            if(res.data.status =='204'){
+              alert(res.data.message)
+              this.getSystemParam()
+            }else{
+              alert(res.data.msg)
+            }
           this.dialogFormVisible = false
+        }).catch(()=>{
+          alert('网络开小差了，请稍后再试')
         })
       },
       //用户点击新增（记录已存在）
@@ -224,13 +232,12 @@
             this.getSystemParam()
             alert(res.data.message)
           }
-          else if(res.data.status == '400'){
-            alert('该编码已存在,请重新选择编码')
-          }
           else{
-            alert('网络开小差了,请稍后再试')
+            alert(res.data.msg)
           }
           this.dialogFormVisible1 = false
+        }).catch(()=>{
+          alert('网络开小差了，请稍后再试')
         })
       },
     },

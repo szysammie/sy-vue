@@ -235,7 +235,7 @@
                 :span="4">
               </el-table-column>
               <el-table-column
-                prop="auditPerson"
+                prop="creater"
                 label="申请人"
                 :span="4">
               </el-table-column>
@@ -802,10 +802,10 @@
             <el-input v-model="newEquipmentForm.equipType" :disabled="true"></el-input>
           </el-form-item>
           <el-form-item prop="beginDateString" label="申请日期">
-            <el-date-picker v-model="newEquipmentForm.beginDateString" type="date" value-format="yyyy-MM-dd" placeholder="选择日期" style="width: 100%;"/>
+            <el-date-picker v-model="newEquipmentForm.beginDateString" @change="getEquipTips2" type="date" value-format="yyyy-MM-dd" placeholder="选择日期" style="width: 100%;"/>
           </el-form-item>
           <el-form-item prop="endDateString" label="预计结束日期">
-            <el-date-picker v-model="newEquipmentForm.endDateString" type="date" value-format="yyyy-MM-dd" placeholder="选择日期" style="width: 100%;"/>
+            <el-date-picker v-model="newEquipmentForm.endDateString" @change="getEquipTips2" type="date" value-format="yyyy-MM-dd" placeholder="选择日期" style="width: 100%;"/>
           </el-form-item>
           <el-form-item label="设备原值（万元）" prop="originalPrice">
             <el-input v-model="newEquipmentForm.originalPrice" :disabled="true"></el-input>
@@ -982,6 +982,62 @@
           <el-button type="primary" @click="confirmChooseMaterial()">确 定</el-button>
         </span>
       </el-dialog>
+      <!--更新材料弹窗-->
+      <el-dialog title="申请材料" :visible.sync="updateMaterialDialog" :modal="false">
+        <el-form :model="newMaterialForm" ref="newPersonForm" label-width="100px" class="demo-ruleForm">
+          <el-form-item label="科室" prop="department">
+            <el-input v-model="newMaterialForm.department" :disabled="true"></el-input>
+          </el-form-item>
+          <el-form-item label="报审序号" prop="reportNum">
+            <el-input v-model="newMaterialForm.reportNum" :disabled="true"></el-input>
+          </el-form-item>
+          <el-form-item label="合同名称" prop="contractName">
+            <el-input v-model="newMaterialForm.contractName" :disabled="true"></el-input>
+          </el-form-item>
+          <el-form-item label="材料名称" prop="materialName">
+            <el-button type="text" @click="getMaterial">选择材料</el-button>
+            <div>{{newMaterialForm.materialName}}</div>
+          </el-form-item>
+          <el-form-item label="材料类型" prop="materialType">
+            <el-input v-model="newMaterialForm.materialType" :disabled="true"></el-input>
+          </el-form-item>
+          <el-form-item label="品牌" prop="brand">
+            <el-input v-model="newMaterialForm.brand" :disabled="true"></el-input>
+          </el-form-item>
+          <el-form-item label="计量单位" prop="unit">
+            <el-input v-model="newMaterialForm.unit" :disabled="true"></el-input>
+          </el-form-item>
+          <el-form-item label="单价（万元）" prop="unitPrice">
+            <el-input v-model="newMaterialForm.unitPrice" :disabled="true"></el-input>
+          </el-form-item>
+          <el-form-item label="数量" prop="count">
+            <el-input v-model="newMaterialForm.count" @change="countChange"></el-input>
+          </el-form-item>
+          <el-form-item label="金额（万元）" prop="totalPrice">
+            <el-input v-model="newMaterialForm.totalPrice" :disabled="true"></el-input>
+          </el-form-item>
+          <el-form-item label="申请人" prop="creater">
+            <el-input v-model="newMaterialForm.creater" :disabled="true"></el-input>
+          </el-form-item>
+          <el-form-item prop="applyTimeString" label="申请日期">
+            <el-date-picker v-model="newMaterialForm.applyTimeString" type="date" value-format="yyyy-MM-dd" placeholder="选择日期" style="width: 100%;"/>
+          </el-form-item>
+          <el-form-item label="备注" prop="notes">
+            <el-input v-model="newMaterialForm.notes"></el-input>
+          </el-form-item>
+          <el-form-item label="所属小组" prop="groupNum">
+            <el-select v-model="newMaterialForm.groupNum" placeholder="请选择小组">
+              <el-option label="1组" value="1"></el-option>
+              <el-option label="2组" value="2"></el-option>
+              <el-option label="3组" value="3"></el-option>
+            </el-select>
+          </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="updateMaterialDialog = false">取 消</el-button>
+          <el-button type="primary" @click="confirmUpdateMaterial">确 定</el-button>
+        </div>
+      </el-dialog>
       <!--删除材料弹窗-->
       <el-dialog
         title="材料申请"
@@ -1047,7 +1103,7 @@
         </span>
       </el-dialog>
       <!--修改其他数据弹窗-->
-      <el-dialog title="新增其他费用" :visible.sync="newOtherDialog" :modal="false">
+      <el-dialog title="新增其他费用" :visible.sync="updateOtherDialog" :modal="false">
         <el-form :model="newOtherForm" ref="newOtherForm" label-width="100px" class="demo-ruleForm">
           <el-form-item label="科室" prop="department">
             <el-input v-model="newOtherForm.department" :disabled="true"></el-input>
@@ -1082,7 +1138,7 @@
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
-          <el-button @click="newOtherDialog = false">取 消</el-button>
+          <el-button @click="updateOtherDialog = false">取 消</el-button>
           <el-button type="primary" @click="confirmUpdateOther">确 定</el-button>
         </div>
       </el-dialog>
@@ -1176,8 +1232,10 @@
           searchEquipmentForm:{  //搜索设备框
             equipmentName:''
           },
+          equipAppID:'',
           materialData:[], //材料数据
           newMaterialDialog:false, //新增材料弹窗控制
+          updateMaterialDialog:false, //新增材料弹窗控制
           newMaterialForm:{ //新增材料表单
             contractName:'',
             department:'',
@@ -1208,6 +1266,7 @@
           newOtherDialog:false, //新增其他数据弹窗
           deleteOtherDialog:false, //删除其他数据弹窗
           otherID:'', //其他数据的id
+          updateOtherDialog:false,
           newOtherForm:{ //新增其他数据弹窗
             contractName:'',
             department:'',
@@ -1288,19 +1347,17 @@
         },
         //人员确认数据删除（有点bug）
         confirmPersonDelete(){
-          this.dialogPerson = false
           this.$http({
             url:this.$http.adornUrl('staff/person/'+this.travelId),
             method:'delete',
           }).then(res=>{
             if(res.data.status=='204'){
               this. personDataGet()
-              alert('删除成功')
-            }else if(res.data.status =='400'){
-              alert('无法删除已经通过审核得记录')
+              alert(res.data.message)
             }else{
-              alert('网络开小差了，请稍后再试')
+              alert(res.data.msg)
             }
+            this.dialogPerson = false
           })
         },
         //用户点击更新按钮
@@ -1359,12 +1416,12 @@
             url:this.$http.adornUrl('staff/person/'+this.travelId),
             method:'put'
           }).then(res=>{
-            this.dialogPersonEnd = false
             if (res.data.status=='204'){
               alert(res.data.message)
             }else{
               alert(res.data.msg)
             }
+            this.dialogPersonEnd = false
           })
         },
         //获取所有未出差的人员
@@ -1413,14 +1470,13 @@
               })
             }).then(res=>{
               if(res.data.status == '201'){
-                this.newPersonDialog = false
-                alert('添加成功')
+                alert(res.data.message)
                 this.personDataGet()
               }else{
-                alert('网络开小差了，请稍后再试')
+                alert(res.data.msg)
               }
+              this.newPersonDialog = false
             })
-
         },
         //选择未出差的人
         handleSelectionChange(val){
@@ -1513,9 +1569,11 @@
               if(res.data.status =='201'){
                 alert(res.data.message)
                 this.vehicleDataGet()
-                this.newVehicleDialog =false
+              }else{
+                alert(res.data.msg)
               }
-            })
+            this.newVehicleDialog =false
+          })
         },
         //点击删除车辆申请按钮
         deleteVehicle(index,rows){
@@ -1532,7 +1590,7 @@
               alert('删除成功')
               this.vehicleDataGet()
             }else{
-              alert('网络开小差了，请稍后再试')
+              alert(res.data.msg)
             }
             this.dialogVehicle = false
           })
@@ -1575,11 +1633,10 @@
             })
           }).then(res=>{
             if(res.data.status == '204'){
-
               alert(res.data.message)
               this.vehicleDataGet()
             }else{
-              alert(res.data.message)
+              alert(res.data.msg)
             }
             this.updateVehicleDialog = false
           })
@@ -1600,7 +1657,7 @@
             }else if(res.data.status == '204'){
               alert(res.data.message)
             }else{
-              alert('网络开小差了，请稍后再试')
+              alert(res.data.msg)
             }
             this.vehicleEndDialog = false
           })
@@ -1633,6 +1690,8 @@
           this.newEquipmentForm.originalPrice = ''
           this.newEquipmentForm.dayDepreciation = ''
           this.newEquipmentForm.totalPrice = ''
+          this.newEquipmentForm.notes = ''
+          this.newEquipmentForm.groupNum = ''
           this.newEquipmentForm.beginDateString = ''
           this.newEquipmentForm.endDateString = ''
           this.newEquipmentForm.contractName = this.contractName
@@ -1662,10 +1721,13 @@
         //搜索具体设备
         searchEquipment(){
           this.$http({
-            url:this.$http.adornUrl('staff/equip/search/'+this.searchEquipmentForm.equipmentName),
-            method:'post'
+            url:this.$http.adornUrl('staff/equip/search'),
+            method:'post',
+            data:this.$http.adornData({
+              name:this.searchEquipmentForm.equipmentName
+            })
           }).then(res=>{
-            console.log(res)
+              this.equipments = res.data.data
           })
         },
         //确认选择具体设备
@@ -1687,37 +1749,49 @@
         },
         //确认新增设备
         confirmNewEquipment(){
+          this.projectId = this.projectId.toString()
           this.$http({
             url:this.$http.adornUrl('staff/equip'),
             method:'post',
             data:this.$http.adornData({
               equip:this.multipleSelection2,
               contractName:this.newEquipmentForm.contractName,
-              department:this.newEquipmentForm.department,
+              projectID:this.projectId,
               reportNum:this.newEquipmentForm.reportNum,
               creater:this.newEquipmentForm.creater,
               beginDateString:this.newEquipmentForm.beginDateString,
               endDateString:this.newEquipmentForm.endDateString,
-              total:this.newEquipmentForm.total,
               notes:this.newEquipmentForm.notes,
               groupNum:this.newEquipmentForm.groupNum
             })
           }).then(res=>{
-            console.log(res)
+            if(res.data.status =='201'){
+              alert(res.data.message)
+              this.equipmentDataGet()
+            }else{
+              alert(res.data.msg)
+            }
+            this.newEquipmentDialog = false
           })
         },
         //点击删除设备按钮
         equipmentDelete(index,rows){
           this.dialogEquipment = true
-          this.equipID = rows[index].equipID
+          this.equipAppID = rows[index].equipAppID
         },
         //确认删除设备（500）
         confirmDeleteEquipment(){
           this.$http({
-            url:this.$http.adornUrl('staff/equip/'+this.equipID),
+            url:this.$http.adornUrl('staff/equip/'+this.equipAppID),
             method:'delete'
           }).then(res=>{
-            console.log(res)
+            if(res.data.status == '204'){
+              alert(res.data.message)
+              this.equipmentDataGet()
+            }else{
+              alert(res.data.msg)
+            }
+            this.dialogEquipment = false
           })
         },
         //点击更新设备按钮
@@ -1737,51 +1811,52 @@
           this.newEquipmentForm.dayDepreciation = rows[index].dayDepreciation
           this.newEquipmentForm.equipName = rows[index].equipName
           this.newEquipmentForm.groupNum = rows[index].groupNum
+          this.newEquipmentForm.equipAppID = rows[index].equipAppID
         },
         //确认更新设备修改(500)
         confirmEquipmentUpdate(){
-          let equipName =  this.newEquipmentForm.equipName.split("|")
-          let factoryNum =  this.newEquipmentForm.factoryNum.split("|")
-          let equipType =  this.newEquipmentForm.equipType.split("|")
-          let originalPrice =  this.newEquipmentForm.originalPrice.split("|")
-          let dayDepreciation =  this.newEquipmentForm.dayDepreciation.split("|")
           this.$http({
             url:this.$http.adornUrl('staff/equip'),
             method:'put',
             data:this.$http.adornData({
-              equipName:equipName,
-              factoryNum:factoryNum,
-              equipType:equipType,
-              originalPrice:originalPrice,
-              dayDepreciation:dayDepreciation,
-              contractName:this.newEquipmentForm.contractName,
-              department:this.newEquipmentForm.department,
-              reportNum:this.newEquipmentForm.reportNum,
+              equipAppID:this.newEquipmentForm.equipAppID,
               creater:this.newEquipmentForm.creater,
               beginDateString:this.newEquipmentForm.beginDateString,
               endDateString:this.newEquipmentForm.endDateString,
-              total:this.newEquipmentForm.total,
+              totalPrice:this.newEquipmentForm.totalPrice,
               notes:this.newEquipmentForm.notes,
               groupNum:this.newEquipmentForm.groupNum
             })
           }).then(res=>{
+            if(res.data.status == '204'){
+              alert(res.data.message)
+              this.equipmentDataGet()
+            }else{
+              alert(res.data.msg)
+            }
             this.updateEquipmentDialog = false
-            console.log(res)
           })
         },
         //点击结束设备按钮
         equipmentEnd(index,rows){
           this.equipmentEndDialog = true
-          this.equipID = rows[index].equipID
+          this.equipAppID = rows[index].equipAppID
         },
         //确认结束设备(500)
         confirmEquipmentEnd(){
           this.$http({
-            url:this.$http.adornUrl('staff/equip/end/'+this.equipID),
-            method:'post'
+            url:this.$http.adornUrl('staff/equip/end'),
+            method:'post',
+            data:this.$http.adornData({
+              equipAppID:this.equipAppID
+            })
           }).then(res=>{
+            if(res.data.status =='201'){
+              alert(res.data.message)
+            }else{
+              alert(res.data.msg)
+            }
             this.equipmentEndDialog = false
-            console.log(res)
           })
         },
         //材料数据获取
@@ -1824,7 +1899,13 @@
         //搜索具体材料（貌似不对）
         searchMaterial(){
           this.$http({
-            url:this.$http.adornUrl('')
+            url:this.$http.adornUrl('staff/material/search'),
+            method:'post',
+            data:this.$http.adornData({
+              name:this.searchMaterialForm.materialName
+            })
+          }).then(res=>{
+            this.materials = res.data.data
           })
         },
         //获取具体材料
@@ -1859,58 +1940,60 @@
         //监听数量的变化
         countChange(){
           let sum = 0
+          console.log(this.newMaterialForm.totalPrice)
           sum = parseInt(this.newMaterialForm.startPrice) * parseInt(this.newMaterialForm.count)
           this.newMaterialForm.totalPrice = sum.toString()
-          this.newMaterialDialog =true
         },
         //确认新增材料
         confirmNewMaterial(){
-          let materialName = this.newMaterialForm.materialName.split('|')
-          let materialType = this.newMaterialForm.materialType.split('|')
-          let brand = this.newMaterialForm.brand.split('|')
-          let unit = this.newMaterialForm.unit.split('|')
-          let unitPrice = this.newMaterialForm.unitPrice.split('|')
+          let material = this.multipleSelection3
           this.$http({
             url:this.$http.adornUrl('staff/material'),
             method:"post",
             data:this.$http.adornData({
+              projectID:this.projectId,
               department:this.newMaterialForm.department,
-              contractName:this.newMaterialForm.contractName,
               applyTimeString:this.newMaterialForm.applyTimeString,
               auditPerson:this.newMaterialForm.auditPerson,
-              brand:brand,
               count:this.newMaterialForm.count,
               creater:this.newMaterialForm.creater,
               groupNum:this.newMaterialForm.groupNum,
-              materialID:this.newMaterialForm.materialID,
-              materialName:materialName,
-              materialType:materialType,
               notes:this.newMaterialForm.notes,
-              totalPrice:this.newMaterialForm.totalPrice,
-              unit:unit,
-              unitPrice:unitPrice,
+              material:material
             })
           }).then(res=>{
-            console.log(res)
+            if(res.data.status == '201'){
+              alert(res.data.message)
+              this.materialDataGet()
+            }else{
+              alert(res.data.msg)
+            }
+            this.newMaterialDialog = false
           })
         },
         //点击删除材料按钮
         materialDelete(index,rows){
           this.deleteMaterialDialog = true
-          this.materialID = rows[index].materialID
+          this.materialAppID = rows[index].materialAppID
         },
         //确认删除材料（500）
         confirmMaterialDelete(){
           this.$http({
-            url:this.$http.adornUrl('staff/material/'+this.materialID),
+            url:this.$http.adornUrl('staff/material/'+this.materialAppID),
             method:'delete'
           }).then(res=>{
-            console.log(res)
+            if(res.data.status=='204'){
+              this.materialDataGet()
+              alert(res.data.message)
+            }else{
+              alert(res.data.msg)
+            }
+            this.deleteMaterialDialog = false
           })
         },
         //点击材料更新
         materialUpdate(index,rows){
-          this.newMaterialDialog = true
+          this.updateMaterialDialog = true
           this.newMaterialForm.contractName = this.contractName
           this.newMaterialForm.department = this.department
           this.newMaterialForm.reportNum = this.reportNum
@@ -1921,12 +2004,44 @@
           this.newMaterialForm.count = rows[index].count
           this.newMaterialForm.groupNum = rows[index].groupNum
           this.newMaterialForm.materialID = rows[index].materialID
+          this.newMaterialForm.materialAppID = rows[index].materialAppID
           this.newMaterialForm.materialName = rows[index].materialName
           this.newMaterialForm.materialType = rows[index].materialType
           this.newMaterialForm.notes = rows[index].notes
           this.newMaterialForm.totalPrice = rows[index].totalPrice
           this.newMaterialForm.unit = rows[index].unit
           this.newMaterialForm.unitPrice = rows[index].unitPrice
+        },
+        //确认材料数据更新
+        confirmUpdateMaterial(){
+          this.$http({
+            url:this.$http.adornUrl('staff/material'),
+            method:'put',
+            data:this.$http.adornData({
+              materialAppID:this.newMaterialForm.materialAppID,
+              materialID:this.newMaterialForm.materialID,
+              projectID:this.projectId,
+              groupNum:this.newMaterialForm.groupNum,
+              materialName:this.newMaterialForm.materialName,
+              brand:this.newMaterialForm.brand,
+              unit:this.newMaterialForm.unit,
+              unitPrice:this.newMaterialForm.unitPrice,
+              count:this.newMaterialForm.count,
+              totalPrice:this.newMaterialForm.totalPrice,
+              applyTimeString:this.newMaterialForm.applyTimeString,
+              notes:this.newMaterialForm.notes,
+              creater:this.newMaterialForm.creater,
+              materialType:this.newMaterialForm.materialType,
+            })
+          }).then(res=>{
+            if(res.data.status == '204'){
+              alert(res.data.message)
+              this.materialDataGet()
+            }else {
+              alert(res.data.msg)
+            }
+            this.updateMaterialDialog = false
+          })
         },
         //其他数据获取
         otherDataGet(){
@@ -1960,6 +2075,7 @@
             url:this.$http.adornUrl('staff/otherapply'),
             method:"post",
             data:this.$http.adornData({
+              projectID:this.projectId,
               feeName:this.newOtherForm.feeName,
               price:this.newOtherForm.price,
               applyDateString:this.newOtherForm.applyDateString,
@@ -2000,7 +2116,7 @@
         },
         //点击修改其他数据
         updateOther(index,rows){
-          this.newOtherDialog = true
+          this.updateOtherDialog = true
           this.newOtherForm.contractName = this.contractName
           this.newOtherForm.department = this.department
           this.newOtherForm.reportNum = this.reportNum
@@ -2025,17 +2141,18 @@
               creater:this.newOtherForm.creater,
               groupNum:this.newOtherForm.groupNum,
               notes:this.newOtherForm.notes,
-              otherID:this.newOtherForm.otherID,
+              otherID:this.otherID,
+              projectID:this.projectId
             })
           }).then(res=>{
-            if(res.data.status == '201'){
+            if(res.data.status == '204'){
               alert(res.data.message)
               this.otherDataGet()
             }
             else{
               alert(res.data.msg)
             }
-            this.newOtherDialog = false
+            this.updateOtherDialog = false
           })
         },
         //选择tab
@@ -2130,6 +2247,13 @@
             // console.log(equip)
             tips = day * tips
             this.newEquipmentForm.totalPrice = tips
+          }
+
+        },
+        getEquipTips2(){
+          if(this.newEquipmentForm.beginDateString&&this.newEquipmentForm.endDateString) {
+            let day = this.datedifference(this.newEquipmentForm.beginDateString,this.newEquipmentForm.endDateString)
+            this.newEquipmentForm.totalPrice = this.newEquipmentForm.dayDepreciation * day
           }
 
         }
