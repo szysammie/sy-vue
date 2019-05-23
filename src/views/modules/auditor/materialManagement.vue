@@ -3,7 +3,7 @@
     <el-row>
       <el-form ref="searchForm" :model="searchForm" label-width="100px" class="demo-ruleForm">
         <el-col :span="1">
-          <el-button style="margin-top: 10px;margin-left: 10px" @click="newMaterial">新增</el-button>
+          <el-button type="primary" icon="el-icon-plus" style="margin-top: 10px;margin-left: 10px" @click="newMaterial">新增</el-button>
           <el-dialog :visible.sync="newMaterialDialog"  top="4vh" title="数据字典记录">
             <el-form ref="form" :model="form" label-width="140px" class="demo-ruleForm">
               <el-form-item label="材料名称" prop="materialName">
@@ -39,14 +39,14 @@
             <el-input v-model="searchForm.materialName"/>
           </el-form-item>
         </el-col>
-        <el-col :span="1">
+        <el-col :span="2">
           <el-form-item>
-            <el-button style="margin-left: -70px;margin-top: 10px" @click="search">查找</el-button>
+            <el-button type="primary" icon="el-icon-search" style="margin-left: -70px;margin-top: 10px" @click="search">查找</el-button>
           </el-form-item>
         </el-col>
         <el-col :span="1">
           <el-form-item>
-            <el-button type="file" style="margin-left: -45px;margin-top: 10px" @click="fileUploadDialog = true">导入材料信息(excle表)</el-button>
+            <el-button type="file" icon="el-icon-upload el-icon-right" style="margin-left: -45px;margin-top: 10px" @click="fileUploadDialog = true">导入</el-button>
           </el-form-item>
         </el-col>
       </el-form>

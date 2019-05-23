@@ -9,7 +9,7 @@
         </el-col>
         <el-col :span="1">
           <el-form-item>
-            <el-button style="margin-left: -70px;margin-top: 10px" @click="search">查找</el-button>
+            <el-button type="primary" icon="el-icon-search" style="margin-left: -70px;margin-top: 10px" @click="search">查找</el-button>
           </el-form-item>
         </el-col>
       </el-form>
@@ -23,66 +23,82 @@
         fixed
         width="120"
         prop="number"
-        label="序号"/>
+        label="序号"
+      align="center"/>
       <el-table-column
         width="120"
         prop="checkStatus"
-        label="审核结果"/>
+        label="审核结果"
+        align="center"
+      />
       <el-table-column
         width="140"
         prop="groupNum"
-        label="所属小组"/>
+        label="所属小组"
+        align="center"/>
       <el-table-column
         width="140"
         prop="materialName"
-        label="材料名称"/>
+        label="材料名称"
+        align="center"/>
       <el-table-column
         width="140"
         prop="materialType"
-        label="材料类型"/>
+        label="材料类型"
+        align="center"/>
       <el-table-column
         width="140"
         prop="brand"
-        label="品牌"/>
+        label="品牌"
+        align="center"/>
       <el-table-column
         width="140"
         prop="applyTimeString"
-        label="申请日期"/>
+        label="申请日期"
+        align="center"/>
       <el-table-column
         width="140"
         prop="unitPrice"
-        label="单价（万元）"/>
+        label="单价（万元）"
+        align="center"/>
       <el-table-column
         width="140"
         prop="count"
-        label="数量"/>
+        label="数量"
+        align="center"/>
       <el-table-column
         width="140"
         prop="totalPrice"
-        label="金额（万元）"/>
+        label="金额（万元）"
+        align="center"/>
       <el-table-column
         width="140"
         prop="creater"
-        label="申请人"/>
+        label="申请人"
+        align="center"/>
       <el-table-column
         width="140"
         prop="notes"
-        label="备注"/>
+        label="备注"
+        align="center"/>
       <el-table-column
         width="140"
         prop="auditPerson"
-        label="审核人"/>
+        label="审核人"
+        align="center"/>
       <el-table-column
         width="140"
         prop="auditOpinion"
-        label="审核意见"/>
+        label="审核意见"
+        align="center"/>
       <el-table-column
         width="120"
         fixed = 'right'
         label="操作"
+        align="center"
       >
         <template slot-scope="scope">
-          <el-button type="text" @click="examine(scope.$index, tableData)">审核</el-button>
+          <el-button type="primary" @click="examine(scope.$index, tableData)">审核</el-button>
         </template>
       </el-table-column>
     </el-table>

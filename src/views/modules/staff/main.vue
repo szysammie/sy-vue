@@ -9,7 +9,7 @@
           </el-col>
           <el-col :span="1">
             <el-form-item>
-              <el-button style="margin-left: -70px;margin-top: 10px" @click="search">查找</el-button>
+              <el-button type="primary" style="margin-left: -70px;margin-top: 10px" icon="el-icon-search" @click="search">查找</el-button>
             </el-form-item>
           </el-col>
         </el-form>
@@ -21,44 +21,51 @@
         <el-table-column
           prop="number"
           label="序号"
-          :span="2">
+          :span="2"
+          align="center">
         </el-table-column>
         <el-table-column
           prop="departmentString"
           label="所属科室"
-          :span="4">
+          :span="4"
+          align="center">
         </el-table-column>
         <el-table-column
           prop="reportNum"
           label="审批序号"
-          :span="4">
+          :span="4"
+          align="center">
         </el-table-column>
         <el-table-column
           prop="contractName"
           label="合同名称"
-          :span="4">
+          :span="4"
+          align="center">
         </el-table-column>
         <el-table-column
           prop="contractAmount"
           label="合同金额(万元)"
-          :span="4">
+          :span="4"
+          align="center">
         </el-table-column>
         <el-table-column
           prop="beginDateString"
           label="开始时间"
-          :span="4">
+          :span="4"
+          align="center">
         </el-table-column>
         <el-table-column
           prop="endDateString"
           label="结束时间"
-          :span="4">
+          :span="4"
+          align="center">
         </el-table-column>
         <el-table-column
           prop="address"
           label="操作"
           :span="4">
           <template slot-scope="scope">
-            <el-button type="text" @click.native.prevent="operation(scope.$index, tableData)">申请</el-button>
+            <el-button type="primary" @click.native.prevent="operation(scope.$index, tableData)" icon="el-icon-edit">申请</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -70,7 +77,7 @@
         :fullscreen="true">
         <el-tabs v-model="activeName" @tab-click="handleClick">
           <el-tab-pane label="人员" name="first">
-            <el-button @click="newPerson()" style="margin-top: 10px;margin-left: 20px">新增</el-button>
+            <el-button @click="newPerson()" type="primary" icon="el-icon-plus" style="margin-top: 5px;margin-left: 20px;margin-bottom: 8px">新增</el-button>
             <el-table
               :data="personData"
               border
@@ -78,61 +85,89 @@
               <el-table-column
                 prop="number"
                 label="序号"
-                :span="2">
+                width="80"
+                fixed
+                align="center"
+              >
               </el-table-column>
               <el-table-column
                 prop="groupNum"
                 label="所属小组"
-                :span="4">
-              </el-table-column>
-              <el-table-column
-                prop="beginDateString"
-                label="开始日期"
-                :span="4">
-              </el-table-column>
-              <el-table-column
-                prop="endDateString"
-                label="结束日期"
-                :span="4">
-              </el-table-column>
-              <el-table-column
-                prop="pay"
-                label="工资(万元)"
-                :span="4">
-              </el-table-column>
-              <el-table-column
-                prop="amount"
-                label="差旅费(万元)"
-                :span="4">
+                width="80"
+                align="center"
+              >
               </el-table-column>
               <el-table-column
                 prop="staffName"
                 label="出差人"
-                :span="4">
+                width="120"
+                align="center"
+              >
+              </el-table-column>
+              <el-table-column
+                prop="beginDateString"
+                label="开始日期"
+                width="120"
+                align="center"
+              >
+              </el-table-column>
+              <el-table-column
+                prop="endDateString"
+                label="结束日期"
+                width="120"
+                align="center"
+              >
+              </el-table-column>
+              <el-table-column
+                prop="pay"
+                label="工资(万元)"
+                width="140"
+                align="center"
+              >
+              </el-table-column>
+              <el-table-column
+                prop="amount"
+                label="差旅费(万元)"
+                align="center"
+                width="120"
+              >
               </el-table-column>
               <el-table-column
                 prop="checkStatus"
                 label="审核状态"
-                :span="4">
+                width="140"
+                align="center"
+              >
               </el-table-column>
               <el-table-column
                 prop="creater"
                 label="申请人"
-                :span="4">
+                width="140"
+                align="center"
+              >
+              </el-table-column>
+              <el-table-column
+                prop="notes"
+                label="备注"
+                width="140"
+                align="center"
+              >
               </el-table-column>
               <el-table-column
                 label="操作"
-                :span="4">
+                width="250"
+                fixed="right"
+              >
                 <template slot-scope="scope0">
-                  <el-button type="text" @click.native.prevent="personDelete(scope0.$index, personData)">删除</el-button>
-                  <el-button type="text" @click.native.prevent="personUpdate(scope0.$index, personData)">更新</el-button>
-                  <el-button type="text" @click.native.prevent="personEnd(scope0.$index, personData)">结束</el-button>
+                  <el-button type="primary" icon="el-icon-delete" @click.native.prevent="personDelete(scope0.$index, personData)"></el-button>
+                  <el-button type="primary" icon="el-icon-edit" @click.native.prevent="personUpdate(scope0.$index, personData)"></el-button>
+                  <el-button type="primary" icon="el-icon-close" @click.native.prevent="personEnd(scope0.$index, personData)"></el-button>
                 </template>
               </el-table-column>
             </el-table>
           </el-tab-pane>
           <el-tab-pane label="车辆" name="second">
-            <el-button @click="newVehicle()" style="margin-top: 10px;margin-left: 20px">新增</el-button>
+            <el-button @click="newVehicle()" type="primary" icon="el-icon-plus" style="margin-top: 5px;margin-left: 20px;margin-bottom:5px ">新增</el-button>
             <el-table
               :data="vehicleData"
               border
@@ -140,61 +175,78 @@
               <el-table-column
                 prop="number"
                 label="序号"
-                :span="2">
+                width="80"
+                fixed
+                align="center">
               </el-table-column>
               <el-table-column
                 prop="groupNum"
                 label="所属小组"
-                :span="4">
+                width="120"
+                align="center">
               </el-table-column>
               <el-table-column
                 prop="beginDateString"
                 label="开始日期"
-                :span="4">
+                width="140"
+                align="center">
               </el-table-column>
               <el-table-column
                 prop="endDateString"
                 label="结束日期"
-                :span="4">
+                width="140"
+                align="center">
               </el-table-column>
               <el-table-column
                 prop="meter"
                 label="公里数"
-                :span="4">
+                width="120"
+                align="center">
               </el-table-column>
               <el-table-column
                 prop="vehicleNum"
                 label="车牌号"
-                :span="4">
+                width="140"
+                align="center">
               </el-table-column>
               <el-table-column
                 prop="totalPrice"
                 label="金额(万元)"
-                :span="4">
+                width="120"
+                align="center">
               </el-table-column>
               <el-table-column
                 prop="creater"
                 label="申请人"
-                :span="4">
+                width="120"
+                align="center">
               </el-table-column>
               <el-table-column
                 prop="checkStatus"
                 label="审核状态"
-                :span="4">
+                width="140"
+              align="center">
+              </el-table-column>
+              <el-table-column
+                prop="notes"
+                label="备注"
+                width="120"
+                align="center">
               </el-table-column>
               <el-table-column
                 label="操作"
-                :span="4">
+                width="250"
+              fixed="right">
                 <template slot-scope="scope1">
-                  <el-button type="text" @click.native.prevent="deleteVehicle(scope1.$index, vehicleData)">删除</el-button>
-                  <el-button type="text" @click.native.prevent="updateVehicle(scope1.$index, vehicleData)">更新</el-button>
-                  <el-button type="text" @click.native.prevent="endVehicle(scope1.$index, vehicleData)">结束</el-button>
+                  <el-button type="primary" icon="el-icon-delete" @click.native.prevent="deleteVehicle(scope1.$index, vehicleData)"></el-button>
+                  <el-button type="primary" icon="el-icon-edit" @click.native.prevent="updateVehicle(scope1.$index, vehicleData)"></el-button>
+                  <el-button type="primary" icon="el-icon-close" @click.native.prevent="endVehicle(scope1.$index, vehicleData)"></el-button>
                 </template>
               </el-table-column>
             </el-table>
           </el-tab-pane>
           <el-tab-pane label="设备" name="third">
-            <el-button @click="newEquipment()" style="margin-top: 10px;margin-left: 20px">新增</el-button>
+            <el-button type="primary" icon="el-icon-plus" @click="newEquipment()" style="margin-top: 5px;margin-left: 20px;margin-bottom: 5px">新增</el-button>
             <el-table
               :data="equipmentData"
               border
@@ -202,61 +254,114 @@
               <el-table-column
                 prop="number"
                 label="序号"
-                :span="2">
+                width="80"
+                fixed
+              align="center">
               </el-table-column>
               <el-table-column
                 prop="groupNum"
                 label="所属小组"
-                :span="4">
-              </el-table-column>
-              <el-table-column
-                prop="beginDateString"
-                label="开始日期"
-                :span="4">
-              </el-table-column>
-              <el-table-column
-                prop="endDateString"
-                label="结束日期"
-                :span="4">
+                width="120"
+                align="center">
               </el-table-column>
               <el-table-column
                 prop="equipName"
                 label="设备名称"
-                :span="4">
+                width="140"
+                align="center">
+              </el-table-column>
+              <el-table-column
+                prop="equipType"
+                label="设备类型"
+                width="140"
+                align="center">
+              </el-table-column>
+              <el-table-column
+                prop="equipModel"
+                label="设备型号"
+                width="140"
+                align="center">
+              </el-table-column>
+              <el-table-column
+                prop="factoryNum"
+                label="出厂编码"
+                width="140"
+                align="center">
+              </el-table-column>
+              <el-table-column
+                prop="beginDateString"
+                label="开始日期"
+                width="140"
+                align="center">
+              </el-table-column>
+              <el-table-column
+                prop="endDateString"
+                label="结束日期"
+                width="140"
+                align="center">
               </el-table-column>
               <el-table-column
                 prop="originalPrice"
                 label="单价(万元)"
-                :span="4">
+                width="140"
+                align="center">
               </el-table-column>
               <el-table-column
                 prop="totalPrice"
-                label="金额（万元）"
-                :span="4">
+                label="总金额（万元）"
+                width="140"
+                align="center">
+              </el-table-column>
+              <el-table-column
+                prop="dayDepreciation"
+                label="天折旧（万元）"
+                width="140"
+                align="center">
               </el-table-column>
               <el-table-column
                 prop="creater"
                 label="申请人"
-                :span="4">
+                width="140"
+                align="center">
               </el-table-column>
               <el-table-column
                 prop="checkStatus"
                 label="审核状态"
-                :span="4">
+                width="140"
+                align="center">
+              </el-table-column>
+              <el-table-column
+                prop="auditPerson"
+                label="审核人"
+                width="140"
+                align="center">
+              </el-table-column>
+              <el-table-column
+                prop="auditOpinion"
+                label="审核意见"
+                width="140"
+                align="center">
+              </el-table-column>
+              <el-table-column
+                prop="notes"
+                label="备注"
+                width="140"
+                align="center">
               </el-table-column>
               <el-table-column
                 label="操作"
-                :span="4">
+                width="250"
+              fixed="right">
                 <template slot-scope="scope2">
-                  <el-button type="text" @click.native.prevent="equipmentDelete(scope2.$index, equipmentData)">删除</el-button>
-                  <el-button type="text" @click.native.prevent="equipmentUpdate(scope2.$index, equipmentData)">更新</el-button>
-                  <el-button type="text" @click.native.prevent="equipmentEnd(scope2.$index, equipmentData)">结束</el-button>
+                  <el-button type="primary" icon="el-icon-delete" @click.native.prevent="equipmentDelete(scope2.$index, equipmentData)"></el-button>
+                  <el-button type="primary" icon="el-icon-edit" @click.native.prevent="equipmentUpdate(scope2.$index, equipmentData)"></el-button>
+                  <el-button type="primary" icon="el-icon-close" @click.native.prevent="equipmentEnd(scope2.$index, equipmentData)"></el-button>
                 </template>
               </el-table-column>
             </el-table>
           </el-tab-pane>
           <el-tab-pane label="材料" name="fourth">
-            <el-button @click="newMaterial()" style="margin-top: 10px;margin-left: 20px">新增</el-button>
+            <el-button type="primary" icon="el-icon-plus" @click="newMaterial()" style="margin-top: 5px;margin-left: 20px;margin-bottom: 5px">新增</el-button>
             <el-table
               :data="materialData"
               border
@@ -264,60 +369,107 @@
               <el-table-column
                 prop="number"
                 label="序号"
-                :span="2">
+                width="80"
+                fixed
+              align="center">
               </el-table-column>
               <el-table-column
                 prop="groupNum"
                 label="所属小组"
-                :span="4">
-              </el-table-column>
-              <el-table-column
-                prop="applyTimeString"
-                label="申请日期"
-                :span="4">
+                width="140"
+                align="center">
               </el-table-column>
               <el-table-column
                 prop="materialName"
                 label="材料名称"
-                :span="4">
+                width="140"
+                align="center">
+              </el-table-column>
+              <el-table-column
+                prop="brand"
+                label="品牌"
+                width="140"
+                align="center">
+              </el-table-column>
+              <el-table-column
+                prop="materialModel"
+                label="材料型号"
+                width="140"
+                align="center">
+              </el-table-column>
+              <el-table-column
+                prop="applyTimeString"
+                label="申请日期"
+                width="140"
+                align="center">
               </el-table-column>
               <el-table-column
                 prop="unitPrice"
                 label="单价(万元)"
-                :span="4">
+                width="140"
+                align="center">
               </el-table-column>
               <el-table-column
                 prop="count"
                 label="数量"
-                :span="4">
+                width="140"
+                align="center">
+              </el-table-column>
+              <el-table-column
+                prop="unit"
+                label="计量单位"
+                width="140"
+                align="center">
               </el-table-column>
               <el-table-column
                 prop="totalPrice"
                 label="金额（万元）"
-                :span="4">
+                width="140"
+                align="center">
               </el-table-column>
               <el-table-column
                 prop="creater"
                 label="申请人"
-                :span="4">
+                width="140"
+                align="center">
               </el-table-column>
               <el-table-column
                 prop="checkStatus"
                 label="审核状态"
-                :span="4">
+                width="140"
+                align="center">
+              </el-table-column>
+              <el-table-column
+                prop="auditPerson"
+                label="审核人"
+                width="140"
+                align="center">
+              </el-table-column>
+              <el-table-column
+                prop="auditOpinion"
+                label="审核意见"
+                width="140"
+                align="center">
+              </el-table-column>
+              <el-table-column
+                prop="notes"
+                label="备注"
+                width="140"
+                align="center">
               </el-table-column>
               <el-table-column
                 label="操作"
-                :span="4">
+                width="200"
+              fixed="right">
                 <template slot-scope="scope3">
-                  <el-button type="text" @click.native.prevent="materialDelete(scope3.$index, materialData)">删除</el-button>
-                  <el-button type="text" @click.native.prevent="materialUpdate(scope3.$index, materialData)">更新</el-button>
+                  <el-button type="primary" icon="el-icon-delete" @click.native.prevent="materialDelete(scope3.$index, materialData)"></el-button>
+                  <el-button type="primary" icon="el-icon-edit" @click.native.prevent="materialUpdate(scope3.$index, materialData)"></el-button>
                 </template>
               </el-table-column>
             </el-table>
           </el-tab-pane>
           <el-tab-pane label="其他" name="fifth">
-            <el-button @click="newOther()" style="margin-top: 10px;margin-left: 20px">新增</el-button>
+            <el-button icon="el-icon-plus" type="primary" @click="newOther()" style="margin-top: 5px;margin-left: 20px;margin-bottom: 5px">新增</el-button>
             <el-table
               :data="otherData"
               border
@@ -325,44 +477,51 @@
               <el-table-column
                 prop="number"
                 label="序号"
-                :span="2">
+                :span="2"
+              align="center">
               </el-table-column>
               <el-table-column
                 prop="groupNum"
                 label="所属小组"
-                :span="4">
+                :span="4"
+                align="center">
               </el-table-column>
               <el-table-column
                 prop="applyDateString"
                 label="申请日期"
-                :span="4">
+                :span="4"
+                align="center">
               </el-table-column>
               <el-table-column
                 prop="feeName"
                 label="费用描述"
-                :span="4">
+                :span="4"
+                align="center">
               </el-table-column>
               <el-table-column
                 prop="price"
                 label="金额(万元)"
-                :span="4">
+                :span="4"
+                align="center">
               </el-table-column>
               <el-table-column
                 prop="creater"
                 label="申请人"
-                :span="4">
+                :span="4"
+                align="center">
               </el-table-column>
               <el-table-column
                 prop="notes"
                 label="备注"
-                :span="4">
+                :span="4"
+                align="center">
               </el-table-column>
               <el-table-column
                 label="操作"
                 :span="4">
                 <template slot-scope="scope4">
-                  <el-button type="text" @click.native.prevent="deleteOther(scope4.$index, otherData)">删除</el-button>
-                  <el-button type="text" @click.native.prevent="updateOther(scope4.$index, otherData)">更新</el-button>
+                  <el-button type="primary" icon="el-icon-delete"  @click.native.prevent="deleteOther(scope4.$index, otherData)"></el-button>
+                  <el-button type="primary" icon="el-icon-edit" @click.native.prevent="updateOther(scope4.$index, otherData)"></el-button>
                 </template>
               </el-table-column>
             </el-table>

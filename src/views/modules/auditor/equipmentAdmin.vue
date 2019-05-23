@@ -3,7 +3,7 @@
     <el-row>
       <el-form ref="searchForm" :model="searchForm" label-width="100px" class="demo-ruleForm">
         <el-col :span="1">
-          <el-button style="margin-top: 10px;margin-left: 10px" @click="newEquip">新增</el-button>
+          <el-button type="primary" icon="el-icon-plus" style="margin-top: 10px;margin-left: 10px" @click="newEquip">新增</el-button>
           <el-dialog :visible.sync="newEquipDialog"  top="4vh" title="数据字典记录">
             <el-form ref="form" :model="form" label-width="140px" class="demo-ruleForm">
               <el-form-item label="出厂编号" prop="staffName">
@@ -36,14 +36,14 @@
             <el-input v-model="searchForm.equipName"/>
           </el-form-item>
         </el-col>
-        <el-col :span="1">
+        <el-col :span="2">
           <el-form-item>
-            <el-button style="margin-left: -70px;margin-top: 10px" @click="search">查找</el-button>
+            <el-button type="primary" icon="el-icon-search" style="margin-left: -70px;margin-top: 10px" @click="search">查找</el-button>
           </el-form-item>
         </el-col>
         <el-col :span="1">
           <el-form-item>
-            <el-button type="file" style="margin-left: -45px;margin-top: 10px" @click="fileUploadDialog = true">导入设备信息(excle表)</el-button>
+            <el-button type="file" icon="el-icon-upload el-icon-right" style="margin-left: -45px;margin-top: 10px" @click="fileUploadDialog = true">导入</el-button>
           </el-form-item>
         </el-col>
       </el-form>
@@ -56,46 +56,57 @@
       <el-table-column
         :span="4"
         prop="number"
-        label="序号"/>
+        label="序号"
+      align="center"/>
       <el-table-column
         :span="4"
         prop="factoryNum"
-        label="出厂编号"/>
+        label="出厂编号"
+        align="center"
+      />
       <el-table-column
         :span="4"
         prop="equipName"
-        label="设备名称"/>
+        label="设备名称"
+        align="center"/>
       <el-table-column
         :span="4"
         prop="equipType"
-        label="附加资产描述"/>
+        label="附加资产描述"
+        align="center"/>
       <el-table-column
         :span="4"
         prop="originalPrice"
-        label="设备原值（万元）"/>
+        label="设备原值（万元）"
+        align="center"/>
       <el-table-column
         :span="4"
         prop="monthDepreciation"
-        label="月折旧（万元）"/>
+        label="月折旧（万元）"
+        align="center"/>
       <el-table-column
         :span="4"
         prop="dayDepreciation"
-        label="天折旧（万元）"/>
+        label="天折旧（万元）"
+        align="center"/>
       <el-table-column
         :span="4"
         prop="notes"
-        label="备注"/>
+        label="备注"
+        align="center"/>
       <el-table-column
-        :span="4"
+        width="200"
         fixed="right"
         label="操作"
+        align="center"
       >
         <template slot-scope="scope">
           <el-button
-            type="text"
+            type="primary"
+            icon="el-icon-delete"
             @click.native.prevent="deleteEquip(scope.$index, tableData)"
-          >删除</el-button>
-          <el-button type="text" @click="updateEquip(scope.$index, tableData)">修改</el-button>
+          ></el-button>
+          <el-button type="primary" icon="el-icon-edit" @click="updateEquip(scope.$index, tableData)"></el-button>
         </template>
       </el-table-column>
     </el-table>
