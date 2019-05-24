@@ -3,49 +3,59 @@
     <el-button type="primary" @click="newContract">新增外协合同</el-button>
     <el-table
       :data="tableData"
+      size="mini"
       stripe
       style="width: 100%;height: 100%">
       <el-table-column
         prop="number"
         label="序号"
         fixed
+        align="center"
         :span="1">
       </el-table-column>
       <el-table-column
         prop="reportNum"
         label="审批序号"
+        align="center"
         :span="2"/>
       <el-table-column
         prop="contractName"
         :span="2"
+        align="center"
         label="合同名称"/>
       <el-table-column
       prop="contractName"
       :span="2"
+      align="center"
       label="外协合同名称"/>
       <el-table-column
         prop="signUnit"
         :span="2"
+        align="center"
         label="签署单位"/>
       <el-table-column
         prop="signTimeString"
         :span="2"
+        align="center"
         label="签署时间"/>
       <el-table-column
         prop="price"
         :span="2"
+        align="center"
         label="金额(万元)"/>
 
       <el-table-column
         prop="creater"
         :span="2"
+        align="center"
         label="创建人"/>
       <el-table-column
         prop="notes"
         :span="3"
+        align="center"
         label="备注"/>
       <el-table-column
-        :span="4"
+        width="150"
         label="操作"
         fixed="right"
       >
