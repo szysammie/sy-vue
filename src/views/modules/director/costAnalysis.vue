@@ -25,6 +25,7 @@
       <el-table
         :data="tableData"
         size="mini"
+        show-summary
         style="width: 100%">
         <el-table-column
           fixed
@@ -195,7 +196,9 @@
           amount:[],//成本
           profit:[],//利润
           Visible:false,
-          temp:{}
+          temp:{},
+          oneData:[],
+          oneName:[]
         }
       },
       methods:{
@@ -339,10 +342,10 @@
         },
         //初始化单个成本
         initgccbBox(){
-          var option = option = {
+          var option = {
             title : {
-              text: '某站点用户访问来源',
-              subtext: '纯属虚构',
+              text: '工程成本组成',
+
               x:'center'
             },
             tooltip : {
@@ -352,21 +355,15 @@
             legend: {
               orient: 'vertical',
               left: 'left',
-              data: ['直接访问','邮件营销','联盟广告','视频广告','搜索引擎']
+              data: this.oneName
             },
             series : [
               {
-                name: '访问来源',
+                name: '成本',
                 type: 'pie',
                 radius : '55%',
                 center: ['50%', '60%'],
-                data:[
-                  {value:335, name:'直接访问'},
-                  {value:310, name:'邮件营销'},
-                  {value:234, name:'联盟广告'},
-                  {value:135, name:'视频广告'},
-                  {value:1548, name:'搜索引擎'}
-                ],
+                data:this.oneData,
                 itemStyle: {
                   emphasis: {
                     shadowBlur: 10,
@@ -410,16 +407,21 @@
         analysis(temp){
           this.Visible = true
           this.temp  = {...temp}
-
-          this.initgccbBox()
+          this.getSignData(this.temp.reportNum)
         },
         //获取单个分析数据
-        getSignData(){
+        getSignData(reportNum){
           this.$http({
-
+            url:this.$http.adornUrl('director/analysis/one'),
+            method:'post',
+            data:{
+              'reportNum':reportNum
+            }
           }).then(({data})=>{
             if (data&&data.status==200){
+              this.oneData = data.data
 
+              this.initgccbBox()
             } else{
               this.$message.error(data.message)
             }
@@ -428,7 +430,6 @@
       },
       mounted(){
           this.getCon()
-
       },
       activated () {
         // 由于给echart添加了resize事件, 在组件激活时需要重新resize绘画一次, 否则出现空白bug
