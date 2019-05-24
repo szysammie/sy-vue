@@ -2,9 +2,9 @@
   <div>
     <el-row>
       <el-form ref="searchForm" :model="searchForm" label-width="100px" class="demo-ruleForm">
-        <el-col :span="1">
-          <el-button style="margin-top: 10px;margin-left: 10px" @click="newRow">新增</el-button>
-          <el-dialog :visible.sync="dialogFormVisible1" :modal="false" top="4vh" title="数据字典记录">
+        <el-col :span="2">
+          <el-button type="primary" icon="el-icon-plus" style="margin-top: 10px;margin-left: 10px" @click="newRow">新增</el-button>
+          <el-dialog :visible.sync="dialogFormVisible1"  top="4vh" title="数据字典记录">
             <el-form ref="form" :model="form" label-width="100px" class="demo-ruleForm">
               <el-form-item label="员工姓名" prop="staffName">
                 <el-input v-model="form.staffName"/>
@@ -32,7 +32,7 @@
           </el-dialog>
         </el-col>
         <el-col :span="1">
-          <el-button style="margin-left: 40px;margin-top:10px" @click="deleteAll">批量删除</el-button>
+          <el-button type="primary" icon="el-icon-delete" style="margin-left: 40px;margin-top:10px" @click="deleteAll">批量删除</el-button>
           <el-dialog
             title="批量删除"
             :visible.sync="deleteDialogAll"
@@ -44,19 +44,19 @@
             </span>
           </el-dialog>
         </el-col>
-        <el-col :span="6" :offset="5" style="margin-top: 10px">
+        <el-col :span="6" :offset="3" style="margin-top: 10px">
           <el-form-item label="员工姓名：" prop="staffName">
             <el-input v-model="searchForm.staffName"/>
           </el-form-item>
         </el-col>
-        <el-col :span="1">
+        <el-col :span="2">
           <el-form-item>
-            <el-button style="margin-left: -70px;margin-top: 10px" @click="search">查找</el-button>
+            <el-button icon="el-icon-search" type="primary" style="margin-left: -70px;margin-top: 10px" @click="search">查找</el-button>
           </el-form-item>
         </el-col>
         <el-col :span="1">
           <el-form-item>
-            <el-button type="file" style="margin-left: -45px;margin-top: 10px" @click="fileUploadDialog = true">导入员工信息(excle表)</el-button>
+            <el-button type="file" style="margin-left: -35px;margin-top: 10px" @click="fileUploadDialog = true">导入<i class="el-icon-upload el-icon--right"></i></el-button>
           </el-form-item>
         </el-col>
       </el-form>
@@ -69,40 +69,41 @@
       @selection-change="handleSelectionChange">
       <el-table-column
         :span="2"
+        align="center"
         type="selection"/>
       <el-table-column
         :span="4"
+        align="center"
         prop="staffName"
         label="员工姓名"/>
       <el-table-column
         :span="4"
+        align="center"
         prop="staffTypeString"
         label="员工类型"/>
       <el-table-column
         :span="4"
+        align="center"
         prop="departmentString"
         label="所属科室"/>
       <el-table-column
         :span="4"
+        align="center"
         prop="notes"
         label="备注"/>
       <el-table-column
-        :span="4"
+        width="180"
         fixed="right"
         label="操作"
       >
         <template slot-scope="scope">
-          <el-button
-            type="text"
-            @click.native.prevent="deleteRow(scope.$index, tableData)"
-          >删除</el-button>
-          <el-button type="text" @click="updateRow(scope.$index, tableData)">修改</el-button>
+          <el-button type="primary" icon="el-icon-delete" @click.native.prevent="deleteRow(scope.$index, tableData)"></el-button>
+          <el-button type="primary" icon="el-icon-edit" @click="updateRow(scope.$index, tableData)"></el-button>
         </template>
       </el-table-column>
     </el-table>
     <el-dialog
       :visible.sync="centerDialogVisible"
-      :modal="false"
       title="提示"
       width="30%"
       center>
@@ -112,7 +113,7 @@
         <el-button type="primary" @click="confirmDelete">确 定</el-button>
       </span>
     </el-dialog>
-    <el-dialog :visible.sync="dialogFormVisible" :modal="false" top="4vh" title="数据字典记录">
+    <el-dialog :visible.sync="dialogFormVisible"  top="4vh" title="数据字典记录">
       <el-form ref="form" :model="form" label-width="100px" class="demo-ruleForm">
         <el-form-item label="员工姓名" prop="staffName">
           <el-input v-model="form.staffName"/>

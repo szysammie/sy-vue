@@ -1,8 +1,8 @@
 <template>
   <div>
     <el-row>
-      <el-form ref="searchForm" :model="searchForm" label-width="100px" class="demo-ruleForm">
-        <el-col :span="6">
+      <el-form ref="searchForm" :model="searchForm" label-width="80px" class="demo-ruleForm">
+        <el-col :span="5">
           <el-form-item label="类别" prop="department">
             <el-select v-model="searchForm.department" placeholder="科室">
               <el-option v-for="(department,index) in departments" :label="department.label" :key="index" :value="department.value"/>
@@ -29,9 +29,9 @@
             <el-input v-model="searchForm.contractName"/>
           </el-form-item>
         </el-col>
-        <el-col :span="4">
+        <el-col :span="2" style="margin-left: -40px">
           <el-form-item>
-            <el-button @click="search">查找</el-button>
+            <el-button type="primary" icon="el-icon-search" @click="search">搜索</el-button>
           </el-form-item>
         </el-col>
       </el-form>
@@ -41,63 +41,73 @@
       style="width: 100%; height: 100%;"
       stripe>
       <el-table-column
-        :span="4"
+        width="120"
         fixed
+        align="center"
         prop="number"
         label="序号"
       />
       <el-table-column
-        :span="4"
+        width="120"
         prop="reportNum"
         label="审批序号"
       />
       <el-table-column
-        :span="4"
+        width="120"
         prop="contractName"
         label="合同名称"
       />
       <el-table-column
-        :span="4"
+        width="120"
         prop="contractPerson"
         label="合同相对人"
       />
       <el-table-column
-        :span="4"
-        fixed
+        width="120"
         prop="departmentString"
         label="科室"
       />
       <el-table-column
-        :span="4"
+        width="140"
         prop="contractAmount"
         label="合同金额（万元）"
       />
       <el-table-column
-        :span="4"
+        width="120"
         prop="manageCost"
         label="管理费（万元）"
       />
       <el-table-column
-        :span="4"
+        width="120"
         prop="beginDateString"
         label="开始时间"
       />
       <el-table-column
-        :span="4"
+        width="120"
         prop="endDateString"
         label="结束时间"
       />
       <el-table-column
-        :span="4"
+        width="120"
+        prop="creater"
+        label="创建人"
+      />
+      <el-table-column
+        width="120"
+        prop="notes"
+        label="备注"
+      />
+      <el-table-column
+        width="120"
         fixed="right"
         label="操作"
       >
         <template slot-scope="scope">
-          <el-button type="text" @click="updateRow(scope.$index, tableData)">修改</el-button>
+          <el-button type="primary" icon="el-icon-edit" @click="updateRow(scope.$index, tableData)">修改</el-button>
         </template>
       </el-table-column>
     </el-table>
-    <el-dialog :visible.sync="dialogFormVisible" :modal="false" top="4vh" title="数据字典记录" :append-to-body="true">
+    <el-dialog :visible.sync="dialogFormVisible"  top="4vh" title="数据字典记录" :append-to-body="true">
       <el-form ref="form" :model="form" label-width="100px" class="demo-ruleForm">
         <el-form-item label="报审序号" prop="reportNum">
           <el-input v-model="form.reportNum"/>
@@ -189,8 +199,6 @@ export default {
         this.tableData = res.data.data
         for (let i = 0; i < this.tableData.length; i++) {
           this.tableData[i].number = i + 1
-          this.tableData[i].contractAmount = this.tableData[i].contractAmount/10000
-          this.tableData[i].manageCost = this.tableData[i].manageCost/10000
         }
       }).catch(()=>{
         alert('网络开小差了，请稍后再试')
@@ -220,12 +228,12 @@ export default {
       this.form.reportNum = rows[index].reportNum
       this.form.projectId = rows[index].projectId
       this.form.workLoad = rows[index].workLoad
-      this.form.contractAmount = rows[index].contractAmount/10000
+      this.form.contractAmount = rows[index].contractAmount
       this.form.contractPerson = rows[index].contractPerson
       this.form.contractName = rows[index].contractName
       this.form.beginDateString = rows[index].beginDateString
       this.form.endDateString = rows[index].endDateString
-      this.form.manageCost = rows[index].manageCost/10000
+      this.form.manageCost = rows[index].manageCost
       this.form.department = rows[index].department
       this.form.creater = rows[index].creater
       this.form.notes = rows[index].notes

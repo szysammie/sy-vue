@@ -3,81 +3,91 @@
     <el-table
       :data="tableData"
       style="width: 100%;height: 100%"
+      :border="true"
       stripe>
       <el-table-column
         fixed
         prop="number"
         label="序号"
-        :span="2"
+        align="center"
+        width="80"
       >
       </el-table-column>
       <el-table-column
         prop="uid"
         label="用户名"
-        :span="2"
+        align="center"
+        width="120"
       >
       </el-table-column>
       <el-table-column
         prop="name"
         label="姓名"
-        :span="2"
+        align="center"
+        width="120"
       >
       </el-table-column>
       <el-table-column
         prop="departmentString"
         label="部门"
-        :span="2"
+        width="120"
+        align="center"
       >
       </el-table-column>
       <el-table-column
         prop="roleString"
         label="角色"
-        :span="2"
+        align="center"
+        width="120"
       >
       </el-table-column>
       <el-table-column
         prop="staffTypeString"
         label="员工类型"
-        :span="2"
+        align="center"
+        width="120"
       >
       </el-table-column>
       <el-table-column
         prop="phone"
+        align="center"
         label="电话"
-        :span="4"
+        width="120"
       >
       </el-table-column>
       <el-table-column
         prop="email"
         label="邮箱"
-        :span="4"
+        align="center"
+        width="140"
       >
       </el-table-column>
       <el-table-column
         prop="isEquipChecker"
         label="设备审核员"
-        :span="4"
+        width="120"
+        align="center"
       >
       </el-table-column>
       <el-table-column
         prop="isMaterialChecker"
         label="材料审核员"
-        :span="4"
+        width="120"
+        align="center"
       >
       </el-table-column>
       <el-table-column
         fixed="right"
         label="操作"
-        :span="8"
+        width="160"
       >
         <template slot-scope="scope">
-          <el-button type="text" @click.native.prevent="deleteRow(scope.$index, tableData)"
-          >删除</el-button>
-          <el-button type="text" @click.native.prevent="updateRow(scope.$index, tableData)">用户管理</el-button>
+          <el-button type="primary" icon="el-icon-delete" @click.native.prevent="deleteRow(scope.$index, tableData)" ></el-button>
+          <el-button type="primary" icon="el-icon-edit" @click.native.prevent="updateRow(scope.$index, tableData)"></el-button>
         </template>
       </el-table-column>
     </el-table>
-    <el-dialog title="数据字典记录" :visible.sync="dialogFormVisible" :modal="false" :append-to-body="true">
+    <el-dialog title="数据字典记录" :visible.sync="dialogFormVisible"  :append-to-body="true">
       <el-form :model="form" ref="form" label-width="100px" class="demo-ruleForm">
         <el-form-item label="权限设置">
           <el-checkbox-group v-model="form.isEquipChecker">
@@ -101,7 +111,6 @@
       :visible.sync="centerDialogVisible"
       width="30%"
       center
-      :modal="false"
       :append-to-body="true">
       <span>您是否确认删除</span>
       <span slot="footer" class="dialog-footer">

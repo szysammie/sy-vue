@@ -9,59 +9,67 @@
         fixed
         prop="number"
         label="序号"
-        :span="2"
+        width="80"
+        align="center"
       >
       </el-table-column>
       <el-table-column
         prop="uid"
         label="用户名"
-        :span="2"
+        width="120"
+        align="center"
       >
       </el-table-column>
       <el-table-column
         prop="name"
         label="姓名"
-        :span="2"
+        width="140"
+        align="center"
       >
       </el-table-column>
       <el-table-column
         prop="departmentString"
         label="部门"
-        :span="2"
+        width="120"
+        align="center"
       >
       </el-table-column>
       <el-table-column
         prop="roleString"
         label="角色"
-        :span="2"
+        width="130"
+        align="center"
       >
       </el-table-column>
       <el-table-column
         prop="staffTypeString"
         label="员工类型"
-        :span="4"
+        width="120"
+        align="center"
       >
       </el-table-column>
       <el-table-column
         prop="phone"
         label="电话"
-        :span="4"
+        width="130"
+        align="center"
       >
       </el-table-column>
       <el-table-column
         prop="email"
         label="邮箱"
-        :span="4"
+        width="140"
+        align="center"
       >
       </el-table-column>
       <el-table-column
         fixed="right"
         label="操作"
-        :span="8"
+        width="160"
       >
         <template slot-scope="scope">
-          <el-col :span="6"><el-button @click.native.prevent="examineUser(scope.$index, tableData,1)">通过</el-button></el-col>
-          <el-col :span="6" style="margin-left: 40px"><el-button @click.native.prevent="examineUser(scope.$index, tableData, 0)">拒绝</el-button></el-col>
+          <el-col :span="6"><el-button type="primary" @click.native.prevent="examineUser(scope.$index, tableData,1)">通过</el-button></el-col>
+          <el-col :span="6" style="margin-left: 40px"><el-button type="primary" @click.native.prevent="examineUser(scope.$index, tableData, 0)">拒绝</el-button></el-col>
         </template>
       </el-table-column>
     </el-table>

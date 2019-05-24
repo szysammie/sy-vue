@@ -1,7 +1,7 @@
 <template>
   <div>
-    <el-button @click="newRow()" style="margin-top: 10px;margin-left: 20px">新增</el-button>
-    <el-dialog title="数据字典记录" :visible.sync="dialogFormVisible1" :modal="false">
+    <el-button type="primary" icon="el-icon-plus" @click="newRow()" style="margin-left: 20px;margin-bottom: 10px">新增</el-button>
+    <el-dialog title="数据字典记录" :visible.sync="dialogFormVisible1" >
       <el-form :model="form" ref="form" label-width="100px" class="demo-ruleForm">
         <el-form-item label="编码" prop="code">
           <el-input v-model="form.code"></el-input>
@@ -32,10 +32,12 @@
       <el-table
         :data="tableData"
         style="width: 100%;height: 100%"
+        :border="true"
         stripe>
         <el-table-column
           fixed
           prop="number"
+          align="center"
           label="序号"
           :span="4"
           >
@@ -43,24 +45,28 @@
         <el-table-column
           prop="code"
           label="编码"
+          align="center"
           :span="4"
         >
         </el-table-column>
         <el-table-column
           prop="type"
           label="类别"
+          align="center"
           :span="4"
         >
         </el-table-column>
         <el-table-column
           prop="description"
           label="描述"
+          align="center"
           :span="4"
         >
         </el-table-column>
         <el-table-column
           prop="val"
           label="取值"
+          align="center"
           :span="4"
         >
         </el-table-column>
@@ -70,9 +76,8 @@
           :span="4"
         >
           <template slot-scope="scope">
-            <el-button type="text" @click.native.prevent="deleteRow(scope.$index, tableData)"
-            >删除</el-button>
-            <el-button type="text" @click="updateRow(scope.$index, tableData)">修改</el-button>
+            <el-button type="primary" icon="el-icon-delete"  @click.native.prevent="deleteRow(scope.$index, tableData)"></el-button>
+            <el-button type="primary" icon="el-icon-edit" @click="updateRow(scope.$index, tableData)"></el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -81,7 +86,7 @@
       :visible.sync="centerDialogVisible"
       width="30%"
       center
-      :modal="false"
+
       :append-to-body="true">
       <span>您是否确认删除</span>
       <span slot="footer" class="dialog-footer">
@@ -89,7 +94,7 @@
         <el-button type="primary" @click="confirmDelete">确 定</el-button>
       </span>
     </el-dialog>
-    <el-dialog title="数据字典记录" :visible.sync="dialogFormVisible" :modal="false" :append-to-body="true">
+    <el-dialog title="数据字典记录" :visible.sync="dialogFormVisible"  :append-to-body="true">
       <el-form :model="form" ref="form" label-width="100px" class="demo-ruleForm">
         <el-form-item label="编码" prop="code">
           <el-input v-model="form.code" :disabled="true"></el-input>
