@@ -201,7 +201,7 @@ export default {
           this.tableData[i].number = i + 1
         }
       }).catch(()=>{
-        alert('网络开小差了，请稍后再试')
+        this.$message.error('网络开小差了，请稍后再试')
       })
     },
     // 查询（查找返回的日期没做处理）
@@ -258,14 +258,14 @@ export default {
         })
       }).then(res => {
         if(res.data.status == '204'){
-          alert(res.data.message)
+          this.$message.success(res.data.message)
           this.getProject()
         }else{
-          alert(res.data.msg)
+          this.$message.warning(res.data.msg)
         }
         this.dialogFormVisible = false
       }).catch(()=>{
-        alert('网络开小差了，请稍后再试')
+        this.$message.error('网络开小差了，请稍后再试')
       })
     },
     //动态获取科室

@@ -152,7 +152,6 @@
         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
       </el-upload>
     </el-dialog>
-
   </div>
 </template>
 
@@ -198,7 +197,7 @@ export default {
           this.tableData[i].number = i + 1
         }
       }).catch(()=>{
-        alert('网络开小差了，请稍后再试')
+        this.$message.error('网络开小差了，请稍后再试')
       })
     },
     // 用户点击新增
@@ -224,14 +223,14 @@ export default {
       }).then(res => {
         if(res.data.status== '201'){
           this.getStaff()
-          alert(res.data.message)
+          this.$message.success(res.data.message)
         }
         else{
-          alert(res.data.msg)
+          this.$message.warning(res.data.msg)
         }
         this.dialogFormVisible1 = false
       }).catch(()=>{
-        alert('网络开小差了，请稍后再试')
+        this.$message.error('网络开小差了，请稍后再试')
       })
     },
     // 查询
@@ -245,9 +244,9 @@ export default {
       }).then(res => {
         if(res.data.data.length>0){
           this.tableData = res.data.data
-          alert('查询成功')
+          this.$message.success('查询成功')
         }else if(res.data.data.length == 0){
-          alert('未查询到此人')
+          this.$message.warning('未查询到此人')
           this.tableData = res.data.data
         }
       })
@@ -265,13 +264,13 @@ export default {
       }).then(res => {
         if(res.data.status=='204'){
           this.getStaff()
-          alert(res.data.message)
+          this.$message.success(res.data.message)
         }else{
-          alert(res.data.msg)
+          this.$message.warning(res.data.msg)
         }
         this.centerDialogVisible = false
       }).catch(()=>{
-        alert('网络开小差了，请稍后再试')
+        this.$message.error('网络开小差了，请稍后再试')
       })
     },
     // 用户点击修改
@@ -298,13 +297,13 @@ export default {
       }).then(res => {
         if(res.data.status=='204'){
           this.getStaff()
-          alert(res.data.message)
+          this.$message.success(res.data.message)
         }else{
-          alert(res.data.msg)
+          this.$message.warning(res.data.msg)
         }
         this.dialogFormVisible = false
       }).catch(()=>{
-        alert('网络开小差了，请稍后再试')
+        this.$message.error('网络开小差了，请稍后再试')
       })
     },
     // 批量选择操作
@@ -314,7 +313,7 @@ export default {
     //点击批量删除
     deleteAll(){
       if(this.multipleSelection.length == '0'){
-        alert('请选择您要删除的选项')
+        this.$message.warning('请选择您要删除的选项')
       }else{
         this.deleteDialogAll = true
         for(let i =0 ;i<this.multipleSelection.length;i++){
@@ -333,13 +332,13 @@ export default {
       }).then(res=>{
         if(res.data.status == '204'){
           this.getStaff()
-          alert(res.data.message)
+          this.$message.success(res.data.message)
         }else{
-          alert(res.data.msg)
+          this.$message.warning(res.data.msg)
         }
         this.deleteDialogAll = false
       }).catch(()=>{
-        alert('网络开小差了，请稍后再试')
+        this.$message.error('网络开小差了，请稍后再试')
       })
     },
     //导入excle
@@ -352,11 +351,11 @@ export default {
         data:fd
       }).then(res=>{
         if(res.data.status == '201'){
-          alert('上传成功')
+          this.$message.success('上传成功')
           this.fileUploadDialog = false
           this.getStaff()
         }else{
-          alert(res.data.msg)
+          this.$message.warning(res.data.msg)
         }
       })
       return false

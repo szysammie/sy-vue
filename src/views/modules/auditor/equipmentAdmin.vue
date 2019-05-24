@@ -207,7 +207,7 @@
             this.tableData[i].number = i + 1
           }
         }).catch(()=>{
-          alert('网络开小差了，请稍后再试')
+          this.$message.error('网络开小差了，请稍后再试')
         })
       },
       //点击新增设备按钮
@@ -235,10 +235,10 @@
           })
         }).then(res=>{
           if(res.data.status == '201'){
-            alert(res.data.message)
+            this.$message.success(res.data.message)
             this.getEquip()
           }else{
-            alert(res.data.msg)
+            this.$message.warning(res.data.msg)
           }
           this.newEquipDialog  = false
         })
@@ -264,9 +264,9 @@
                 this.tableData[i].checkStatus = '审核未通过'
               }
             }
-            alert('查询成功')
+            this.$message.success('查询成功')
           }else if(res.data.data.length == 0){
-            alert('未查询到')
+            this.$message.warning('未查询到')
             this.tableData = res.data.data
           }
         })
@@ -283,10 +283,10 @@
           method:'delete'
         }).then(res=>{
           if(res.data.status == '204'){
-            alert(res.data.message)
+            this.$message.success(res.data.message)
             this.getEquip()
           }else{
-            alert(res.data.message)
+            this.$message.warning(res.data.message)
           }
           this.deleteEquipDialog = false
         })
@@ -319,9 +319,9 @@
         }).then(res=>{
           if(res.data.status =='204'){
             this.getEquip()
-            alert(res.data.message)
+            this.$message.success(res.data.message)
           }else{
-            alert(res.data.msg)
+            this.$message.warning(res.data.msg)
           }
           this.updateEquipDialog = false
         })
@@ -336,11 +336,11 @@
           data:fd
         }).then(res=>{
           if(res.data.status == '201'){
-            alert('上传成功')
+            this.$message.success('上传成功')
             this.fileUploadDialog = false
             this.getEquip()
           }else{
-            alert(res.data.msg)
+            this.$message.warning(res.data.msg)
           }
         })
         return false

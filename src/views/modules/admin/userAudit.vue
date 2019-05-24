@@ -99,7 +99,7 @@
             this.tableData[i].number = i+1
           }
         }).catch(()=>{
-          alert('网络开小差了，请稍后再试')
+          this.$message.error('网络开小差了，请稍后再试')
         })
       },
       //用户审核
@@ -110,13 +110,13 @@
         }).then(res=>{
           if(res.data.status == '200'){
             this.getUserAudit()
-            alert(res.data.message)
+            this.$message.success(res.data.message)
           }
           else {
-            alert(res.data.msg)
+            this.$message.warning(res.data.msg)
           }
         }).catch(()=>{
-          alert('网络开小差了，请稍后再试')
+          this.$message.error('网络开小差了，请稍后再试')
         })
       },
 

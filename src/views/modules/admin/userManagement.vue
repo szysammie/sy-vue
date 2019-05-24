@@ -154,7 +154,7 @@
             this.tableData[i].isMaterialChecker == '0' ? this.tableData[i].isMaterialChecker ='否':this.tableData[i].isMaterialChecker = '是'
           }
         }).catch(()=>{
-          alert('网络开小差了，请稍后再试')
+          this.$message.error('网络开小差了，请稍后再试')
         })
       },
       //用户点击删除
@@ -171,13 +171,13 @@
         }).then(res=>{
           if(res.data.status=='204'){
             this.getUser()
-            alert(res.data.message)
+            this.$message.success(res.data.message)
           }else{
-            alert(res.data.msg)
+            this.$message.warning(res.data.msg)
           }
           this.centerDialogVisible = false
         }).catch(()=>{
-          alert('网络开小差了，请稍后再试')
+          this.$message.error('网络开小差了，请稍后再试')
         })
       },
       //重置密码(500)
@@ -187,14 +187,14 @@
           method:'post'
         }).then(res=>{
             if(res.data.status == '204'){
-              alert(res.data.message)
+              this.$message.success(res.data.message)
             }
             else {
-              alert(res.data.msg)
+              this.$message.warning(res.data.msg)
             }
           this.dialogFormVisible = false
         }).catch(()=>{
-          alert('网络开小差了，请稍后再试')
+          this.$message.error('网络开小差了，请稍后再试')
         })
       },
       //用户点击修改
@@ -234,14 +234,14 @@
           method:'post',
         }).then(res=>{
           if(res.data.status =='200'){
-            alert(res.data.message)
+            this.$message.success(res.data.message)
             this.getUser()
           }else{
-            alert(res.data.msg)
+            this.$message.warning(res.data.msg)
           }
           this.dialogFormVisible = false
         }).catch(()=>{
-          alert('网络开小差了，请稍后再试')
+          this.$message.error('网络开小差了，请稍后再试')
         })
       },
     },

@@ -171,13 +171,13 @@
         }).then(res=>{
           if(res.data.status=='204'){
             this.getSystemParam()
-            alert(res.data.message)
+            this.$message.success(res.data.message)
           }else{
-            alert(res.data.msg)
+            this.$message.warning(res.data.msg)
           }
           this.centerDialogVisible = false
         }).catch(()=>{
-          alert('网络开小差了，请稍后再试')
+          this.$message.error('网络开小差了，请稍后再试')
         })
       },
       //用户点击修改
@@ -202,14 +202,14 @@
           })
         }).then(res=>{
             if(res.data.status =='204'){
-              alert(res.data.message)
+              this.$message.success(res.data.message)
               this.getSystemParam()
             }else{
-              alert(res.data.msg)
+              this.$message.warning(res.data.msg)
             }
           this.dialogFormVisible = false
         }).catch(()=>{
-          alert('网络开小差了，请稍后再试')
+          this.$message.error('网络开小差了，请稍后再试')
         })
       },
       //用户点击新增（记录已存在）
@@ -235,14 +235,14 @@
         }).then(res=>{
           if(res.data.status == '201'){
             this.getSystemParam()
-            alert(res.data.message)
+            this.$message.success(res.data.message)
           }
           else{
-            alert(res.data.msg)
+            this.$message.warning(res.data.msg)
           }
           this.dialogFormVisible1 = false
         }).catch(()=>{
-          alert('网络开小差了，请稍后再试')
+          this.$message.error('网络开小差了，请稍后再试')
         })
       },
     },

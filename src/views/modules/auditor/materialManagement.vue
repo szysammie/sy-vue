@@ -241,9 +241,9 @@ export default {
       }).then(res=>{
         if(res.data.status =='204'){
           this.getMaterial()
-          alert(res.data.message)
+          this.$message.success(res.data.message)
         }else{
-          alert(res.data.msg)
+          this.$message.warning(res.data.msg)
         }
         this.updateMaterialDialog = false
       })
@@ -275,10 +275,10 @@ export default {
         })
       }).then(res=>{
         if(res.data.status == '201'){
-          alert(res.data.message)
+          this.$message.success(res.data.message)
           this.getMaterial()
         }else{
-          alert(res.data.msg)
+          this.$message.warning(res.data.msg)
         }
         this.newMaterialDialog = false
       })
@@ -296,9 +296,9 @@ export default {
           for(let i = 0 ; i<this.tableData.length ;i++){
             this.tableData[i].number = i+1
           }
-          alert('查询成功')
+          this.$message.success('查询成功')
         }else if(res.data.data.length == 0){
-          alert('未查询到')
+          this.$message.warning('未查询到')
           this.tableData = res.data.data
         }
       })
@@ -315,10 +315,10 @@ export default {
         method:'delete'
       }).then(res=>{
         if(res.data.status == '204'){
-          alert(res.data.message)
+          this.$message.success(res.data.message)
           this.getMaterial()
         }else{
-          alert(res.data.message)
+          this.$message.warning(res.data.message)
         }
         this.deleteMaterialDialog = false
       })
@@ -333,11 +333,11 @@ export default {
         data:fd
       }).then(res=>{
         if(res.data.status == '201'){
-          alert('上传成功')
+          this.$message.success('上传成功')
           this.fileUploadDialog = false
           this.getMaterial()
         }else{
-          alert(res.data.msg)
+          this.$message.warning(res.data.msg)
         }
       })
       return false

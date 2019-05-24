@@ -1512,9 +1512,9 @@
           }).then(res=>{
             if(res.data.status=='204'){
               this. personDataGet()
-              alert(res.data.message)
+              this.$message.success(res.data.message)
             }else{
-              alert(res.data.msg)
+              this.$message.warning(res.data.msg)
             }
             this.dialogPerson = false
           })
@@ -1556,10 +1556,10 @@
           }).then(res=>{
             if(res.data.status == '204'){
               this.personDataGet()
-              alert(res.data.message)
+              this.$message.success(res.data.message)
             }
             else{
-              alert(res.data.msg)
+              this.$message.warning(res.data.msg)
             }
             this.updatePersonDialog = false
           })
@@ -1576,9 +1576,9 @@
             method:'put'
           }).then(res=>{
             if (res.data.status=='204'){
-              alert(res.data.message)
+              this.$message.success(res.data.message)
             }else{
-              alert(res.data.msg)
+              this.$message.warning(res.data.msg)
             }
             this.dialogPersonEnd = false
           })
@@ -1629,10 +1629,10 @@
               })
             }).then(res=>{
               if(res.data.status == '201'){
-                alert(res.data.message)
+                this.$message.success(res.data.message)
                 this.personDataGet()
               }else{
-                alert(res.data.msg)
+                this.$message.warning(res.data.msg)
               }
               this.newPersonDialog = false
             })
@@ -1726,10 +1726,10 @@
             })
           }).then(res=>{
               if(res.data.status =='201'){
-                alert(res.data.message)
+                this.$message.success(res.data.message)
                 this.vehicleDataGet()
               }else{
-                alert(res.data.msg)
+                this.$message.warning(res.data.msg)
               }
             this.newVehicleDialog =false
           })
@@ -1746,10 +1746,10 @@
             method:'delete'
           }).then(res=>{
             if(res.data.status=='204'){
-              alert('删除成功')
+              this.$message.success('删除成功')
               this.vehicleDataGet()
             }else{
-              alert(res.data.msg)
+              this.$message.warning(res.data.msg)
             }
             this.dialogVehicle = false
           })
@@ -1792,10 +1792,10 @@
             })
           }).then(res=>{
             if(res.data.status == '204'){
-              alert(res.data.message)
+              this.$message.success(res.data.message)
               this.vehicleDataGet()
             }else{
-              alert(res.data.msg)
+              this.$message.warning(res.data.msg)
             }
             this.updateVehicleDialog = false
           })
@@ -1812,11 +1812,11 @@
             method:'put'
           }).then(res=>{
             if(res.data.status == '400'){
-              alert(res.data.msg)
+              this.$message.success(res.data.msg)
             }else if(res.data.status == '204'){
-              alert(res.data.message)
+              this.$message.warning(res.data.message)
             }else{
-              alert(res.data.msg)
+              this.$message.error(res.data.msg)
             }
             this.vehicleEndDialog = false
           })
@@ -1925,10 +1925,10 @@
             })
           }).then(res=>{
             if(res.data.status =='201'){
-              alert(res.data.message)
+              this.$message.success(res.data.message)
               this.equipmentDataGet()
             }else{
-              alert(res.data.msg)
+              this.$message.success(res.data.msg)
             }
             this.newEquipmentDialog = false
           })
@@ -1945,10 +1945,10 @@
             method:'delete'
           }).then(res=>{
             if(res.data.status == '204'){
-              alert(res.data.message)
+              this.$message.success(res.data.message)
               this.equipmentDataGet()
             }else{
-              alert(res.data.msg)
+              this.$message.warning(res.data.msg)
             }
             this.dialogEquipment = false
           })
@@ -1988,10 +1988,10 @@
             })
           }).then(res=>{
             if(res.data.status == '204'){
-              alert(res.data.message)
+              this.$message.success(res.data.message)
               this.equipmentDataGet()
             }else{
-              alert(res.data.msg)
+              this.$message.warning(res.data.msg)
             }
             this.updateEquipmentDialog = false
           })
@@ -2011,9 +2011,9 @@
             })
           }).then(res=>{
             if(res.data.status =='201'){
-              alert(res.data.message)
+              this.$message.success(res.data.message)
             }else{
-              alert(res.data.msg)
+              this.$message.warning(res.data.msg)
             }
             this.equipmentEndDialog = false
           })
@@ -2133,10 +2133,10 @@
             })
           }).then(res=>{
             if(res.data.status == '201'){
-              alert(res.data.message)
+              this.$message.success(res.data.message)
               this.materialDataGet()
             }else{
-              alert(res.data.msg)
+              this.$message.warning(res.data.msg)
             }
             this.newMaterialDialog = false
           })
@@ -2154,9 +2154,9 @@
           }).then(res=>{
             if(res.data.status=='204'){
               this.materialDataGet()
-              alert(res.data.message)
+              this.$message.success(res.data.message)
             }else{
-              alert(res.data.msg)
+              this.$message.warning(res.data.msg)
             }
             this.deleteMaterialDialog = false
           })
@@ -2205,10 +2205,10 @@
             })
           }).then(res=>{
             if(res.data.status == '204'){
-              alert(res.data.message)
+              this.$message.success(res.data.message)
               this.materialDataGet()
             }else {
-              alert(res.data.msg)
+              this.$message.warning(res.data.msg)
             }
             this.updateMaterialDialog = false
           })
@@ -2255,11 +2255,11 @@
             })
           }).then(res=>{
             if(res.data.status == '201'){
-              alert(res.data.message)
+              this.$message.success(res.data.message)
               this.otherDataGet()
             }
             else{
-              alert(res.data.msg)
+              this.$message.warning(res.data.msg)
             }
             this.newOtherDialog = false
           })
@@ -2276,10 +2276,10 @@
             method:'delete',
           }).then(res=>{
             if(res.data.status == '204'){
-              alert(res.data.message)
+              this.$message.success(res.data.message)
               this.otherDataGet()
             }else{
-              alert(res.data.msg)
+              this.$message.warning(res.data.msg)
             }
             this.deleteOtherDialog = false
           })
@@ -2316,11 +2316,11 @@
             })
           }).then(res=>{
             if(res.data.status == '204'){
-              alert(res.data.message)
+              this.$message.success(res.data.message)
               this.otherDataGet()
             }
             else{
-              alert(res.data.msg)
+              this.$message.warning(res.data.msg)
             }
             this.updateOtherDialog = false
           })

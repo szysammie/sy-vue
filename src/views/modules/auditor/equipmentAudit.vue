@@ -178,9 +178,9 @@
                 this.tableData[i].checkStatus = '审核未通过'
               }
             }
-            alert('查询成功')
+            this.$message.success('查询成功')
           }else if(res.data.data.length == 0){
-            alert('未查询到')
+            this.$message.warning('未查询到')
             this.tableData = res.data.data
           }
         })
@@ -204,10 +204,10 @@
           })
         }).then(res=>{
           if(res.data.status == '201'){
-            alert(res.data.message)
+            this.$message.success(res.data.message)
             this.getEquip()
           }else{
-            alert(res.data.msg)
+            this.$message.warning(res.data.msg)
           }
           this.examineEquipDialog =false
         })
