@@ -135,8 +135,11 @@
               data:this.$http.adornData(this.ruleForm)
             }).then(res=>{
               if(res.data.status == '200'){
-                alert('注册成功')
+                this.$message.success('注册成功')
                 this.$router.replace({name:'login'})
+              }else{
+                this.$message.error(res.data.msg)
+                return false;
               }
             })
           } else {
