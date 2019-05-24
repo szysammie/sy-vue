@@ -6,6 +6,7 @@
         stripe
         @select="approval"
         @select-all="approval"
+        szie="mini"
         style="width: 100%; height: 100%;">
         <el-table-column
           type="selection"
@@ -15,6 +16,7 @@
           prop="number"
           label="序号"
           :span="1"
+          align="center"
           fixed
         >
         </el-table-column>
@@ -22,60 +24,70 @@
           prop="department"
           label="科室"
           :span="2"
+          align="center"
         />
 
         <el-table-column
           prop="reportNum"
           label="审批序号"
           :span="2"
+          align="center"
         />
 
         <el-table-column
           prop="contractName"
           label="合同名称"
-          :span="4"
+          :span="2"
+          align="center"
         />
 
-
         <el-table-column
-          :span="1"
+          :span="2"
           prop="beginDateString"
           label="出差日期"
+          align="center"
         />
         <el-table-column
-          :span="1"
+          :span="2"
           prop="endDateString"
           label="结束时间"
+          align="center"
         />
         <el-table-column
           :span="2"
           prop="staffName"
           label="出差人员"
+          align="center"
         />
         <el-table-column
         :span="4"
         prop="dayPay"
         label="工资(万元/天)"
+        align="center"
       />
         <el-table-column
           :span="2"
           prop="pay"
           label="工资(万元)"
+          align="center"
         />
         <el-table-column
           :span="2"
           prop="unitPrice"
           label="差旅费(万元/天)"
+          align="center"
         />
         <el-table-column
           :span="2"
           prop="amount"
           label="差旅费(万元)"
+          align="center"
         />
         <el-table-column
           :span="2"
           prop="groupNum"
           label="所属小组"
+          align="center"
         >
 
         </el-table-column>
@@ -83,26 +95,31 @@
           :span="2"
           prop="creater"
           label="申请人"
+          align="center"
         />
         <el-table-column
           :span="2"
           prop="notes"
           label="备注"
+          align="center"
         />
         <el-table-column
           :span="2"
           prop="auditPerson"
           label="审核人"
+          align="center"
         />
         <el-table-column
           :span="2"
           prop="checkStatus"
           label="审核结果"
+          align="center"
         />
         <el-table-column
           :span="2"
           prop="auditOpinion"
           label="审核意见"
+          align="center"
         />
         <el-table-column
           :span="5"

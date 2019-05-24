@@ -53,74 +53,87 @@
     <el-table
     :data="project"
     stripe
+    size="mini"
     style="width: 100%; height: 100%;">
     <el-table-column
       prop="number"
       label="序号"
       :span="1"
       fixed
+      align="center"
     >
     </el-table-column>
     <el-table-column
       prop="reportNum"
       label="审批序号"
       :span="2"
+      align="center"
     />
 
     <el-table-column
       prop="contractName"
       label="合同名称"
       :span="2"
+      align="center"
     />
 
     <el-table-column
       prop="contractPerson"
       label="合同相对人"
       :span="1"
+      align="center"
     />
 
     <el-table-column
       :span="2"
       prop="contractAmount"
       label="金额（万元）"
+      align="center"
     />
     <el-table-column
       :span="1"
       prop="departmentString"
       label="所属科室"
+      align="center"
     />
     <el-table-column
       :span="2"
       prop="workLoad"
       label="累计（万元）"
+      align="center"
     />
     <el-table-column
-      :span="2"
+      :span="4"
       prop="manageCost"
       label="管理费（万元）"
+      align="center"
     />
     <el-table-column
       :span="1"
       prop="beginDateString"
       label="开始时间"
+      align="center"
     />
     <el-table-column
       :span="1"
       prop="endDateString"
       label="结束时间"
+      align="center"
     />
     <el-table-column
       :span="2"
       prop="creater"
       label="创建人"
+      align="center"
     />
     <el-table-column
       :span="2"
       prop="notes"
       label="备注"
+      align="center"
     />
     <el-table-column
-      :span="5"
+      :span="2"
       label="操作"
       fixed="right"
       width="150"

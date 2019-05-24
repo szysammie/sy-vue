@@ -76,49 +76,65 @@
         :data="eMData"
         stripe
         v-loading="loading"
+        size="mini"
         element-loading-text="拼命加载中"
         style="width: 100%">
         <el-table-column
           prop="number"
           label="序号"
+          align="center"
           :span="1">
         </el-table-column>
         <el-table-column
           prop="contractName"
           label="项目名称"
           :span="2"
+          align="center"
           />
         <el-table-column
-          prop="staffName"
           :span="2"
-          label="出差人员"/>
+          align="center"
+          label="出差人员">
+          <template slot-scope="scope">
+              <div slot="reference" class="name-wrapper">
+                <el-tag size="medium">{{ scope.row.staffName }}</el-tag>
+              </div>
+          </template>
+        </el-table-column>
         <el-table-column
           prop="beginDateString"
           :span="2"
+          align="center"
           label="开始日期"/>
         <el-table-column
         prop="endDateString"
         :span="2"
+        align="center"
         label="结束日期"/>
         <el-table-column
         prop="unitPrice"
         :span="2"
+        align="center"
         label="差旅费(万元/天)"/>
         <el-table-column
         prop="amount"
         :span="2"
+        align="center"
         label="差旅费总额(万元)"/>
         <el-table-column
           prop="dayPay"
           :span="2"
+          align="center"
           label="工资(万元/天)"/>
         <el-table-column
         prop="pay"
         :span="2"
+        align="center"
         label="工资总额(万元)"/>
         <el-table-column
           prop="creater"
           :span="2"
+          align="center"
           label="申请人"/>
       </el-table>
     </div>

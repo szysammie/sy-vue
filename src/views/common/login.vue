@@ -67,6 +67,7 @@
                 this.$cookie.set('uid', this.dataForm.userName)
                 this.$router.replace({ name: 'home' })
               } else {
+                console.log("1111")
                 // this.getCaptcha()
                 this.$message.error(data.message)
               }
