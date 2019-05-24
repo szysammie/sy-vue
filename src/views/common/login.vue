@@ -15,9 +15,13 @@
             <el-form-item prop="password">
               <el-input v-model="dataForm.password" type="password" placeholder="密码"></el-input>
             </el-form-item>
-
             <el-form-item>
-              <el-button class="login-btn-submit" type="primary" @click="dataFormSubmit()">登录</el-button>
+              <el-col :span="8" :offset="2">
+                <el-button class="login-btn-submit" type="primary" @click="dataFormSubmit()">登录</el-button>
+              </el-col>
+              <el-col :span="8"  :offset="3">
+                <el-button class="login-btn-submit" type="primary" @click="toRegister()">注册</el-button>
+              </el-col>
             </el-form-item>
           </el-form>
         </div>
@@ -68,11 +72,15 @@
                 this.$router.replace({ name: 'home' })
               } else {
                 // this.getCaptcha()
-                this.$message.error(data.message)
+                this.$message.error(data.msg)
               }
             })
           }
         })
+      },
+      //注册
+      toRegister(){
+        this.$router.replace({name:"register"})
       },
       // 获取验证码
       // getCaptcha () {

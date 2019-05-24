@@ -2044,6 +2044,17 @@
           this.newMaterialForm.department = this.department
           this.newMaterialForm.reportNum = this.reportNum
           this.newMaterialForm.creater = this.$cookie.get('uid')
+          this.newMaterialForm.materialName = ''
+          this.newMaterialForm.materialType = ''
+          this.newMaterialForm.brand = ''
+          this.newMaterialForm.unitPrice = ''
+          this.newMaterialForm.creater = ''
+          this.newMaterialForm.totalPrice = ''
+          this.newMaterialForm.applyTimeString = ''
+          this.newMaterialForm.notes = ''
+          this.newMaterialForm.count = ''
+          this.newMaterialForm.unit = ''
+          this.newMaterialForm.groupNum = ''
         },
         //点击增加材料按钮
         getMaterial(){
