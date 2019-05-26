@@ -3,24 +3,26 @@
     <div class="site-content__wrapper">
       <div class="site-content">
         <div class="brand-info">
-          <h2 class="brand-info__text">石油管理系统</h2>
+          <h2 class="brand-info__text">项目动态管理系统</h2>
           <p class="brand-info__intro"></p>
         </div>
         <div class="login-main">
-          <h3 class="login-title">用户登录</h3>
+          <div class="login-logo" style="margin-left:35%;margin-bottom: 10%">
+            <img src="./../../assets/img/user-logo.png" width="65" height="65" >
+          </div>
           <el-form :model="dataForm" :rules="dataRule" ref="dataForm" @keyup.enter.native="dataFormSubmit()" status-icon>
             <el-form-item prop="userName">
-              <el-input v-model="dataForm.userName" placeholder="帐号"></el-input>
+              <el-input v-model="dataForm.userName" placeholder="用户名"></el-input>
             </el-form-item>
             <el-form-item prop="password">
               <el-input v-model="dataForm.password" type="password" placeholder="密码"></el-input>
             </el-form-item>
             <el-form-item>
-              <el-col :span="8" :offset="2">
-                <el-button class="login-btn-submit" type="primary" @click="dataFormSubmit()">登录</el-button>
-              </el-col>
-              <el-col :span="8"  :offset="3">
-                <el-button class="login-btn-submit" type="primary" @click="toRegister()">注册</el-button>
+                <el-button class="login-btn-submit" style="margin-top: 6px" type="primary" @click="dataFormSubmit()">登录</el-button>
+            </el-form-item>
+            <el-form-item>
+              <el-col :span="4" :offset="18">
+                <el-button  type="text" @click="toRegister()">立即注册</el-button>
               </el-col>
             </el-form-item>
           </el-form>
@@ -45,7 +47,6 @@
           password: [
             { required: true, message: '密码不能为空', trigger: 'blur' }
           ]
-
         },
         // captchaPath: ''
       }
@@ -103,13 +104,14 @@
     overflow: hidden;
     &:before {
       position: fixed;
+      margin-left: 8%;
       top: 0;
       left: 0;
       z-index: -1;
-      width: 100%;
+      width: 50%;
       height: 100%;
       content: "";
-      background-image: url(~@/assets/img/login_bg.jpg);
+      background-image: url(~@/assets/img/logo.png);
       background-size: cover;
     }
     .site-content__wrapper {

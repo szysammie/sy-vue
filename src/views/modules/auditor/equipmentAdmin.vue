@@ -4,7 +4,7 @@
       <el-form ref="searchForm" :model="searchForm" label-width="100px" class="demo-ruleForm">
         <el-col :span="1">
           <el-button type="primary" icon="el-icon-plus" style="margin-top: 10px;margin-left: 10px" @click="newEquip">新增</el-button>
-          <el-dialog :visible.sync="newEquipDialog"  top="4vh" title="数据字典记录">
+          <el-dialog :visible.sync="newEquipDialog"  top="4vh" title="新增设备">
             <el-form ref="form" :model="form" label-width="140px" class="demo-ruleForm">
               <el-form-item label="出厂编号" prop="staffName">
                 <el-input v-model="form.factoryNum"/>
@@ -124,7 +124,7 @@
       </span>
     </el-dialog>
     <!--修改设备弹窗-->
-    <el-dialog :visible.sync="updateEquipDialog"  top="4vh" title="数据字典记录">
+    <el-dialog :visible.sync="updateEquipDialog"  top="4vh" title="修改设备信息">
       <el-form ref="form" :model="form" label-width="140px" class="demo-ruleForm">
         <el-form-item label="出厂编号" prop="staffName">
           <el-input v-model="form.factoryNum"/>

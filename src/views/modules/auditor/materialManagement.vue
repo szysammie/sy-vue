@@ -4,7 +4,7 @@
       <el-form ref="searchForm" :model="searchForm" label-width="100px" class="demo-ruleForm">
         <el-col :span="1">
           <el-button type="primary" icon="el-icon-plus" style="margin-top: 10px;margin-left: 10px" @click="newMaterial">新增</el-button>
-          <el-dialog :visible.sync="newMaterialDialog"  top="4vh" title="数据字典记录">
+          <el-dialog :visible.sync="newMaterialDialog"  top="4vh" title="新增材料">
             <el-form ref="form" :model="form" label-width="140px" class="demo-ruleForm">
               <el-form-item label="材料名称" prop="materialName">
                 <el-input v-model="form.materialName"/>
@@ -135,7 +135,7 @@
       </el-upload>
     </el-dialog>
     <!--修改材料-->
-    <el-dialog :visible.sync="updateMaterialDialog"  top="4vh" title="数据字典记录">
+    <el-dialog :visible.sync="updateMaterialDialog"  top="4vh" title="修改材料">
       <el-form ref="form" :model="form" label-width="140px" class="demo-ruleForm">
         <el-form-item label="材料名称" prop="materialName">
           <el-input v-model="form.materialName"/>
