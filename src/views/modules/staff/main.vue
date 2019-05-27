@@ -1928,7 +1928,7 @@
               this.$message.success(res.data.message)
               this.equipmentDataGet()
             }else{
-              this.$message.success(res.data.msg)
+              this.$message.warning(res.data.msg)
             }
             this.newEquipmentDialog = false
           })
