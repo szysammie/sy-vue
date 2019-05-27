@@ -529,7 +529,7 @@
         </el-tabs>
       </el-dialog>
       <!--新增人员弹窗-->
-      <el-dialog title="新增出差人员" :visible.sync="newPersonDialog" :modal="false">
+      <el-dialog title="申请出差人员" :visible.sync="newPersonDialog" :modal="false">
         <el-form :model="newPersonForm" ref="newPersonForm" label-width="100px" class="demo-ruleForm">
           <el-form-item label="科室" prop="department">
             <el-input v-model="newPersonForm.department" :disabled="true"></el-input>
@@ -589,7 +589,7 @@
       </el-dialog>
       <!--结束出差弹窗-->
       <el-dialog
-        title="结束出差"
+        title="结束出差人员"
         :visible.sync="dialogPersonEnd"
         width="30%"
         :modal="false">
@@ -600,7 +600,7 @@
         </span>
       </el-dialog>
       <!--更新出差人员弹窗-->
-      <el-dialog title="新增出差人员" :visible.sync="updatePersonDialog" :modal="false">
+      <el-dialog title="修改出差人员" :visible.sync="updatePersonDialog" :modal="false">
         <el-form :model="newPersonForm" ref="newPersonForm" label-width="100px" class="demo-ruleForm">
           <el-form-item label="科室" prop="department">
             <el-input v-model="newPersonForm.department" :disabled="true"></el-input>
@@ -686,7 +686,7 @@
         </span>
       </el-dialog>
       <!--新增车辆弹窗-->
-      <el-dialog title="新增出差车辆" :visible.sync="newVehicleDialog" :modal="false">
+      <el-dialog title="申请出差车辆" :visible.sync="newVehicleDialog" :modal="false">
         <el-form :model="newVehicleForm" ref="newVehicleForm" label-width="100px" class="demo-ruleForm">
           <el-form-item label="科室" prop="department">
             <el-input v-model="newVehicleForm.department" :disabled="true"></el-input>
@@ -744,7 +744,7 @@
         </span>
       </el-dialog>
       <!--更新车辆申请弹窗-->
-      <el-dialog title="更新出差车辆" :visible.sync="updateVehicleDialog" :modal="false">
+      <el-dialog title="修改出差车辆" :visible.sync="updateVehicleDialog" :modal="false">
         <el-form :model="newVehicleForm" ref="newVehicleForm" label-width="100px" class="demo-ruleForm">
           <el-form-item label="科室" prop="department">
             <el-input v-model="newVehicleForm.department" :disabled="true"></el-input>
@@ -939,7 +939,7 @@
         </span>
       </el-dialog>
       <!--设备更新弹出窗口-->
-      <el-dialog title="申请设备" :visible.sync="updateEquipmentDialog" :modal="false">
+      <el-dialog title="修改设备申请" :visible.sync="updateEquipmentDialog" :modal="false">
         <el-form :model="newPersonForm" ref="newPersonForm" label-width="100px" class="demo-ruleForm">
           <el-form-item label="科室" prop="department">
             <el-input v-model="newEquipmentForm.department" :disabled="true"></el-input>
@@ -1142,7 +1142,7 @@
         </span>
       </el-dialog>
       <!--更新材料弹窗-->
-      <el-dialog title="申请材料" :visible.sync="updateMaterialDialog" :modal="false">
+      <el-dialog title="修改材料" :visible.sync="updateMaterialDialog" :modal="false">
         <el-form :model="newMaterialForm" ref="newPersonForm" label-width="100px" class="demo-ruleForm">
           <el-form-item label="科室" prop="department">
             <el-input v-model="newMaterialForm.department" :disabled="true"></el-input>
@@ -1210,7 +1210,7 @@
         </span>
       </el-dialog>
       <!--新增其他数据弹窗-->
-      <el-dialog title="新增其他费用" :visible.sync="newOtherDialog" :modal="false">
+      <el-dialog title="新增其他费用申请" :visible.sync="newOtherDialog" :modal="false">
         <el-form :model="newOtherForm" ref="newOtherForm" label-width="100px" class="demo-ruleForm">
           <el-form-item label="科室" prop="department">
             <el-input v-model="newOtherForm.department" :disabled="true"></el-input>
@@ -1262,7 +1262,7 @@
         </span>
       </el-dialog>
       <!--修改其他数据弹窗-->
-      <el-dialog title="新增其他费用" :visible.sync="updateOtherDialog" :modal="false">
+      <el-dialog title="修改其他费用申请" :visible.sync="updateOtherDialog" :modal="false">
         <el-form :model="newOtherForm" ref="newOtherForm" label-width="100px" class="demo-ruleForm">
           <el-form-item label="科室" prop="department">
             <el-input v-model="newOtherForm.department" :disabled="true"></el-input>

@@ -87,7 +87,7 @@
         </template>
       </el-table-column>
     </el-table>
-    <el-dialog title="数据字典记录" :visible.sync="dialogFormVisible"  :append-to-body="true">
+    <el-dialog title="用户管理" :visible.sync="dialogFormVisible"  :append-to-body="true">
       <el-form :model="form" ref="form" label-width="100px" class="demo-ruleForm">
         <el-form-item label="权限设置">
           <el-checkbox-group v-model="form.isEquipChecker">
