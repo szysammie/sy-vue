@@ -268,8 +268,8 @@
         data(){
           return {
               search:{
-                startTime:new Date().toLocaleDateString().replace(/\//g, '-'),
-                endTime:new Date().toLocaleDateString().replace(/\//g, '-'),
+                startTime:'',
+                endTime:'',
                 contractName:'',
               },
 
@@ -297,8 +297,8 @@
                 workLoad:'',
                 contractAmount:'',
                 manageCost:'',
-                beginDateString:new Date().toLocaleDateString().replace(/\//g, '-'),
-                endDateString:new Date().toLocaleDateString().replace(/\//g, '-'),
+                beginDateString:'',
+                endDateString:'',
                 notes:''
               }
           }

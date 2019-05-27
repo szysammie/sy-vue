@@ -210,8 +210,8 @@
         tableData:[],
         dialogVisible:false,
         form:{
-          beginDateString:new Date().toLocaleDateString().replace(/\//g, '-'),
-          endDateString:new Date().toLocaleDateString().replace(/\//g, '-'),
+          beginDateString:'',
+          endDateString:'',
         },
         lrBox: null,
         cbBox: null,

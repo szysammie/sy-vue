@@ -187,8 +187,8 @@
 
         options:[],
         searchs:{
-          beginDateString:new Date().toLocaleDateString().replace(/\//g, '-'),
-          endDateString:new Date().toLocaleDateString().replace(/\//g, '-'),
+          beginDateString:'',
+          endDateString:'',
           contractName:'',
           department:'',
         }

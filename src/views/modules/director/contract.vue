@@ -160,7 +160,7 @@
           form:{
             contractName:'',
             signUnit:'',
-            signTimeString:new Date().toLocaleDateString().replace(/\//g, '-'),
+            signTimeString:'',
             price:'',
             creater:'',
             notes:'',
@@ -170,7 +170,7 @@
           news:{
             contractName:'',
             signUnit:'',
-            signTimeString:new Date().toLocaleDateString().replace(/\//g, '-'),
+            signTimeString:'',
             price:'',
             creater:this.$cookie.get('uid'),
             notes:'',

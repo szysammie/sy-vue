@@ -147,8 +147,8 @@
           return{
             form:{
               contractName:'',
-              beginDateString:new Date().toLocaleDateString().replace(/\//g, '-'),
-              endDateString:new Date().toLocaleDateString().replace(/\//g, '-'),
+              beginDateString:'',
+              endDateString:'',
               staffName:'',
               groupNum:1
             },

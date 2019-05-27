@@ -133,8 +133,8 @@
           options:[],
           searchs:{
             department:'',
-            beginDateString:new Date().toLocaleDateString().replace(/\//g, '-'),
-            endDateString:new Date().toLocaleDateString().replace(/\//g, '-'),
+            beginDateString:'',
+            endDateString:'',
             staffName:'',
             contractName:'',
           }
