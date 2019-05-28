@@ -179,8 +179,8 @@
               <el-date-picker
                 v-model="form.beginDateString"
                 type="date"
-                value-format="yyyy-M-d"
-                format="yyyy-M-d"
+                value-format="yyyy-MM-dd"
+                format="yyyy-MM-dd"
                 style="width: 100%"
                 placeholder="选择日期">
               </el-date-picker>
@@ -240,11 +240,17 @@
         </el-form-item>
         <el-form-item label="合同时间">
           <el-col :span="11">
-            <el-date-picker type="date" placeholder="合同开始时间" :clearable="false" v-model="newP.beginDateString" style="width: 100%;"></el-date-picker>
+            <el-date-picker type="date" placeholder="合同开始时间"
+            value-format="yyyy-MM-dd" format="yyyy-MM-dd"
+            :clearable="false" v-model="newP.beginDateString" style="width: 100%;">
+            </el-date-picker>
           </el-col>
           <el-col class="line" :span="1">&nbsp;至</el-col>
           <el-col :span="11">
-            <el-date-picker placeholder="合同结束时间" :clearable="false" v-model="newP.endDateString" style="width: 100%;"></el-date-picker>
+            <el-date-picker placeholder="合同结束时间"
+              value-format="yyyy-MM-dd"
+              format="yyyy-MM-dd"
+              :clearable="false" v-model="newP.endDateString" style="width: 100%;"></el-date-picker>
           </el-col>
         </el-form-item>
         <el-form-item label="备注">

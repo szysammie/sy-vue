@@ -83,7 +83,10 @@
         </el-form-item>
         <el-form-item label="签署时间">
           <el-col :span="11">
-            <el-date-picker type="date" placeholder="合同开始时间" :clearable="false" v-model="form.signTimeString" style="width: 100%;"></el-date-picker>
+            <el-date-picker type="date" placeholder="合同开始时间"
+                            value-format="yyyy-MM-dd"
+                            format="yyyy-MM-dd"
+                            :clearable="false" v-model="form.signTimeString" style="width: 100%;"></el-date-picker>
           </el-col>
         </el-form-item>
 
@@ -129,7 +132,10 @@
         </el-form-item>
         <el-form-item label="签署时间">
           <el-col :span="11">
-            <el-date-picker type="date" placeholder="合同开始时间" :clearable="false" v-model="news.signTimeString" style="width: 100%;"></el-date-picker>
+            <el-date-picker type="date" placeholder="合同开始时间"
+                            value-format="yyyy-MM-dd"
+                            format="yyyy-MM-dd"
+                            :clearable="false" v-model="news.signTimeString" style="width: 100%;"></el-date-picker>
           </el-col>
         </el-form-item>
         <el-form-item label="金额(万元)">

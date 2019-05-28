@@ -101,8 +101,8 @@
                 v-model="form.beginDateString"
                 size="mini"
                 type="date"
-                value-format="yyyy-M-d"
-                format="yyyy-M-d"
+                value-format="yyyy-MM-dd"
+                format="yyyy-MM-dd"
                 style="width: 100%"
                 placeholder="选择日期">
               </el-date-picker>
@@ -112,8 +112,8 @@
                 v-model="form.endDateString"
                 size="mini"
                 type="date"
-                value-format="yyyy-M-d"
-                format="yyyy-M-d"
+                value-format="yyyy-MM-dd"
+                format="yyyy-MM-dd"
                 style="width: 100%"
                 placeholder="选择日期">
               </el-date-picker>
