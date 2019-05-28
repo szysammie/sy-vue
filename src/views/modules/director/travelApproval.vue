@@ -270,7 +270,7 @@
                 if(data&&data.status==201){
                   this.$message.success('审核成功！')
                   this.dialogVisible = false
-                  this.travelapplies = []
+                  // this.travelapplies = []
                   this.getTravel()
                 }else{
                   this.$message.error(data.msg)
