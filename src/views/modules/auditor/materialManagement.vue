@@ -93,16 +93,17 @@
         prop="notes"
         label="备注"/>
       <el-table-column
-        :span="4"
+        width="200"
         fixed="right"
         label="操作"
       >
         <template slot-scope="scope">
           <el-button
-            type="text"
+            type="primary"
+            icon="el-icon-delete"
             @click.native.prevent="deleteMaterial(scope.$index, tableData)"
-          >删除</el-button>
-          <el-button type="text" @click="updateMaterial(scope.$index, tableData)">修改</el-button>
+          ></el-button>
+          <el-button type="primary" icon="el-icon-edit" @click="updateMaterial(scope.$index, tableData)"></el-button>
         </template>
       </el-table-column>
     </el-table>
