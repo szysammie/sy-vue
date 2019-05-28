@@ -171,9 +171,6 @@
           <el-form-item label="累计价值(万元)">
             <el-input v-model="form.workLoad" placeholder="累计价值"  suffix-icon="el-icon-news"></el-input>
           </el-form-item>
-          <el-form-item label="管理费(万元)">
-            <el-input v-model="form.manageCost" placeholder="管理费(万元) " suffix-icon="el-icon-menu" disabled></el-input>
-          </el-form-item>
           <el-form-item label="合同时间">
             <el-col :span="11">
               <el-date-picker
@@ -234,9 +231,6 @@
         </el-form-item>
         <el-form-item label="累计价值(万元)">
           <el-input v-model="newP.workLoad"></el-input>
-        </el-form-item>
-        <el-form-item label="管理费(万元)">
-          <el-input v-model="newP.manageCost"></el-input>
         </el-form-item>
         <el-form-item label="合同时间">
           <el-col :span="11">

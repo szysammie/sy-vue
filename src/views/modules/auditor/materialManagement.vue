@@ -18,7 +18,7 @@
               <el-form-item label="计量单位" prop="unit">
                 <el-input v-model="form.unit"/>
               </el-form-item>
-              <el-form-item label="单价（万元 ）" prop="unitPrice">
+              <el-form-item label="单价（元）" prop="unitPrice">
                 <el-input v-model="form.unitPrice"/>
               </el-form-item>
               <el-form-item label="数量" prop="count">
@@ -59,38 +59,47 @@
       <el-table-column
         :span="4"
         prop="number"
+        align="center"
         label="序号"/>
       <el-table-column
         :span="4"
         prop="materialName"
+        align="center"
         label="材料名称"/>
       <el-table-column
         :span="4"
+        align="center"
         prop="materialType"
         label="型号规格"/>
       <el-table-column
         :span="4"
         prop="brand"
+        align="center"
         label="品牌"/>
       <el-table-column
         :span="4"
         prop="unit"
+        align="center"
         label="计量单位"/>
       <el-table-column
         :span="4"
         prop="count"
+        align="center"
         label="数量"/>
       <el-table-column
         :span="4"
         prop="unitPrice"
-        label="单价（万元）"/>
+        align="center"
+        label="单价（元）"/>
       <el-table-column
         :span="4"
+        align="center"
         prop="totalPrice"
-        label="总价（万元）"/>
+        label="总价（元）"/>
       <el-table-column
         :span="4"
         prop="notes"
+        align="center"
         label="备注"/>
       <el-table-column
         width="200"

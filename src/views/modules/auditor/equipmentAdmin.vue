@@ -15,10 +15,10 @@
               <el-form-item label="设备型号" prop="department">
                 <el-input v-model="form.equipType"/>
               </el-form-item>
-              <el-form-item label="设备原值（万元 ）" prop="notes">
+              <el-form-item label="设备原值（元 ）" prop="notes">
                 <el-input v-model="form.originalPrice"/>
               </el-form-item>
-              <el-form-item label="月折旧（万元 ）" prop="notes">
+              <el-form-item label="月折旧（元 ）" prop="notes">
                 <el-input v-model="form.monthDepreciation"/>
               </el-form-item>
               <el-form-item label="备注" prop="notes">
@@ -77,17 +77,17 @@
       <el-table-column
         :span="4"
         prop="originalPrice"
-        label="设备原值（万元）"
+        label="设备原值（元）"
         align="center"/>
       <el-table-column
         :span="4"
         prop="monthDepreciation"
-        label="月折旧（万元）"
+        label="月折旧（元）"
         align="center"/>
       <el-table-column
         :span="4"
         prop="dayDepreciation"
-        label="天折旧（万元）"
+        label="天折旧（元）"
         align="center"/>
       <el-table-column
         :span="4"
@@ -135,10 +135,10 @@
         <el-form-item label="设备型号" prop="department">
           <el-input v-model="form.equipType"/>
         </el-form-item>
-        <el-form-item label="设备原值（万元 ）" prop="notes">
+        <el-form-item label="设备原值（元 ）" prop="notes">
           <el-input v-model="form.originalPrice"/>
         </el-form-item>
-        <el-form-item label="月折旧（万元 ）" prop="notes">
+        <el-form-item label="月折旧（元 ）" prop="notes">
           <el-input v-model="form.monthDepreciation"/>
         </el-form-item>
         <el-form-item label="备注" prop="notes">

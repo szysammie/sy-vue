@@ -180,6 +180,12 @@
                 align="center">
               </el-table-column>
               <el-table-column
+                prop="completeStatus"
+                label="完成状态"
+                width="80"
+                align="center">
+              </el-table-column>
+              <el-table-column
                 prop="groupNum"
                 label="所属小组"
                 width="120"
@@ -206,13 +212,13 @@
               <el-table-column
                 prop="vehicleNum"
                 label="车牌号"
-                width="140"
+                width="160"
                 align="center">
               </el-table-column>
               <el-table-column
                 prop="totalPrice"
                 label="金额(万元)"
-                width="120"
+                width="150"
                 align="center">
               </el-table-column>
               <el-table-column
@@ -220,12 +226,6 @@
                 label="申请人"
                 width="120"
                 align="center">
-              </el-table-column>
-              <el-table-column
-                prop="checkStatus"
-                label="审核状态"
-                width="140"
-              align="center">
               </el-table-column>
               <el-table-column
                 prop="notes"
@@ -302,7 +302,7 @@
               </el-table-column>
               <el-table-column
                 prop="originalPrice"
-                label="单价(万元)"
+                label="单价(元)"
                 width="140"
                 align="center">
               </el-table-column>
@@ -314,7 +314,7 @@
               </el-table-column>
               <el-table-column
                 prop="dayDepreciation"
-                label="天折旧（万元）"
+                label="天折旧（元）"
                 width="140"
                 align="center">
               </el-table-column>
@@ -411,7 +411,7 @@
               </el-table-column>
               <el-table-column
                 prop="unitPrice"
-                label="单价(万元)"
+                label="单价(元)"
                 width="140"
                 align="center">
               </el-table-column>
@@ -849,10 +849,10 @@
           <el-form-item prop="endDateString" label="预计结束日期">
             <el-date-picker v-model="newEquipmentForm.endDateString" @change="getEquipTips" type="date" value-format="yyyy-MM-dd" placeholder="选择日期" style="width: 100%;"/>
           </el-form-item>
-          <el-form-item label="设备原值（万元）" prop="originalPrice">
+          <el-form-item label="设备原值（元）" prop="originalPrice">
             <el-input v-model="newEquipmentForm.originalPrice" :disabled="true"></el-input>
           </el-form-item>
-          <el-form-item label="天折旧（万元）" prop="dayDepreciation">
+          <el-form-item label="天折旧（元）" prop="dayDepreciation">
             <el-input v-model="newEquipmentForm.dayDepreciation" :disabled="true"></el-input>
           </el-form-item>
           <el-form-item label="费用（万元）" prop="totalPrice">
@@ -922,17 +922,17 @@
           </el-table-column>
           <el-table-column
             prop="originalPrice"
-            label="设备原值（万元）"
+            label="设备原值（元）"
           >
           </el-table-column>
           <el-table-column
             prop="monthDepreciation"
-            label="月折旧（万元）"
+            label="月折旧（元）"
           >
           </el-table-column>
           <el-table-column
             prop="dayDepreciation"
-            label="天折旧（万元）"
+            label="天折旧（元）"
           >
           </el-table-column>
           <el-table-column
@@ -986,10 +986,10 @@
           <el-form-item prop="endDateString" label="预计结束日期">
             <el-date-picker v-model="newEquipmentForm.endDateString" @change="getEquipTips2" type="date" value-format="yyyy-MM-dd" placeholder="选择日期" style="width: 100%;"/>
           </el-form-item>
-          <el-form-item label="设备原值（万元）" prop="originalPrice">
+          <el-form-item label="设备原值（元）" prop="originalPrice">
             <el-input v-model="newEquipmentForm.originalPrice" :disabled="true"></el-input>
           </el-form-item>
-          <el-form-item label="天折旧（万元）" prop="dayDepreciation">
+          <el-form-item label="天折旧（元）" prop="dayDepreciation">
             <el-input v-model="newEquipmentForm.dayDepreciation" :disabled="true"></el-input>
           </el-form-item>
           <el-form-item label="费用（万元）" prop="totalPrice">
@@ -1051,7 +1051,7 @@
           <el-form-item label="计量单位" prop="unit">
             <el-input v-model="newMaterialForm.unit" :disabled="true"></el-input>
           </el-form-item>
-          <el-form-item label="单价（万元）" prop="unitPrice">
+          <el-form-item label="单价（元）" prop="unitPrice">
             <el-input v-model="newMaterialForm.unitPrice" :disabled="true"></el-input>
           </el-form-item>
           <el-form-item label="数量" prop="count">
@@ -1186,14 +1186,11 @@
           <el-form-item label="计量单位" prop="unit">
             <el-input v-model="newMaterialForm.unit" :disabled="true"></el-input>
           </el-form-item>
-          <el-form-item label="单价（万元）" prop="unitPrice">
+          <el-form-item label="单价（元）" prop="unitPrice">
             <el-input v-model="newMaterialForm.unitPrice" :disabled="true"></el-input>
           </el-form-item>
           <el-form-item label="数量" prop="count">
             <el-input v-model="newMaterialForm.count" @change="countChange"></el-input>
-          </el-form-item>
-          <el-form-item label="金额（万元）" prop="totalPrice">
-            <el-input v-model="newMaterialForm.totalPrice" :disabled="true"></el-input>
           </el-form-item>
           <el-form-item label="申请人" prop="creater">
             <el-input v-model="newMaterialForm.creater" :disabled="true"></el-input>
@@ -1714,12 +1711,10 @@
               this.vehicleData = res.data.data
               for(let i =0;i<this.vehicleData.length;i++){
                 this.vehicleData[i].number = i +1
-                if(this.vehicleData[i].checkStatus=='0'){
-                  this.vehicleData[i].checkStatus = '待审核'
-                }else if(this.vehicleData[i].checkStatus=='1'){
-                  this.vehicleData[i].checkStatus = '审核通过'
-                }else if(this.vehicleData[i].checkStatus=='2'){
-                  this.vehicleData[i].checkStatus = '审核未通过'
+                if(this.vehicleData[i].completeStatus == 0){
+                  this.vehicleData[i].completeStatus = '未完成'
+                }else if(this.vehicleData[i].completeStatus== 1){
+                  this.vehicleData[i].completeStatus = '已完成'
                 }
               }
             }
@@ -1848,10 +1843,13 @@
           }).then(res=>{
             if(res.data.status == '400'){
               this.$message.success(res.data.msg)
+              this.vehicleDataGet()
             }else if(res.data.status == '204'){
               this.$message.warning(res.data.message)
+              this.vehicleDataGet()
             }else{
               this.$message.error(res.data.msg)
+              this.vehicleDataGet()
             }
             this.vehicleEndDialog = false
           })
@@ -2146,6 +2144,7 @@
           let sum = 0
           console.log(this.newMaterialForm.totalPrice)
           sum = parseInt(this.newMaterialForm.startPrice) * parseInt(this.newMaterialForm.count)
+          sum /=10000
           this.newMaterialForm.totalPrice = sum.toString()
         },
         //确认新增材料
@@ -2274,7 +2273,6 @@
         },
         //确认新增其他数据
         confirmNewOther(){
-          this.newOtherForm.price = parseInt(this.newOtherForm.price)
           this.$http({
             url:this.$http.adornUrl('staff/otherapply'),
             method:"post",
@@ -2334,7 +2332,6 @@
         },
         //确认修改其他数据
         confirmUpdateOther(){
-          this.newOtherForm.price = parseInt(this.newOtherForm.price)
           this.$http({
             url:this.$http.adornUrl('staff/otherapply'),
             method:"put",
@@ -2432,11 +2429,11 @@
             let day = this.datedifference(this.newVehicleForm.beginDateString,this.newVehicleForm.endDateString)
             let result
             if(this.newVehicleForm.meter>0&&this.newVehicleForm.meter<=120){
-              result = 600*day
+              result = (600*day)
             }else{
               result = (600+(this.newVehicleForm.meter-120)*5)*day
             }
-            this.newVehicleForm.totalPrice = result
+            this.newVehicleForm.totalPrice = result/10000
           }
         },
         //计算设备费用
@@ -2449,7 +2446,7 @@
               tips +=equip[i].dayDepreciation
             }
             // console.log(equip)
-            tips = day * tips
+            tips = day * tips / 10000
             this.newEquipmentForm.totalPrice = tips
           }
 
@@ -2457,7 +2454,7 @@
         getEquipTips2(){
           if(this.newEquipmentForm.beginDateString&&this.newEquipmentForm.endDateString) {
             let day = this.datedifference(this.newEquipmentForm.beginDateString,this.newEquipmentForm.endDateString)
-            this.newEquipmentForm.totalPrice = this.newEquipmentForm.dayDepreciation * day
+            this.newEquipmentForm.totalPrice = this.newEquipmentForm.dayDepreciation * day / 10000
           }
 
         }
