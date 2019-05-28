@@ -392,6 +392,12 @@
                 align="center">
               </el-table-column>
               <el-table-column
+                prop="materialType"
+                label="材料类型"
+                width="140"
+                align="center">
+              </el-table-column>
+              <el-table-column
                 prop="materialModel"
                 label="材料型号"
                 width="140"
@@ -654,6 +660,20 @@
         title="未出差人员"
         :visible.sync="businessPersonDialog"
         width="30%">
+        <el-row>
+          <el-form ref="searchPersonForm" :model="searchPersonForm" label-width="100px" class="demo-ruleForm">
+            <el-col :span="12" :offset="4" style="margin-top: 10px">
+              <el-form-item label="员工名称：" prop="staffName">
+                <el-input v-model="searchPersonForm.staffName"/>
+              </el-form-item>
+            </el-col>
+            <el-col :span="1">
+              <el-form-item>
+                <el-button style="margin-left: -70px;margin-top: 10px" @click="searchPerson">查找</el-button>
+              </el-form-item>
+            </el-col>
+          </el-form>
+        </el-row>
         <el-table
           ref="multipleTable"
           :data="persons"
@@ -670,12 +690,12 @@
             width="120">
           </el-table-column>
           <el-table-column
-            prop="staffType"
+            prop="staffTypeString"
             label="员工类别"
             >
           </el-table-column>
           <el-table-column
-            prop="department"
+            prop="departmentString"
             label="所属科室"
           >
           </el-table-column>
@@ -1323,6 +1343,9 @@
           searchForm:{ //搜索表单
             contractName:''
           },
+          searchPersonForm:{ //查询出差人员列表
+            staffName:''
+          },
           multipleSelection:[],//选择人员的名单
           newPersonForm:{ //新增人员表单
             department:'',
@@ -1517,6 +1540,18 @@
               this.$message.warning(res.data.msg)
             }
             this.dialogPerson = false
+          })
+        },
+        //查询出差人员
+        searchPerson(){
+          this.$http({
+            url:this.$http.adornUrl('staff/person/search'),
+            method:'post',
+            data:this.$http.adornData({
+              name:this.searchPersonForm.staffName
+            })
+          }).then(res=>{
+            this.persons = res.data.data
           })
         },
         //用户点击更新按钮
@@ -2048,7 +2083,6 @@
           this.newMaterialForm.materialType = ''
           this.newMaterialForm.brand = ''
           this.newMaterialForm.unitPrice = ''
-          this.newMaterialForm.creater = ''
           this.newMaterialForm.totalPrice = ''
           this.newMaterialForm.applyTimeString = ''
           this.newMaterialForm.notes = ''
