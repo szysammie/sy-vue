@@ -212,7 +212,7 @@
                 this.dialogVisible =false
                 this.getContract()
               }else {
-                this.$message.error(data.message)
+                this.$message.error(data.msg)
               }
             })
           },
@@ -226,6 +226,8 @@
                   for (let i = 0; i < data.data.length; i++) {
                     this.op.push(data.data[i])
                   }
+                }else {
+                  this.$message.error(data.msg)
                 }
               })
           },
@@ -238,7 +240,7 @@
                 this.$message.success('删除成功!')
                 this.getContract()
               }else {
-                this.$message.error(data.message)
+                this.$message.error(data.msg)
               }
             })
           },
@@ -253,7 +255,7 @@
                   this.tableData[i].number = i + 1
                 }
               }else {
-                this.$message.error(data.message)
+                this.$message.error(data.msg)
               }
             })
           },
@@ -281,7 +283,7 @@
                   this.news = {}
                   this.getContract()
                 }else {
-                  this.$message.error(data.message)
+                  this.$message.error(data.msg)
                 }
             })
         },

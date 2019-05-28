@@ -34,6 +34,7 @@ http.interceptors.response.use(response => {
   }
   return response
 }, error => {
+  this.$message.error(error)
   return Promise.reject(error)
 })
 

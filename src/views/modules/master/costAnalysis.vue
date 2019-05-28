@@ -167,8 +167,8 @@
               </el-select>
             </p>
             <p>合同相对人  : {{temp.contractPerson}}</p>
-            <p>合同金额  : {{temp.contractAmount}}</p>
-            <p>累计工作量  : {{temp.workLoad}}</p>
+            <p>合同金额(万元)  : {{temp.contractAmount}}</p>
+            <p>累计工作量(万元)  : {{temp.workLoad}}</p>
             <p>开始日期  : {{temp.beginDateString}}</p>
             <p>结束日期  : {{temp.endDateString}}</p>
             <p>工资(万元)  :  {{temp.salary}}</p>
@@ -446,7 +446,7 @@
           ],
           series : [
             {
-              name:'直接访问',
+              name:'利润',
               type:'bar',
               barWidth: '60%',
               data:[this.temp.profit]
@@ -478,7 +478,7 @@
               this.initlrBox()
             });
           }else{
-            this.$message.error(data.message)
+            this.$message.error(data.msg)
           }
         })
       },
@@ -499,7 +499,7 @@
           if(data&&data.status==200){
             this.options = data.data
           }else{
-            this.$message.error(data.message)
+            this.$message.error(data.msg)
           }
         })
       },
@@ -517,7 +517,7 @@
 
               }else
               {
-                this.$message.error(data.message)
+                this.$message.error(data.msg)
               }
         })
       },
@@ -536,7 +536,7 @@
             this.initgccbBox()
             this.initgclrBox()
           }else {
-            this.$message.error(data.message)
+            this.$message.error(data.msg)
           }
         })
       },

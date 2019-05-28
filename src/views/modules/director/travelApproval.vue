@@ -273,7 +273,7 @@
                   this.travelapplies = []
                   this.getTravel()
                 }else{
-                  this.$message.error(data.massage)
+                  this.$message.error(data.msg)
                 }
             })
           },
@@ -292,7 +292,7 @@
                     }
                   }
                 }else {
-                  this.$message.error(data.massage)
+                  this.$message.error(data.msg)
                 }
               })
           },
@@ -327,7 +327,7 @@
                 this.rows = []
                 this.getTravel()
               }else {
-                this.$message.error(data.massage)
+                this.$message.error(data.msg)
               }
             })
           }

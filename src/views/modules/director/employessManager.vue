@@ -190,19 +190,31 @@
                     this.eMData[i].number = i+1
                   }
                   this.loading = false
+                }else {
+                  this.$message.error(data.msg)
                 }
             })
           },
         getData(){
           this.$http({
-            url:this.$http.adornUrl('director/travel'),
-            method:'get',
+            url:this.$http.adornUrl('director/travel/search'),
+            method:'post',
+            data:{
+              'contractName':"",
+              'beginDateString':"",
+              'endDateString':"",
+              'staffName':"",
+              'groupNum':""
+            }
           }).then(({data})=>{
             if(data&&data.status==200){
               this.eMData = data.data
               for (let i = 0; i < this.eMData.length; i++) {
                 this.eMData[i].number = i+1
               }
+              this.loading = false
+            }else {
+              this.$message.error(data.msg)
             }
           })
         }

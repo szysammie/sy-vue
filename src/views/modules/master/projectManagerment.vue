@@ -229,7 +229,7 @@
 
               }
             }else{
-              this.$message.error(data.message)
+              this.$message.error(data.msg)
             }
 
 
@@ -244,7 +244,7 @@
             if(data&&data.status==200){
               this.options = data.data
             }else {
-              this.$message.error(data.message)
+              this.$message.error(data.msg)
             }
           })
       }

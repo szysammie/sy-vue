@@ -319,7 +319,7 @@
                   this.project[i].number = i + 1
                 }
               } else {
-                this.$message.error(data.massage)
+                this.$message.error(data.msg)
               }
             })
           },
@@ -338,9 +338,12 @@
               if (data && data.status === 200) {
                 //更新数据
                 this.project = data.data
+                for (let i = 0; i < this.project.length; i++) {
+                  this.project[i].number = i+1
+                }
                 this.$message.success("查询成功")
               } else {
-                this.$message.error(data.message)
+                this.$message.error(data.msg)
               }
             })
           },
@@ -378,6 +381,8 @@
                   this.dialogVisible = false
                   this.getProject()
                   this.$message.success('更新成功')
+                }else {
+                  this.$message.error(data.msg)
                 }
               })
             }).catch(() => {
@@ -419,6 +424,8 @@
                   this.$message.success('更新成功！')
                   this.newVisible = false
                   this.getProject()
+                }else{
+                  this.$message.error(data.msg)
                 }
               })
             }).catch(() => {})
