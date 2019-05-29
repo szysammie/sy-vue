@@ -72,9 +72,7 @@
       width="40%"
      >
       <el-form ref="form" :model="form" label-width="120px">
-        <el-form-item label="审批序号">
-          <el-input v-model="form.reportNum"></el-input>
-        </el-form-item>
+
         <el-form-item label="外协合同名称">
           <el-input v-model="form.contractName"></el-input>
         </el-form-item>
@@ -107,7 +105,7 @@
     </el-dialog>
     <!--新增-->
     <el-dialog
-      title="修改"
+      title="新增"
       :visible.sync="newDialogVisible"
       width="40%"
       :before-close="handleClose"
@@ -214,7 +212,7 @@
                 'creater':this.$cookie.get('uid'),
                 'notes':this.form.notes,
                 'signTimeString':this.form.signTimeString,
-                'reportNum':this.form.reportNum
+
               }
             }).then(({data})=>{
               if (data&&data.status==204){
