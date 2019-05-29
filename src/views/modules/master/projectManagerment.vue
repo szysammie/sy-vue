@@ -113,6 +113,9 @@
             <el-form-item label="管理费(万元)">
               <span>{{ props.row.manageCost }}</span>
             </el-form-item>
+            <el-form-item label="其他费用(万元)">
+              <span>{{ props.row.otherPay }}</span>
+            </el-form-item>
             <el-form-item label="利润(万元)">
               <span>{{ props.row.profits }}</span>
             </el-form-item>
@@ -172,6 +175,11 @@
     </el-table-column>
       <el-table-column
         align="center"
+        label="其他费用(万元)"
+        prop="otherPay">
+      </el-table-column>
+      <el-table-column
+        align="center"
         label="利润(万元)"
         prop="profits">
       </el-table-column>
@@ -184,7 +192,6 @@
     data(){
       return {
         tableData: [],
-
         options:[],
         searchs:{
           beginDateString:'',
