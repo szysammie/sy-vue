@@ -59,7 +59,7 @@
       <el-table-column
         width="140"
         prop="unitPrice"
-        label="单价（万元）"
+        label="单价（元）"
         align="center"/>
       <el-table-column
         width="140"

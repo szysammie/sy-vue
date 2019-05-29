@@ -53,12 +53,12 @@
       <el-table-column
         width="140"
         prop="originalPrice"
-        label="设备原值（万元）"
+        label="设备原值（元）"
         align="center"/>
       <el-table-column
         width="140"
         prop="dayDepreciation"
-        label="日折旧（万元）"
+        label="日折旧（元）"
         align="center"/>
       <el-table-column
         width="140"
