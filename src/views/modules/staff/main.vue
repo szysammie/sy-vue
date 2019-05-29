@@ -398,12 +398,6 @@
                 align="center">
               </el-table-column>
               <el-table-column
-                prop="materialModel"
-                label="材料型号"
-                width="140"
-                align="center">
-              </el-table-column>
-              <el-table-column
                 prop="applyTimeString"
                 label="申请日期"
                 width="140"
@@ -1137,12 +1131,12 @@
           </el-table-column>
           <el-table-column
             prop="unitPrice"
-            label="单价（万元）"
+            label="单价（元）"
           >
           </el-table-column>
           <el-table-column
             prop="totalPrice"
-            label="总价（万元）"
+            label="总价（元）"
           >
           </el-table-column>
           <el-table-column
