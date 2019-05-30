@@ -81,8 +81,9 @@
       <el-table-column
         fixed="right"
         label="操作"
-        width="100">
+        width="150">
         <template slot-scope="scope">
+          <el-button type="danger" size="small" @click="analysisInfo(scope.row.projectId)">明细</el-button>
           <el-button type="warning" size="small" @click="analysis(scope.row)">分析</el-button>
         </template>
       </el-table-column>
@@ -196,6 +197,314 @@
       </el-row>
 
     </el-dialog>
+    <!--弹窗，分析详情-->
+    <el-dialog
+      title="费用明细"
+      :visible.sync="analysisVisible"
+      width="80%"
+      >
+      <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
+        <el-tab-pane label="人员费用" name="0">
+          <el-table
+            :data="peoplePay"
+            stripe
+            style="width: 100%">
+            <el-table-column
+              fixed
+              prop="contractName"
+              label="合同名称"
+              align="center"
+              :spam="2"/>
+            <el-table-column
+              label="人员"
+              align="center"
+              :span="2">
+              <template slot-scope="scope">
+                  <div slot="reference" class="name-wrapper">
+                    <el-tag size="medium" type="warning">{{ scope.row.staffName }}</el-tag>
+                  </div>
+              </template>
+            </el-table-column>
+            <el-table-column
+              prop="beginDateString"
+              label="开始日期"
+              align="center"
+              :span="2"/>
+            <el-table-column
+              prop="endDateString"
+              label="结束日期"
+              align="center"
+              :span="2"/>
+            <el-table-column
+              prop="unitPrice"
+              label="差旅费(万元/天)"
+              align="center"
+              :span="2"/>
+            <el-table-column
+              prop="amount"
+              label="差旅费总额(万元)"
+              align="center"
+              :span="2"/>
+            <el-table-column
+              prop="dayPay"
+              align="center"
+              label="工资(万元/天)"
+              :span="2"/>
+            <el-table-column
+              prop="pay"
+              label="工资总额(万元)"
+              align="center"
+              fixed="right"
+              :span="2"/>
+          </el-table>
+        </el-tab-pane>
+        <el-tab-pane label="车辆费用" name="1">
+          <el-table
+            :data="carPay"
+            stripe
+            style="width: 100%">
+            <el-table-column
+              fixed
+              prop="contractName"
+              label="合同名称"
+              align="center"
+              :spam="2"/>
+            <el-table-column
+              label="申请人"
+              align="center"
+              :span="2">
+              <template slot-scope="scope">
+                <div slot="reference" class="name-wrapper">
+                  <el-tag size="medium">{{ scope.row.creater }}</el-tag>
+                </div>
+              </template>
+            </el-table-column>
+            <el-table-column
+              label="车牌号"
+              align="center"
+              :span="2">
+              <template slot-scope="scope">
+                <div slot="reference" class="name-wrapper">
+                  <el-tag size="medium" type="warning">{{ scope.row.vehicleNum }}</el-tag>
+                </div>
+              </template>
+            </el-table-column>
+            <el-table-column
+              prop="beginDateString"
+              label="开始日期"
+              align="center"
+              :span="2"/>
+            <el-table-column
+              prop="endDateString"
+              label="结束日期"
+              align="center"
+              :span="2"/>
+            <el-table-column
+              prop="meter"
+              label="公里数"
+              align="center"
+              :span="2"/>
+            <el-table-column
+              prop="totalPrice"
+              align="center"
+              label="总费用(万元)"
+              :span="2"/>
+          </el-table>
+        </el-tab-pane>
+        <el-tab-pane label="设备费用" name="2">
+          <el-table
+            :data="equipPay"
+            stripe
+            style="width: 100%">
+            <el-table-column
+              fixed
+              prop="contractName"
+              label="合同名称"
+              align="center"
+              :spam="2"/>
+            <el-table-column
+              label="申请人"
+              align="center"
+              :span="2">
+              <template slot-scope="scope">
+                <div slot="reference" class="name-wrapper">
+                  <el-tag size="medium" type="warning">{{ scope.row.creater }}</el-tag>
+                </div>
+              </template>
+            </el-table-column>
+            <el-table-column
+              prop="beginDateString"
+              label="开始日期"
+              align="center"
+              :span="2"/>
+            <el-table-column
+              prop="endDateString"
+              label="结束日期"
+              align="center"
+              :span="2"/>
+            <el-table-column
+              prop="equipName"
+              label="设备名称"
+              align="center"
+              :span="2"/>
+            <el-table-column
+              prop="equipType"
+              label="设备型号"
+              align="center"
+              :span="2"/>
+
+            <el-table-column
+              prop="totalPrice"
+              label="总金额(万元)"
+              align="center"
+              fixed="right"
+              :span="2"/>
+          </el-table>
+        </el-tab-pane>
+        <el-tab-pane label="材料费用" name="3">
+          <el-table
+            :data="materPay"
+            stripe
+            style="width: 100%">
+            <el-table-column
+              fixed
+              prop="contractName"
+              label="合同名称"
+              align="center"
+              :spam="2"/>
+            <el-table-column
+              label="申请人"
+              align="center"
+              :span="2">
+              <template slot-scope="scope">
+                <div slot="reference" class="name-wrapper">
+                  <el-tag size="medium">{{ scope.row.creater }}</el-tag>
+                </div>
+              </template>
+            </el-table-column>
+            <el-table-column
+              prop="applyTimeString"
+              label="申请日期"
+              align="center"
+              :span="2"/>
+            <el-table-column
+              prop="materialName"
+              label="材料名称"
+              align="center"
+              :span="2"/>
+            <el-table-column
+              prop="brand"
+              label="品牌"
+              align="center"
+              :span="2"/>
+            <el-table-column
+              prop="materialType"
+              label="材料型号"
+              align="center"
+              :span="2"/>
+            <el-table-column
+              prop="unitPrice"
+              label="单价(元)"
+              align="center"
+              :span="2"/>
+            <el-table-column
+              prop="count"
+              label="数量"
+              align="center"
+              :span="2"/>
+
+            <el-table-column
+              prop="totalPrice"
+              label="总金额(万元)"
+              align="center"
+              fixed="right"
+              :span="2"/>
+          </el-table>
+        </el-tab-pane>
+        <el-tab-pane label="外协费用" name="4">
+          <el-table
+            :data="assisPay"
+            stripe
+            style="width: 100%">
+            <el-table-column
+              fixed
+              prop="contractName"
+              label="合同名称"
+              align="center"
+              :spam="2"/>
+            <el-table-column
+              label="创建人"
+              align="center"
+              :span="2">
+              <template slot-scope="scope">
+                <div slot="reference" class="name-wrapper">
+                  <el-tag size="medium">{{ scope.row.creater }}</el-tag>
+                </div>
+              </template>
+            </el-table-column>
+            <el-table-column
+              prop="signTimeString"
+              label="签署日期"
+              align="center"
+              :span="2"/>
+            <el-table-column
+              prop="signUnit"
+              label="签署单位"
+              align="center"
+              :span="2"/>
+
+            <el-table-column
+              prop="price"
+              label="金额(万元)"
+              align="center"
+              fixed="right"
+              :span="2"/>
+          </el-table>
+        </el-tab-pane>
+        <el-tab-pane label="其他费用" name="5">
+          <el-table
+            :data="otherPay"
+            stripe
+            style="width: 100%">
+            <el-table-column
+              fixed
+              prop="contractName"
+              label="合同名称"
+              align="center"
+              :spam="2"/>
+            <el-table-column
+              label="创建人"
+              align="center"
+              :span="2">
+              <template slot-scope="scope">
+                <div slot="reference" class="name-wrapper">
+                  <el-tag size="medium">{{ scope.row.creater }}</el-tag>
+                </div>
+              </template>
+            </el-table-column>
+            <el-table-column
+              prop="applyDateString"
+              label="申请日期"
+              align="center"
+              :span="2"/>
+            <el-table-column
+              prop="feeName"
+              label="描述"
+              align="center"
+              :span="2"/>
+
+            <el-table-column
+              prop="price"
+              label="金额(万元)"
+              align="center"
+              fixed="right"
+              :span="2"/>
+          </el-table>
+        </el-tab-pane>
+      </el-tabs>
+
+
+    </el-dialog>
   </div>
 </template>
 
@@ -227,7 +536,17 @@
         value:'',
         options:[],
         reportNum:'',
-        reportNumData:[]
+        reportNumData:[],
+        analysisVisible:false,
+        activeName:'',
+        peoplePay:[],
+        carPay:[],
+        equipPay:[],
+        materPay:[],
+        assisPay:[],
+        otherPay:[],
+        projectId:'',
+
       }
     },
     methods:{
@@ -547,6 +866,89 @@
         this.reportNum = ''
         this.value = ''
         done()
+      },
+      analysisInfo(val){
+        this.analysisVisible = true
+        this.projectId = val
+        this.$http({
+          url:this.$http.adornUrl('master/analysis/'+val+"/0"),
+          method:'post'
+        }).then(({data})=>{
+          if (data && data.status == 200) {
+              this.peoplePay = data.data
+          }
+        }).catch(error=>{
+          this.$message.error(error)
+        })
+      },
+      handleClick(tab){
+        if (tab.index==0){
+          this.$http({
+            url:this.$http.adornUrl('master/analysis/'+this.projectId+"/"+tab.index),
+            method:'post'
+          }).then(({data})=>{
+            if (data && data.status == 200) {
+              this.peoplePay = data.data
+            }
+          }).catch(error=>{
+            this.$message.error(error)
+          })
+        }else if(tab.index==1){
+          this.$http({
+            url:this.$http.adornUrl('master/analysis/'+this.projectId+"/"+tab.index),
+            method:'post'
+          }).then(({data})=>{
+            if (data && data.status == 200) {
+              this.carPay = data.data
+            }
+          }).catch(error=>{
+            this.$message.error(error)
+          })
+        }else if (tab.index==2){
+          this.$http({
+            url:this.$http.adornUrl('master/analysis/'+this.projectId+"/"+tab.index),
+            method:'post'
+          }).then(({data})=>{
+            if (data && data.status == 200) {
+              this.equipPay = data.data
+            }
+          }).catch(error=>{
+            this.$message.error(error)
+          })
+        }else if (tab.index==3){
+          this.$http({
+            url:this.$http.adornUrl('master/analysis/'+this.projectId+"/"+tab.index),
+            method:'post'
+          }).then(({data})=>{
+            if (data && data.status == 200) {
+              this.materPay = data.data
+            }
+          }).catch(error=>{
+            this.$message.error(error)
+          })
+        }else if (tab.index==4){
+          this.$http({
+            url:this.$http.adornUrl('master/analysis/'+this.projectId+"/"+tab.index),
+            method:'post'
+          }).then(({data})=>{
+            if (data && data.status == 200) {
+              this.assisPay = data.data
+            }
+          }).catch(error=>{
+            this.$message.error(error)
+          })
+        }else {
+          this.$http({
+            url:this.$http.adornUrl('master/analysis/'+this.projectId+"/"+tab.index),
+            method:'post'
+          }).then(({data})=>{
+            if (data && data.status == 200) {
+              this.otherPay = data.data
+            }
+          }).catch(error=>{
+            this.$message.error(error)
+          })
+        }
       }
     },
     mounted(){
