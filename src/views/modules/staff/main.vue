@@ -1565,7 +1565,10 @@
         },
         //确认修改（500）
         confirmPersonUpdate(){
-          console.log(this.newPersonForm.staffName)
+          this.businessPersonDialog = false
+          this.newPersonForm.staffName = this.multipleSelection
+          let id = []
+          id[0] = this.newPersonForm.staffName[0].staffID
           this.$http({
             url:this.$http.adornUrl('staff/person'),
             method:'put',
@@ -1577,7 +1580,7 @@
               beginDateString:this.newPersonForm.beginDateString,
               endDateString:this.newPersonForm.endDateString,
               creater:this.newPersonForm.creater,
-              staffID:this.newPersonForm.staffID,
+              staffID:id[0],
             })
           }).then(res=>{
             if(res.data.status == '204'){
@@ -1672,10 +1675,8 @@
           this.businessPersonDialog = false
           this.newPersonForm.staffName = this.multipleSelection
           if(this.newPersonForm.beginDateString&&this.newPersonForm.endDateString){
-            let id =[]
-            for (let i =0;i<this.newPersonForm.staffName.length;i++){
-              id[i] = this.newPersonForm.staffName[i].staffID
-            }
+            let id = []
+            id[0] = this.newPersonForm.staffName[0].staffID
             this.$http({
               url:this.$http.adornUrl('staff/person/salary'),
               method:'post',
@@ -1685,11 +1686,12 @@
                 id:id
               })
             }).then(res=>{
+              this.newPersonForm.staffName = this.newPersonForm.staffName[0].staffName
               this.newPersonForm.pay = res.data.data[0]
               this.newPersonForm.amount = res.data.data[1]
             })
           }
-        },
+        }, 
         //取消选择未出差的人
         cancelChoosePerson(){
           this.businessPersonDialog = false
