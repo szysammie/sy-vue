@@ -340,6 +340,7 @@
             this.lrBox.resize()
           })
         },
+
         //初始化单个成本
         initgccbBox(){
           var option = {

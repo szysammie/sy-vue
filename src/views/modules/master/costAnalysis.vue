@@ -546,7 +546,6 @@
         assisPay:[],
         otherPay:[],
         projectId:'',
-
       }
     },
     methods:{

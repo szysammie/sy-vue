@@ -1691,7 +1691,7 @@
               this.newPersonForm.amount = res.data.data[1]
             })
           }
-        }, 
+        },
         //取消选择未出差的人
         cancelChoosePerson(){
           this.businessPersonDialog = false
@@ -1920,6 +1920,11 @@
         },
         //确认选择具体设备
         confirmChooseEquipments(){
+          this.newEquipmentForm.equipName = ''
+          this.newEquipmentForm.factoryNum = ''
+          this.newEquipmentForm.equipType = ''
+          this.newEquipmentForm.originalPrice = ''
+          this.newEquipmentForm.dayDepreciation = ''
           for (let i=0;i<this.multipleSelection2.length;i++){
             this.newEquipmentForm.equipName += this.multipleSelection2[i].equipName +'|'
             this.newEquipmentForm.factoryNum += this.multipleSelection2[i].factoryNum +'|'
@@ -2003,11 +2008,18 @@
         },
         //确认更新设备修改(500)
         confirmEquipmentUpdate(){
+          // console.log(this.multipleSelection2)
           this.$http({
             url:this.$http.adornUrl('staff/equip'),
             method:'put',
             data:this.$http.adornData({
+              projectID:this.projectId,
               equipAppID:this.newEquipmentForm.equipAppID,
+              equipID:this.multipleSelection2[0].equipID,
+              equipName:this.multipleSelection2[0].equipName,
+              equipType:this.multipleSelection2[0].equipType,
+              originalPrice:this.multipleSelection2[0].originalPrice,
+              dayDepreciation:this.multipleSelection2[0].dayDepreciation,
               creater:this.newEquipmentForm.creater,
               beginDateString:this.newEquipmentForm.beginDateString,
               endDateString:this.newEquipmentForm.endDateString,
@@ -2112,6 +2124,12 @@
         },
         //确认具体材料选择
         confirmChooseMaterial(){
+          this.newMaterialForm.materialName=''
+          this.newMaterialForm.materialType=''
+          this.newMaterialForm.brand=''
+          this.newMaterialForm.unit=''
+          this.newMaterialForm.unitPrice=''
+          this.newMaterialForm.totalPrice=''
           for(let i = 0 ;i<this.multipleSelection3.length;i++){
             this.newMaterialForm.materialName += this.multipleSelection3[i].materialName +'|'
             this.newMaterialForm.materialType += this.multipleSelection3[i].materialType +'|'
@@ -2218,7 +2236,7 @@
             method:'put',
             data:this.$http.adornData({
               materialAppID:this.newMaterialForm.materialAppID,
-              materialID:this.newMaterialForm.materialID,
+              materialID:this.multipleSelection3[0].materialID,
               projectID:this.projectId,
               groupNum:this.newMaterialForm.groupNum,
               materialName:this.newMaterialForm.materialName,
