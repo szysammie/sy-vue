@@ -60,7 +60,7 @@
       <el-table-column
         prop="address"
         label="操作"
-        width="320">
+        width="400">
         <template slot-scope="scope">
           <el-button type="primary" size="mini" @click.native.prevent="operation(scope.$index, tableData)">申请</el-button>
           <el-button type="warning" size="mini" @click.native.prevent="analysis(scope.row)">分析</el-button>

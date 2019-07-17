@@ -136,7 +136,7 @@
       :span="2"
       label="操作"
       fixed="right"
-      width="150"
+      width="200"
     >
       <template slot-scope="scope">
         <el-button type="warning" size="small" @click="edit(scope.row)">修改</el-button>

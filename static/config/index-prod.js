@@ -5,7 +5,7 @@
   window.SITE_CONFIG = {};
 
   // api接口请求地址
-  window.SITE_CONFIG['baseUrl'] = 'http://47.107.176.154:9998/';
+  window.SITE_CONFIG['baseUrl'] = 'http://47.107.176.154:801/';
 
   // cdn地址 = 域名 + 版本号
   window.SITE_CONFIG['domain']  = './'; // 域名

@@ -81,7 +81,7 @@
         <el-table-column
           fixed="right"
           label="操作"
-          width="150">
+          width="200">
           <template slot-scope="scope">
             <el-button type="danger" size="small" @click="analysisInfo(scope.row.projectId)">明细</el-button>
             <el-button type="warning" size="small" @click="analysis(scope.row)">分析</el-button>

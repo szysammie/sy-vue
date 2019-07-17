@@ -55,7 +55,7 @@
         align="center"
         label="备注"/>
       <el-table-column
-        width="150"
+        width="200"
         label="操作"
         fixed="right"
       >
