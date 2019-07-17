@@ -109,9 +109,6 @@
           staffType: [
             { required:true,message:'请选择员工类型', trigger: 'change' }
           ],
-          workUnit: [
-            { required:true,message:'请输入工作单位', trigger: 'blur' }
-          ],
           phone: [
             { validator: phoneFormat, trigger: 'blur' }
           ],

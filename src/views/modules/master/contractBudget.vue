@@ -958,7 +958,7 @@
     </el-dialog>
     <!--新增人员弹窗-->
     <el-dialog title="申请出差人员" :visible.sync="newPersonDialog" :modal="false">
-      <el-form :model="newPersonForm" ref="newPersonForm" label-width="100px" class="demo-ruleForm">
+      <el-form :model="newPersonForm" ref="newPersonForm" label-width="150px" class="demo-ruleForm">
         <el-form-item label="报审序号" prop="reportNum">
           <el-input v-model="newPersonForm.reportNum" :disabled="true"></el-input>
         </el-form-item>
@@ -1233,7 +1233,7 @@
     </el-dialog>
     <!--新增设备弹窗-->
     <el-dialog title="申请设备" :visible.sync="newEquipmentDialog" :modal="false">
-      <el-form :model="newPersonForm" ref="newPersonForm" label-width="100px" class="demo-ruleForm">
+      <el-form :model="newPersonForm" ref="newPersonForm" label-width="120px" class="demo-ruleForm">
         <el-form-item label="报审序号" prop="reportNum">
           <el-input v-model="newEquipmentForm.reportNum" :disabled="true"></el-input>
         </el-form-item>
